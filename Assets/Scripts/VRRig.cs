@@ -20,8 +20,6 @@ public class VRMap
 public class VRRig : MonoBehaviour
 {
     public VRMap head;
-    public VRMap leftHand;
-    public VRMap rightHand;
 
     public Transform headConstraint;
     public Vector3 headBodyOffset;
@@ -40,7 +38,5 @@ public class VRRig : MonoBehaviour
             Time.deltaTime * turnSmoothness); //머리 회전을 y축으로만 하도록 허용
 
         head.Map();
-        leftHand.Map();
-        rightHand.Map();
     }
 }

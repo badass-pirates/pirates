@@ -980,6 +980,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d426a141244308b4eb5166d91c35607f, type: 2}
+    - target: {fileID: 144404990912291063, guid: 964fa20ed4fe0ca4dba2705572651925,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8146652409599860766, guid: 964fa20ed4fe0ca4dba2705572651925,
         type: 3}
       propertyPath: m_InteractionManager
@@ -1045,11 +1050,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8146652409721162743, guid: 964fa20ed4fe0ca4dba2705572651925,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8146652409799579164, guid: 964fa20ed4fe0ca4dba2705572651925,
         type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 812645570}
+    - target: {fileID: 8146652409799579165, guid: 964fa20ed4fe0ca4dba2705572651925,
+        type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: 589261080964534815, guid: a3ed4270309508440a0a1ead26fbdb04,
+        type: 3}
     - target: {fileID: 8146652409843984818, guid: 964fa20ed4fe0ca4dba2705572651925,
         type: 3}
       propertyPath: m_InteractionManager
@@ -1060,5 +1076,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 812645570}
+    - target: {fileID: 8146652410158350456, guid: 964fa20ed4fe0ca4dba2705572651925,
+        type: 3}
+      propertyPath: m_ModelPrefab
+      value: 
+      objectReference: {fileID: 589261080964534815, guid: ea78fd4eb81b3074294a6918211cb472,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964fa20ed4fe0ca4dba2705572651925, type: 3}
