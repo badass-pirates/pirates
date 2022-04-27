@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 167975847}
   - component: {fileID: 167975846}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 1354098050}
   - component: {fileID: 1354098044}
   m_Layer: 7
-  m_Name: Sphere
+  m_Name: Network Grabble Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
