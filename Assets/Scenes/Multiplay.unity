@@ -309,7 +309,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &881535263
 PrefabInstance:
@@ -326,7 +326,7 @@ PrefabInstance:
     - target: {fileID: 2476258387195211225, guid: fbbacab8716142c45a2e2beaf9bfcfd1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2476258387195211225, guid: fbbacab8716142c45a2e2beaf9bfcfd1,
         type: 3}
@@ -588,9 +588,9 @@ GameObject:
   - component: {fileID: 1354098047}
   - component: {fileID: 1354098046}
   - component: {fileID: 1354098045}
-  - component: {fileID: 1354098044}
   - component: {fileID: 1354098051}
   - component: {fileID: 1354098050}
+  - component: {fileID: 1354098044}
   m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
@@ -607,10 +607,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1354098043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7963babeedcc01044b3a9b5e1caa756b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 1090699517}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
@@ -803,7 +803,7 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1354098050
 MonoBehaviour:
@@ -837,7 +837,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1354098050}
