@@ -14,6 +14,7 @@ public class VRMap
     {
         rigTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
         rigTarget.rotation = vrTarget.rotation * Quaternion.Euler(trackingRotationOffset);
+
     }
 }
 
@@ -34,9 +35,8 @@ public class VRRig : MonoBehaviour
     {
         transform.position = headConstraint.position + headBodyOffset;
         transform.forward = Vector3.Lerp(transform.forward,
-            Vector3.ProjectOnPlane(headConstraint.up, Vector3.up).normalized,
+            Vector3.ProjectOnPlane(-headConstraint.up, -Vector3.up).normalized,
             Time.deltaTime * turnSmoothness); //머리 회전을 y축으로만 하도록 허용
-
         head.Map();
     }
 }
