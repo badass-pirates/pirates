@@ -117,9 +117,9 @@ MonoBehaviour:
       />\n </sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://Coin\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"1181479073\" type=\"8\" value=\"10,10\" />\n 
-      <presetinput identifier=\"Icons\" uid=\"836146147\" type=\"4\" value=\"2\"
-      />\n  <presetinput identifier=\"Pictures\" uid=\"835752886\" type=\"4\" value=\"11\"
-      />\n </sbspreset>\n"
+      <presetinput identifier=\"Custom_Metal_Colour\" uid=\"823734711\" type=\"3\"
+      value=\"0.952416,0.95283,0,1\" />\n  <presetinput identifier=\"Icons\" uid=\"836146147\"
+      type=\"4\" value=\"2\" />\n </sbspreset>\n"
     IsRuntimeOnly: 0
   RefreshMaterial: 1
   Name: ChallengeMedal
@@ -244,7 +244,7 @@ MonoBehaviour:
       data:
         _Index: 4
         _GraphID: 0
-        _Data: {x: 0.980392, y: 0.819608, z: 0.760784, w: 1}
+        _Data: {x: 0.9524164, y: 0.9528302, z: 0, w: 1}
         _isVisible: 0
         _Description:
           Identifier: Custom_Metal_Colour
@@ -337,7 +337,7 @@ MonoBehaviour:
           Type: 4
           WidgetType: 5
         _Index: 7
-        _Data: 11
+        _Data: 1
         _isVisible: 1
         _GraphID: 0
         _NumericalDescription:

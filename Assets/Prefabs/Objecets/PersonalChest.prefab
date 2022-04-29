@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 6786977794209143119}
   - component: {fileID: 6786977794212050047}
   - component: {fileID: 6786977794210958227}
+  - component: {fileID: 1890119595}
   m_Layer: 8
   m_Name: PersonalChest
   m_TagString: Untagged
@@ -126,6 +127,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1890119595
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786977794208943491}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 4300000, guid: ec416d438706a944882a71eba667a948, type: 3}
 --- !u!1 &6786977794208951675
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786977794208951675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000027287204, y: 0.46810806, z: -0.29420465}
+  m_LocalPosition: {x: 0.000027287204, y: 0.4681081, z: -0.29420465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1881152498}
@@ -239,7 +254,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.01, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.43884516, y: 0.44434965, z: 2.81506}
+  m_ConnectedAnchor: {x: -1.0338287, y: 0.42234972, z: -1.4943985}
   m_UseSpring: 1
   m_Spring:
     spring: 0
