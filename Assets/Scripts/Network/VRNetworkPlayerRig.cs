@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using Unity.XR.CoreUtils;
 
 [System.Serializable]
-public class VRnetworkPlayerRig : MonoBehaviourPunCallbacks
+public class VRNetworkPlayerRig : MonoBehaviourPunCallbacks
 {
     private Transform headRig;
     public VRMap head;
