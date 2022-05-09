@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class GambleManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GambleManager : MonoBehaviour
     const int MAX_ATTACK_TIME = 60;
 
     int leftTime;
+    public TextMeshProUGUI timeText;
 
     int round, act;
     int pot;
@@ -30,7 +33,12 @@ public class GambleManager : MonoBehaviour
         {
             foreach(var p in playerList)
             {
-                if(p.choice == Choice.ready){ leftTime--; return; } 
+                if(p.choice == Choice.ready)
+                { 
+                    leftTime--; 
+                    timeText.text = leftTime.ToString(); 
+                    return; 
+                } 
             }
         }
         else
@@ -92,7 +100,7 @@ public class GambleManager : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()
