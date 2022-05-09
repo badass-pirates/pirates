@@ -748,9 +748,7 @@ GameObject:
   - component: {fileID: 7980946793315843529}
   - component: {fileID: 940684421}
   - component: {fileID: 940684419}
-  - component: {fileID: 1448662983930125742}
   - component: {fileID: 940684420}
-  - component: {fileID: 99844358501278195}
   m_Layer: 7
   m_Name: ChallengeMedal
   m_TagString: Untagged
@@ -976,20 +974,6 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
---- !u!64 &1448662983930125742
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968115104783060007}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 36931c627b1b8a846ab386fb8f0f7937, type: 3}
 --- !u!54 &940684420
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1006,17 +990,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &99844358501278195
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968115104783060007}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 36931c627b1b8a846ab386fb8f0f7937, type: 3}
