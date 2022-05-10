@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Network Manager.prefab.meta
 guid: 7e99f8940073dfa46a38abdfcea6e127
+========
+guid: e65f230bd4c077243ab14e6490fd57f1
+>>>>>>>> 364f7d862d120ec1918d4d6aacc8abd733db4f74:Assets/Prefabs/UI/Canvas.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

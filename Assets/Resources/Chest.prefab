@@ -56,8 +56,12 @@ GameObject:
   - component: {fileID: 6786977794212050047}
   - component: {fileID: 6786977794210958227}
   - component: {fileID: 1890119595}
+<<<<<<< HEAD:Assets/Resources/Chest.prefab
   - component: {fileID: 1916154024520318709}
   - component: {fileID: 4741980240606985755}
+=======
+  - component: {fileID: 7693391814003990752}
+>>>>>>> 364f7d862d120ec1918d4d6aacc8abd733db4f74:Assets/Prefabs/Objecets/PersonalChest.prefab
   m_Layer: 8
   m_Name: Chest
   m_TagString: Untagged
@@ -143,13 +147,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 0
   m_Mesh: {fileID: 4300000, guid: ec416d438706a944882a71eba667a948, type: 3}
+<<<<<<< HEAD:Assets/Resources/Chest.prefab
 --- !u!114 &1916154024520318709
 MonoBehaviour:
+=======
+--- !u!64 &7693391814003990752
+MeshCollider:
+>>>>>>> 364f7d862d120ec1918d4d6aacc8abd733db4f74:Assets/Prefabs/Objecets/PersonalChest.prefab
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786977794208943491}
+<<<<<<< HEAD:Assets/Resources/Chest.prefab
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -182,6 +192,15 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
+=======
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 4300000, guid: ec416d438706a944882a71eba667a948, type: 3}
+>>>>>>> 364f7d862d120ec1918d4d6aacc8abd733db4f74:Assets/Prefabs/Objecets/PersonalChest.prefab
 --- !u!1 &6786977794208951675
 GameObject:
   m_ObjectHideFlags: 0
