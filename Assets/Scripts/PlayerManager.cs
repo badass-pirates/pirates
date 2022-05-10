@@ -4,74 +4,118 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject medalShare, medalChallenge, medalAttack;
-    CoinPile coins;
-    public int playerIndex{get; set;}
+    //medal 등이 NetworkPlayer 에서 생성됨 
+    GameObject medalShare, medalChallenge, medalAttack;
+    public GameObject coinSpawner;
+    GameObject chest;
+    int coinsInChest;
+    CoinPile coinPile;
 
-    void ActiveMedal()
+    int challengeAmount;
+
+    public void SetChest(GameObject _chest)
     {
-        medalShare.SetActive(true);
-        medalChallenge.SetActive(true);
-        medalAttack.SetActive(true);
+        chest = _chest;
     }
 
+    public void SetMedals(GameObject share, GameObject challenge, GameObject attack)
+    {
+        medalShare = share;
+        medalChallenge = challenge;
+        medalAttack = attack;
+    }
+    
+    public int GetCoinsCount()
+    {
+        return coinPile.Count() + coinsInChest;
+    }
+
+    //이 함수가 던져졌을 때 체크하는 함수랑 똑같음
     public GameObject GetMouseTarget()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit))
-        {
-            Debug.Log(hit.transform.gameObject);
+        if (Physics.Raycast(ray, out hit))
             return hit.transform.gameObject;
-        }
+
         return null;
     }
-    
-    public Choice GetPlayerChoice()
-    {
-        GameObject obj = GetMouseTarget();
 
-        if(obj == medalShare) return Choice.share;
-        else if(obj == medalChallenge) return Choice.challenge;
-        else if(obj == medalAttack) return Choice.attack;
+    //VR로 던져졌을 때, 던져진 오브젝트를 obj에 넣으면 됨
+    public Choice GetPlayerChoice(GameObject obj)
+    {
+        if (obj == null) return Choice.none;
+        else if (obj == medalShare) return Choice.share;
+        else if (obj == medalChallenge) return Choice.challenge;
+        else if (obj == medalAttack) return Choice.attack;
         else return Choice.none;
     }
 
-    public void Decide()
+    public void Decide(GameObject obj)
     {
-        if(Input.GetMouseButtonDown(0))
+        if(GambleManager.GetState() == State.decide)
         {
-            Choice c = GetPlayerChoice();
-            if(c == Choice.none) return;
-            else GambleManager.GetPlayerInfo().choice = c;
+            Choice choice = GetPlayerChoice(obj);
+
+            if(choice == Choice.share)
+                GambleManager.SetPlayerChoice(choice);
+
+            else if(choice == Choice.challenge)
+                GambleManager.GetPlayerInfo().challengeAmount = challengeAmount;//우변 challengeAmount 를 UI에서 리턴받은 값으로 넣어주면 됨
+
+            else if (choice == Choice.attack)
+            {
+                if (GambleManager.GetPlayerInfo().attackChance < 1)
+                    return;
+            }
+            else return;
         }
     }
 
-    public void Apply(int num)
+    public void Decide(GameObject obj, int amount)
     {
-        Debug.Log(coins.transform.position);
-        coins.AddCoins(num);
+        challengeAmount = amount;
+        Decide(obj);
     }
 
-    
+    public void AddCoinsFromDiff(int current)
+    {
+        int diff = current - GetCoinsCount();
+        if (diff == 0) return;
+
+        coinPile.AddCoins(current - GetCoinsCount());
+    }
+
+    public void GetCoinWithMouse()
+    {
+        GameObject obj = GetMouseTarget();
+        if (obj.tag == "coin")
+        {
+            Destroy(obj);
+            coinsInChest++;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerIndex = GambleManager.playerIndex;
+        coinPile = new CoinPile(coinSpawner);
+        coinsInChest = 0;
+        challengeAmount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(GambleManager.GetState())
+        
+        //던져졌을 때
+        if (Input.GetMouseButtonDown(0))
         {
-            case State.decide :Decide(); break;
-            case State.check : break;
-            case State.attack : break;
-            case State.apply : break;
+            Decide(GetMouseTarget());
         }
-
+        AddCoinsFromDiff(GambleManager.GetPlayerInfo().coins);
+        GetCoinWithMouse();
+        challengeAmount = Random.Range(1, GambleManager.maxPotCoins);
     }
 }

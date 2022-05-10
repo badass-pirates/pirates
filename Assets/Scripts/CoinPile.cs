@@ -5,14 +5,39 @@ using UnityEngine;
 public class CoinPile : MonoBehaviour
 {
     public GameObject coin;
-    List<GameObject> coins;
+
+    GameObject coinPile;
+    Vector3 coinPilePos;
+
+    public CoinPile()
+    {
+        coin = Resources.Load<GameObject>("Coin");
+        coinPile = null;
+        coinPilePos = new Vector3(0,0,0);
+    }
+
+    public CoinPile(GameObject obj)
+    {
+        coin = Resources.Load<GameObject>("Coin");
+        coinPile = obj;
+        coinPilePos = coinPile.transform.position;
+    }
+
+    public int Count()
+    {
+        if(coinPile != null) return coinPile.transform.childCount;
+        return 0;
+    }
 
     public int AddCoins(int count)
     {
         for(int i = 0 ; i < count; i++)
-            coins.Add(Instantiate(coin, transform.position, Quaternion.identity));
-            
-        return  coins.Count;
+        {
+            GameObject obj = Instantiate(coin, coinPilePos + new Vector3(0,0,0), Quaternion.identity);
+            if(coinPile != null)
+                obj.transform.parent = coinPile.transform;
+        }
+        return  Count();
     }
     
     public int AddCoin()
@@ -22,26 +47,23 @@ public class CoinPile : MonoBehaviour
 
     public int RemoveCoins(int count)
     {
-        int startIndex = coins.Count - count - 1;
+        int startIndex = Count() - count;
         for(int i = 0; i < count; i++)
-            Destroy(coins[startIndex + i]);
-        coins.RemoveRange(startIndex, count);
+            Destroy(this.transform.GetChild(i));
 
-        return coins.Count;
+        return Count();
     }
 
     public int RemoveCoinAt(int index)
     {
-        Destroy(coins[index]);
-        coins.RemoveAt(index);
-        
-        return coins.Count;
+        Destroy(this.transform.GetChild(index));
+        return Count();
     }
 
     public int RemoveCoinAll()
     {
-        RemoveCoins(coins.Count);
+        RemoveCoins(Count());
 
-        return coins.Count;
+        return Count();
     }
 }
