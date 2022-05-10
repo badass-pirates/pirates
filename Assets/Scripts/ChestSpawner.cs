@@ -9,13 +9,7 @@ public class ChestSpawner : MonoBehaviour
     void Start()
     {
         chest = PhotonNetwork.Instantiate("Chest", transform.position, transform.rotation);
-    }
-
-    void Update()
-    {
-        if (chest != null)
-        {
-            GetComponentInParent<PlayerManager>().SetChest(chest);
-        }
+        chest.transform.parent = gameObject.transform;
+        GetComponentInParent<PlayerManager>().SetChest(chest);
     }
 }

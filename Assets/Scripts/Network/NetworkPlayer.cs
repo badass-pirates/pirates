@@ -19,13 +19,16 @@ public class NetworkPlayer : MonoBehaviour
     private Transform leftHandRig;
     private Transform rightHandRig;
 
+    private GameObject localPlayer;
+
     void Start()
     {
         photonView = GetComponent<PhotonView>();
         
         if (photonView.IsMine)
         {
-            Instantiate(Resources.Load<GameObject>("Local Player"), new Vector3(3f,3f,5f), Quaternion.identity);
+            localPlayer = Instantiate(Resources.Load<GameObject>("Local Player"), new Vector3(3f,3f,5f), Quaternion.identity);
+            GambleManager.SetPlayer(localPlayer);
             foreach (var item in GetComponentsInChildren<Renderer>())
             {
                 item.enabled = false;

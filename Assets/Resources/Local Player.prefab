@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7767762851139752880}
+  - component: {fileID: 8636731003386030097}
   m_Layer: 0
   m_Name: MedalSpawner
   m_TagString: Untagged
@@ -151,6 +152,18 @@ Transform:
   m_Father: {fileID: 7767762850942955868}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8636731003386030097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767762851139752883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b9ea3abaa46d64bbb7048c4a5431ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7239001957695769049
 PrefabInstance:
   m_ObjectHideFlags: 0

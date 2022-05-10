@@ -10,12 +10,12 @@ public class GambleManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-
-        state = State.ready;
         challengeWinner = null;
         attackWinner = null;
         round = 1;
         act = 1;
+
+        state = State.ready;
 
         potCoins = 0;
         maxPotCoins = 0;
@@ -39,7 +39,7 @@ public class GambleManager : MonoBehaviour
     public TextMeshProUGUI timeText;
     public GameObject playerInfoText, gambleInfoText;
 
-    public GameObject Player;
+    static GameObject localPlayer;
 
     static int round, act;
     static int potCoins;
@@ -53,6 +53,9 @@ public class GambleManager : MonoBehaviour
 
     void Ready()
     {
+        if(localPlayer == null) return;
+        
+        localPlayer.GetComponentInChildren<MedalSpawner>().SpawnMedals();
         ResetPlayerInfoData();
         potCoins += GetPotCoins(round);
         maxPotCoins = (int)Mathf.Pow(POT_WEIGHT, round - 1) * (round + 1);
@@ -87,6 +90,7 @@ public class GambleManager : MonoBehaviour
 
     void Check()
     {
+        localPlayer.GetComponentInChildren<MedalSpawner>().DestroyMedals();
         SetChallengeWinner();
         SetAttackWinner();
         state = State.apply;
@@ -122,6 +126,7 @@ public class GambleManager : MonoBehaviour
             round++;
         act = (act % MAX_ACT) + 1;
     }
+
     void Update()
     {
         switch (state)
@@ -142,6 +147,11 @@ public class GambleManager : MonoBehaviour
     static public State GetState()
     {
         return state;
+    }
+
+    static public void SetPlayer(GameObject player)
+    {
+        localPlayer = player;
     }
 
     static public PlayerInfo GetPlayerInfo()
