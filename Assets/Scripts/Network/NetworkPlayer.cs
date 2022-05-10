@@ -19,19 +19,24 @@ public class NetworkPlayer : MonoBehaviour
     private Transform leftHandRig;
     private Transform rightHandRig;
 
+    private GameObject localPlayer;
+
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-        leftHandRig = GameObject.Find("Player").transform.Find("Camera Offset/LeftHand Controller");
-        rightHandRig = GameObject.Find("Player").transform.Find("Camera Offset/RightHand Controller");
-
+        
         if (photonView.IsMine)
         {
+            localPlayer = Instantiate(Resources.Load<GameObject>("Local Player"), new Vector3(3f,3f,5f), Quaternion.identity);
+            GambleManager.SetPlayer(localPlayer);
             foreach (var item in GetComponentsInChildren<Renderer>())
             {
                 item.enabled = false;
             }
         }
+
+        leftHandRig = GameObject.Find("Player").transform.Find("Camera Offset/LeftHand Controller");
+        rightHandRig = GameObject.Find("Player").transform.Find("Camera Offset/RightHand Controller");
     }
 
     void Update()
