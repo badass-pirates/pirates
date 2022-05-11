@@ -24,10 +24,10 @@ public class NetworkPlayer : MonoBehaviour
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-        
+
         if (photonView.IsMine)
         {
-            localPlayer = Instantiate(Resources.Load<GameObject>("Local Player"), new Vector3(3f,3f,5f), Quaternion.identity);
+            localPlayer = Instantiate(Resources.Load<GameObject>("Local Player"), new Vector3(1.8f, -2.8f, -1.2f), Quaternion.identity);
             GambleManager.SetPlayer(localPlayer);
             foreach (var item in GetComponentsInChildren<Renderer>())
             {
