@@ -10,7 +10,12 @@ public class ChoiceZone : MonoBehaviour
         if (other.gameObject.tag == "medal")
         {
             PlayerManager pm = GameObject.FindGameObjectWithTag("local_player").GetComponent<PlayerManager>();
-            pm.Decide(other.gameObject);
+            if (other.gameObject.name == "MedalChallenge")
+            {
+                int amount = other.gameObject.GetComponent<ChallengeAmount>().Amount;
+                pm.Decide(other.gameObject, amount);
+            }
+            else pm.Decide(other.gameObject);
         }
     }
 }
