@@ -13,7 +13,7 @@ public class CoinPile : MonoBehaviour
     {
         coin = Resources.Load<GameObject>("Coin");
         coinPile = null;
-        coinPilePos = new Vector3(0,0,0);
+        coinPilePos = new Vector3(0, 0, 0);
     }
 
     public CoinPile(GameObject obj)
@@ -25,21 +25,21 @@ public class CoinPile : MonoBehaviour
 
     public int Count()
     {
-        if(coinPile != null) return coinPile.transform.childCount;
+        if (coinPile != null) return coinPile.transform.childCount;
         return 0;
     }
 
     public int AddCoins(int count)
     {
-        for(int i = 0 ; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
-            GameObject obj = Instantiate(coin, coinPilePos + new Vector3(0,0,0), Quaternion.identity);
-            if(coinPile != null)
+            GameObject obj = Instantiate(coin, coinPilePos + new Vector3(0, 0, 0), Quaternion.identity);
+            if (coinPile != null)
                 obj.transform.parent = coinPile.transform;
         }
-        return  Count();
+        return Count();
     }
-    
+
     public int AddCoin()
     {
         return AddCoins(1);
@@ -48,7 +48,7 @@ public class CoinPile : MonoBehaviour
     public int RemoveCoins(int count)
     {
         int startIndex = Count() - count;
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
             Destroy(this.transform.GetChild(i));
 
         return Count();
