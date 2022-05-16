@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class ReadyNetworkManager : NetworkManager
 {
-    protected override void Start()
+    protected override void InitActorNumbers()
     {
         actorNumbers = new int[8] { -1, -1, -1, -1, -1, -1, -1, -1 };
     }
@@ -32,9 +32,8 @@ public class ReadyNetworkManager : NetworkManager
     {
         GameObject empty = new GameObject();
         Transform startPoint = empty.transform;
-        startPoint.Translate(new Vector3(2, -2, 2)); // 왜인지 모르겠는데 중앙이 여기임
         startPoint.Rotate(new Vector3(0, 360 / 8 * index, 0)); // 필요한 각도만큼 회전
-        startPoint.Translate(new Vector3(0, 0, -4)); // 테이블 넓이만큼 후방으로 이동
+        startPoint.Translate(new Vector3(0, 0, -3f)); // 테이블 넓이만큼 후방으로 이동
         return startPoint;
     }
 }

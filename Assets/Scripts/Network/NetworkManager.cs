@@ -12,7 +12,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     protected int[] actorNumbers;
     protected bool canSpawn = false;
 
-    protected virtual void Start()
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        if (actorNumbers == null)
+        {
+            InitActorNumbers();
+        }
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            InsertActorNumber(PhotonNetwork.LocalPlayer.ActorNumber);
+            canSpawn = true;
+        }
+        StartCoroutine(SpawnPlayer());
+    }
+    protected virtual void InitActorNumbers()
     {
         int size = PhotonNetwork.CurrentRoom.PlayerCount;
         actorNumbers = new int[size];
@@ -20,17 +34,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             actorNumbers[i] = -1;
         }
-    }
-
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            InsertActorNumber(PhotonNetwork.LocalPlayer.ActorNumber);
-            canSpawn = true;
-        }
-        StartCoroutine(SpawnPlayer());
     }
 
     void InsertActorNumber(int actorNumber)
@@ -58,9 +61,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         GameObject empty = new GameObject();
         Transform startPoint = empty.transform;
-        startPoint.Translate(new Vector3(2, -2, 2)); // 왜인지 모르겠는데 중앙이 여기임
         startPoint.Rotate(new Vector3(0, 360 / actorNumbers.Length * index, 0)); // 필요한 각도만큼 회전
-        startPoint.Translate(new Vector3(0, 0, -4)); // 테이블 넓이만큼 후방으로 이동
+        startPoint.Translate(new Vector3(0, 0, -3f)); // 테이블 넓이만큼 후방으로 이동
         return startPoint;
     }
 
