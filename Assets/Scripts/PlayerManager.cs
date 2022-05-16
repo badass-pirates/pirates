@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
         medalChallenge = challenge;
         medalAttack = attack;
     }
-    
+
     public int GetCoinsCount()
     {
         return coinPile.Count() + coinsInChest;
@@ -54,15 +54,19 @@ public class PlayerManager : MonoBehaviour
 
     public void Decide(GameObject obj)
     {
-        if(GambleManager.GetState() == State.decide)
+        if (GambleManager.GetState() == State.decide)
         {
             Choice choice = GetPlayerChoice(obj);
+            Debug.Log(choice);
 
-            if(choice == Choice.share)
+            if (choice == Choice.share)
                 GambleManager.SetPlayerChoice(choice);
 
-            else if(choice == Choice.challenge)
-                GambleManager.GetPlayerInfo().challengeAmount = challengeAmount;//우변 challengeAmount 를 UI에서 리턴받은 값으로 넣어주면 됨
+            else if (choice == Choice.challenge)
+            {
+                GambleManager.SetPlayerChoice(choice);
+                GambleManager.SetPlayerChallengeAmount(challengeAmount);//우변 challengeAmount 를 UI에서 리턴받은 값으로 넣어주면 됨
+            }
 
             else if (choice == Choice.attack)
             {
@@ -108,7 +112,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //던져졌을 때
         if (Input.GetMouseButtonDown(0))
         {
@@ -116,6 +120,6 @@ public class PlayerManager : MonoBehaviour
         }
         AddCoinsFromDiff(GambleManager.GetPlayerInfo().coins);
         GetCoinWithMouse();
-        challengeAmount = Random.Range(1, GambleManager.maxPotCoins);
+        //challengeAmount = Random.Range(1, GambleManager.maxPotCoins);
     }
 }

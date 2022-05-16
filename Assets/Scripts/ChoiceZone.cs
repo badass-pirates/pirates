@@ -6,11 +6,10 @@ public class ChoiceZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("충돌 개체 : " + other.gameObject.name);
         if (other.gameObject.tag == "medal")
         {
             PlayerManager pm = GameObject.FindGameObjectWithTag("local_player").GetComponent<PlayerManager>();
-            if (other.gameObject.name == "MedalChallenge")
+            if (other.gameObject.name == "MedalChallenge(Clone)")
             {
                 int amount = other.gameObject.GetComponent<ChallengeAmount>().Amount;
                 pm.Decide(other.gameObject, amount);
