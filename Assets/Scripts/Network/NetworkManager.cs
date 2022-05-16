@@ -1,44 +1,116 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        OnConnectedToServer();
-    }
+    public PhotonView PV;
 
-    void OnConnectedToServer()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-        Debug.Log("Try Connect To Server...");
-    }
+    protected GameObject spawnedPlayer;
+    protected int[] actorNumbers;
+    protected bool canSpawn = false;
 
-    public override void OnConnectedToMaster()
+    protected virtual void Start()
     {
-        Debug.Log("Connected To Server");
-        base.OnConnectedToMaster();
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 8;
-        roomOptions.IsVisible = true;
-        roomOptions.IsOpen = true;
-
-        PhotonNetwork.JoinOrCreateRoom("Room 1", roomOptions, TypedLobby.Default);
+        int size = PhotonNetwork.CurrentRoom.PlayerCount;
+        actorNumbers = new int[size];
+        for (int i = 0; i < actorNumbers.Length; i++)
+        {
+            actorNumbers[i] = -1;
+        }
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("Joined a Room");
         base.OnJoinedRoom();
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            InsertActorNumber(PhotonNetwork.LocalPlayer.ActorNumber);
+            canSpawn = true;
+        }
+        StartCoroutine(SpawnPlayer());
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    void InsertActorNumber(int actorNumber)
     {
-        Debug.Log("A new player joined the room");
-        base.OnPlayerEnteredRoom(newPlayer);
+        int index = Array.FindIndex<int>(actorNumbers, x => x == -1);
+        actorNumbers[index] = actorNumber;
+    }
+
+    protected virtual IEnumerator SpawnPlayer()
+    {
+        yield return new WaitUntil(() => canSpawn);
+
+        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        int index = Array.FindIndex<int>(actorNumbers, x => x == actorNumber);
+        Transform startPoint = CalculateStartPoint(index);
+        if (PV.IsMine)
+        {
+            GameObject localPlayer = Instantiate(Resources.Load<GameObject>("Local Player"), startPoint.position, startPoint.rotation);
+        }
+        spawnedPlayer = PhotonNetwork.Instantiate("Network Player", startPoint.position, startPoint.rotation);
+        yield break;
+    }
+
+    protected virtual Transform CalculateStartPoint(int index)
+    {
+        GameObject empty = new GameObject();
+        Transform startPoint = empty.transform;
+        startPoint.Translate(new Vector3(2, -2, 2)); // 왜인지 모르겠는데 중앙이 여기임
+        startPoint.Rotate(new Vector3(0, 360 / actorNumbers.Length * index, 0)); // 필요한 각도만큼 회전
+        startPoint.Translate(new Vector3(0, 0, -4)); // 테이블 넓이만큼 후방으로 이동
+        return startPoint;
+    }
+
+    public override void OnPlayerEnteredRoom(Player otherPlayer)
+    {
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            return;
+        }
+        int actorNumber = otherPlayer.ActorNumber;
+        InsertActorNumber(actorNumber);
+        MasterSendActorNumbers();
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        PhotonNetwork.Destroy(spawnedPlayer);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            return;
+        }
+        MasterRemovePlayerInfo(otherPlayer.ActorNumber);
+    }
+
+    void MasterRemovePlayerInfo(int actorNum)
+    {
+        // OnPlayerLeftRoom으로 방을 나갈경우 플레이어 제거
+        int index = Array.FindIndex<int>(actorNumbers, x => x == actorNum);
+        actorNumbers[index] = -1;
+        MasterSendActorNumbers();
+    }
+
+    void MasterSendActorNumbers()
+    {
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            return;
+        }
+        PV.RPC("RPC_OtherReceiveActorNumbers", RpcTarget.Others, actorNumbers);
+    }
+
+    [PunRPC]
+    void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    {
+        actorNumbers = _actorNumbers;
+        canSpawn = true;
     }
 }
