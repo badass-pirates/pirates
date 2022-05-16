@@ -137,7 +137,6 @@ public class GambleManager : MonoBehaviour
             case State.attack: Attack(); break;
             case State.apply: Apply(); break;
             case State.end: 
-                UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
         SetUI();
