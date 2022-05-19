@@ -12,12 +12,7 @@ public class Utils
     public IEnumerator ChangeScene(string scene, float waitSeconed = 0)
     {
         yield return new WaitForSeconds(waitSeconed);
-
-        PhotonView[] PVs = GameObject.FindObjectsOfType<PhotonView>();
-        foreach (PhotonView pv in PVs)
-        {
-            GameObject.Destroy(pv);
-        }
+        
         PhotonNetwork.LoadLevel(scene);
     }
 }
