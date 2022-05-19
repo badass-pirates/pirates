@@ -11,10 +11,12 @@ public class GamblePlayer : MonoBehaviour
     }
 
     public GameObject coin, chest, coinSpawner, medalSpawner;
+    public GameObject playerZone;
     static GameObject medalShare, medalChallenge, medalAttack;
 
     public void SpawnMedals()
     {
+        ShowMedalEffect();
         Transform tr = medalSpawner.transform;
         medalShare = PhotonNetwork.Instantiate("MedalShare", tr.position, tr.rotation);
         medalShare.transform.parent = tr;
@@ -34,6 +36,7 @@ public class GamblePlayer : MonoBehaviour
 
     public void ReSpawnMedals()
     {
+        ShowPlayerZone();
         DestroyMedals();
         SpawnMedals();
     }
@@ -74,6 +77,21 @@ public class GamblePlayer : MonoBehaviour
     public void RemoveCoinByIndex(int index)
     {
         Destroy(coinSpawner.transform.GetChild(index));
+    }
+
+    //그래픽 처리
+    public void ShowPlayerZone()
+    {
+        var particles = playerZone.transform.GetComponentsInChildren<ParticleSystem>();
+        foreach(var p in particles) p.Play();
+    }
+
+    public void ShowMedalEffect()
+    {
+        var particles = medalSpawner.transform.GetComponentInChildren<ParticleSystem>();
+        var fx = medalSpawner.transform.GetComponentInChildren<AudioSource>();
+        particles.Play();
+        fx.Play();
     }
 
     //마우스 처리
