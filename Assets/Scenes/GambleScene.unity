@@ -856,7 +856,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1226852557}
-  - component: {fileID: 1226852554}
   - component: {fileID: 1226852555}
   - component: {fileID: 1226852556}
   m_Layer: 0
@@ -866,19 +865,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1226852554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226852553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646dcfc0ec44d4547afd2c9abd139238, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxPlayers: 8
 --- !u!114 &1226852555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,7 +874,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1226852553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa433a6716935d4a966db160aa2bab7, type: 3}
+  m_Script: {fileID: 11500000, guid: b5eee57b2d0292049ae2f7adc5ffb52d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 1226852556}
