@@ -861,6 +861,7 @@ GameObject:
   - component: {fileID: 648781428}
   - component: {fileID: -2002535368212942416}
   - component: {fileID: -4459117502785646219}
+  - component: {fileID: 8774176741001696630}
   m_Layer: 7
   m_Name: MedalAttack
   m_TagString: medal
@@ -1136,10 +1137,24 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8774176741001696630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857068654301646024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea5a640a0264b84f9db254f13e53e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choice: 3
 --- !u!1 &8317935398537599437
 GameObject:
   m_ObjectHideFlags: 0

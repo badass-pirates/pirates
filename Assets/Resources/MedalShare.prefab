@@ -675,6 +675,7 @@ GameObject:
   - component: {fileID: 3700517683595081459}
   - component: {fileID: 517861189303599582}
   - component: {fileID: -8154088728816424798}
+  - component: {fileID: 6935160421604359452}
   m_Layer: 7
   m_Name: MedalShare
   m_TagString: medal
@@ -955,6 +956,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &6935160421604359452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874407064814141471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea5a640a0264b84f9db254f13e53e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choice: 1
 --- !u!1 &6325188128523913824
 GameObject:
   m_ObjectHideFlags: 0

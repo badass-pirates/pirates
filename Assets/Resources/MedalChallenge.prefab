@@ -943,6 +943,7 @@ GameObject:
   - component: {fileID: 5353578632644855675}
   - component: {fileID: -2406115524929865610}
   - component: {fileID: 5266017941170283308}
+  - component: {fileID: 7777779846139767047}
   m_Layer: 7
   m_Name: MedalChallenge
   m_TagString: medal
@@ -1240,6 +1241,19 @@ MonoBehaviour:
   amountLeft: {fileID: 2866956744483673696}
   amountRight: {fileID: 9125100923965423771}
   amountText: {fileID: 2116117113814038516}
+--- !u!114 &7777779846139767047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968115104783060007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea5a640a0264b84f9db254f13e53e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choice: 2
 --- !u!1 &9075895928479570695
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class NetworkPlayer : MonoBehaviour
         if (photonView.IsMine)
         {
             localPlayer = Instantiate(Resources.Load<GameObject>("Local Player"), new Vector3(1.8f, -2.8f, -1.2f), Quaternion.identity);
-            GambleManager.SetPlayer(localPlayer);
+            //GambleManager.SetPlayer(localPlayer);
             foreach (var item in GetComponentsInChildren<Renderer>())
             {
                 item.enabled = false;
