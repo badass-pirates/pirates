@@ -12,6 +12,12 @@ public class ReadyItem : XRGrabInteractable
     private bool isGrabbed = false;
     private float leftTime;
 
+    void Start()
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        enabled = false;
+    }
+
     void Update()
     {
         if (!isGrabbed) return;
