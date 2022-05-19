@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using static Utils;
 
 public class ReadyManager : MonoBehaviourPunCallbacks
 {
     public PhotonView PV;
     public Transform readyItemSpawnPoint;
     public float timer;
+    private GameObject readyItem;
 
 
     #region Singleton
@@ -17,7 +19,6 @@ public class ReadyManager : MonoBehaviourPunCallbacks
         if (RM == null)
         {
             RM = this;
-            DontDestroyOnLoad(this);
         }
         else Destroy(this);
     }
@@ -25,12 +26,11 @@ public class ReadyManager : MonoBehaviourPunCallbacks
 
     public void ChangeScene()
     {
-        PhotonView[] PVs = GameObject.FindObjectsOfType<PhotonView>();
-        foreach(PhotonView pv in PVs)
-        {
-            Destroy(pv);
-        }
-        PhotonNetwork.LoadLevel("GambleScene");
+        Transform transform = readyItem.transform;
+        PhotonNetwork.Destroy(readyItem);
+        PhotonNetwork.Instantiate("Ready/SkullExplosion", transform.position, transform.rotation);
+
+        StartCoroutine(U.ChangeScene("GambleScene", 1));
     }
 
     public override void OnJoinedRoom()
@@ -40,8 +40,8 @@ public class ReadyManager : MonoBehaviourPunCallbacks
         {
             return;
         }
-        GameObject item = PhotonNetwork.Instantiate("Ready/Skull", readyItemSpawnPoint.position, readyItemSpawnPoint.rotation);
-        ReadyItem readyItem = item.GetComponent<ReadyItem>();
-        readyItem.SetTimer(timer);
+        readyItem = PhotonNetwork.Instantiate("Ready/Skull", readyItemSpawnPoint.position, readyItemSpawnPoint.rotation);
+        ReadyItem item = readyItem.GetComponent<ReadyItem>();
+        item.SetTimer(timer);
     }
 }

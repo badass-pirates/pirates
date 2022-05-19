@@ -10,7 +10,7 @@ public class ReadyItem : XRGrabInteractable
     public float timer;
 
     private bool isGrabbed = false;
-    private float leftTime;
+    private float leftTime = 5;
 
     void Start()
     {
@@ -20,6 +20,7 @@ public class ReadyItem : XRGrabInteractable
 
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         if (!isGrabbed) return;
         if (leftTime < 0)
         {

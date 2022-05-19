@@ -17,6 +17,7 @@ public class GambleNetworkManager : NetworkManager
             actorNumbers[i] = -1;
         }
     }
+
     protected override (string, string) GetResourceName()
     {
         string localPlayer = "Local Player";
