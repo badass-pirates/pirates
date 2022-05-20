@@ -21,7 +21,7 @@ public class ReadyItem : XRGrabInteractable
     void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        //if (!isGrabbed) return;
+        if (!isGrabbed) return;
         if (leftTime < 0)
         {
             RM.ChangeScene();
