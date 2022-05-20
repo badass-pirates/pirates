@@ -8,6 +8,32 @@ using UnityEngine.SceneManagement;
 
 public class ReadyNetworkManager : NetworkManager
 {
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        if (actorNumbers == null)
+        {
+            InitActorNumbers();
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            InsertActorNumber(PhotonNetwork.LocalPlayer.ActorNumber);
+            canSpawn = true;
+        }
+        StartCoroutine(SpawnPlayer());
+    }
+
+    public override void OnPlayerEnteredRoom(Player otherPlayer)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        int actorNumber = otherPlayer.ActorNumber;
+        InsertActorNumber(actorNumber);
+        MasterSendActorNumbers();
+    }
+
     protected override void InitActorNumbers()
     {
         actorNumbers = new int[8] { -1, -1, -1, -1, -1, -1, -1, -1 };

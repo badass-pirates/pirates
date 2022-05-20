@@ -41,36 +41,10 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         return startPoint;
     }
 
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-        if (actorNumbers == null)
-        {
-            InitActorNumbers();
-        }
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            InsertActorNumber(PhotonNetwork.LocalPlayer.ActorNumber);
-            canSpawn = true;
-        }
-        StartCoroutine(SpawnPlayer());
-    }
-
-    void InsertActorNumber(int actorNumber)
+    protected void InsertActorNumber(int actorNumber)
     {
         int index = Array.FindIndex<int>(actorNumbers, x => x == -1);
         actorNumbers[index] = actorNumber;
-    }
-
-    public override void OnPlayerEnteredRoom(Player otherPlayer)
-    {
-        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            return;
-        }
-        int actorNumber = otherPlayer.ActorNumber;
-        InsertActorNumber(actorNumber);
-        MasterSendActorNumbers();
     }
 
     public override void OnLeftRoom()
@@ -88,7 +62,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         MasterRemovePlayerInfo(otherPlayer.ActorNumber);
     }
 
-    void MasterRemovePlayerInfo(int actorNum)
+    protected void MasterRemovePlayerInfo(int actorNum)
     {
         // OnPlayerLeftRoom으로 방을 나갈경우 플레이어 제거
         int index = Array.FindIndex<int>(actorNumbers, x => x == actorNum);
@@ -96,9 +70,9 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         MasterSendActorNumbers();
     }
 
-    void MasterSendActorNumbers()
+    protected void MasterSendActorNumbers()
     {
-        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
         {
             return;
         }

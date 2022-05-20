@@ -8,6 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class GambleNetworkManager : NetworkManager
 {
+    private void Start()
+    {
+        InitActorNumbers();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            foreach (Player player in PhotonNetwork.PlayerList)
+            {
+                InsertActorNumber(player.ActorNumber);
+            }
+            canSpawn = true;
+            MasterSendActorNumbers();
+        }
+        StartCoroutine(SpawnPlayer());
+    }
+
     protected override void InitActorNumbers()
     {
         int size = PhotonNetwork.CurrentRoom.PlayerCount;
