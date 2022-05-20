@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Ready.meta
 guid: 3ea6b803a47636346a207b5200871c18
 folderAsset: yes
+========
+guid: d5d4a641922c92b4d97715aa151fb1bc
+>>>>>>>> ae0f9b4200a8a16016dfb7af54f9bc226b1b8cbb:Assets/Scenes/GambleScene_backup.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

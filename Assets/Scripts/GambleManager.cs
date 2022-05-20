@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using Photon.Pun;
 
 public class GambleManager : MonoBehaviour
 {
@@ -12,68 +12,59 @@ public class GambleManager : MonoBehaviour
         instance = this;
         challengeWinner = null;
         attackWinner = null;
+        victim = null;
         round = 1;
         act = 1;
-
-        state = State.ready;
-
         potCoins = 0;
-        maxPotCoins = 0;
+        coinTime = 0f;
+
+        state = State.initial;
+
+        localPlayer = null;
 
         //싱글플레이 위한 초기화
-        playerList.Add(new PlayerInfo());
-        playerIndex = 0;
-        victim = null;
+        playerList.Add(new PlayerInfo(PhotonNetwork.LocalPlayer.ActorNumber));
     }
 
-    static State state;
+    const int MAX_DECIDE_TIME = 60, MAX_ATTACK_TIME = 60;
+    const int MAX_ROUND = 3, MAX_ACT = 5;
+    const int POT_WEIGHT = 1;
 
-    const int POT_WEIGHT = 3;
-    const int MAX_DECIDE_TIME = 10;
-    const int MAX_ATTACK_TIME = 10;
 
-    const int MAX_ROUND = 3;
-    const int MAX_ACT = 5;
+    public static State state { get; private set; }
 
-    float leftTime;
-    public TextMeshProUGUI timeText;
-    public GameObject playerInfoText, gambleInfoText;
-
-    static GameObject localPlayer;
-
-    static int round, act;
-    static int potCoins;
-    
-    static public int maxPotCoins;
+    public static GamblePlayer localPlayer {get; private set;}
+    public static PlayerInfo localPlayerInfo { get; private set; }
 
     static List<PlayerInfo> playerList = new List<PlayerInfo>();
-    static public int playerIndex { get; set; }
+    static PlayerInfo challengeWinner, attackWinner, victim;
 
-    PlayerInfo challengeWinner, attackWinner, victim;
+    public static int round { get; private set; }
+    public static int act { get; private set; }
+    public static int potCoins { get; private set; }
+    public static int chestCoins {get; set; }
+    public static float leftTime { get; private set; }
+    float coinTime;
 
-    void Ready()
+    void StandBy()
     {
-        if(localPlayer == null) return;
-        
-        localPlayer.GetComponentInChildren<MedalSpawner>().SpawnMedals();
-        ResetPlayerInfoData();
-        potCoins += GetPotCoins(round);
-        maxPotCoins = (int)Mathf.Pow(POT_WEIGHT, round - 1) * (round + 1);
-        maxPotCoins += GetPotCoins(round);
+        if (localPlayer == null) return;
+        Debug.Log(localPlayer);
+        ResetPlayerInfoList();
+        potCoins += GetPotCoins();
         leftTime = MAX_DECIDE_TIME;
         state = State.decide;
+        localPlayer.SpawnMedals();
     }
-
     void Decide()
     {
         if (leftTime > 0)
         {
             foreach (var p in playerList)
             {
-                if (p.choice == Choice.ready)
+                if (p.choice == Choice.none)
                 {
                     leftTime -= Time.deltaTime;
-                    timeText.text = ((int)leftTime).ToString();
                     return;
                 }
             }
@@ -81,37 +72,31 @@ public class GambleManager : MonoBehaviour
         else
         {
             foreach (var p in playerList)
-            {
-                if (p.choice == Choice.ready) p.choice = Choice.share;
-            }
+                if (p.choice == Choice.none) p.choice = Choice.share;
         }
         state = State.check;
     }
-
     void Check()
     {
-        localPlayer.GetComponentInChildren<MedalSpawner>().DestroyMedals();
+        localPlayer.DestroyMedals();
         SetChallengeWinner();
         SetAttackWinner();
         state = State.apply;
     }
-
     void Attack()
     {
         if (!attackWinner.canShoot || leftTime > 0)
         {
             leftTime -= Time.deltaTime;
-            timeText.text = ((int)leftTime).ToString();
         }
         else state = State.apply;
         //if kill?
-            //사격 시 대상이 플레이어인 경우
-                {victim = playerList[4];}
-            attackWinner.canShoot = false;
-            attackWinner.attackChance--;
-            
-    }
+        //사격 시 대상이 플레이어인 경우
+        { victim = playerList[4]; }
+        attackWinner.canShoot = false;
+        attackWinner.attackChance--;
 
+    }
     void Apply()
     {
         SetPlayerRewards();
@@ -121,91 +106,102 @@ public class GambleManager : MonoBehaviour
             state = State.end;
             return;
         }
-        state = State.ready;
+        int winCoins = localPlayerInfo.coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
+        localPlayer.AddCoins(winCoins);
+        state = State.standBy;
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
     }
 
-    void Update()
+    //Player Input
+    public static void SetLocalPlayer(GamblePlayer player)
     {
-        switch (state)
-        {
-            case State.ready: Ready(); break;
-            case State.decide: Decide(); break;
-            case State.check: Check(); break;
-            case State.attack: Attack(); break;
-            case State.apply: Apply(); break;
-            case State.end: 
-                break;
-        }
-        SetUI();
-    }
-
-    //Get Data
-    static public State GetState()
-    {
-        return state;
-    }
-
-    static public void SetPlayer(GameObject player)
-    {
+        int aNum = PhotonNetwork.LocalPlayer.ActorNumber;
         localPlayer = player;
+        //localPlayerInfo = GetPlayerInfo(aNum);
+        localPlayerInfo = playerList[0];
+        state = State.standBy;
     }
-
-    static public PlayerInfo GetPlayerInfo()
+    public static void SetPlayerChoice(Choice choice)
     {
-        return playerList[playerIndex];
+        if (localPlayerInfo != null)
+            localPlayerInfo.choice = choice;
+        else Debug.Log("localPlayer is null!");
     }
-
-    static public void SetPlayerChoice(Choice choice)
+    public static void SetPlayerChallengeAmount(int amount)
     {
-        PlayerInfo player = GetPlayerInfo();
-        player.choice = choice;
+        if (localPlayerInfo != null)
+            localPlayerInfo.challengeAmount = amount;
+        else Debug.Log("localPlayer is null!");
     }
 
-    static public void SetPlayerChallengeAmount(int amount)
+    //Network PlayerInfo
+    public static void SetPlayerList(string orArray)
     {
-        PlayerInfo player = GetPlayerInfo();
-        if (player.choice == Choice.challenge) player.challengeAmount = amount;
-        else player.challengeAmount = 0;
+        //미구현
+        int aNum = 0;//임의의 액터넘버
+        playerList.Add(new PlayerInfo(aNum));
+        state = State.standBy;
     }
-
-    public void AddPlayerCoins(int count)
+    public static void SetPlayerInfo(int aNum, string data)
     {
-        GetPlayerInfo().coins += count;
+        PlayerInfo player = playerList.Find(p => p.actorNumber == aNum);
+        //json 파싱
     }
-
-    void ResetPlayerInfoData()
+    public static PlayerInfo GetPlayerInfo(int aNum)
+    {
+        return playerList.Find(p => p.actorNumber == aNum);
+    }
+    //StandBy State
+    static void ResetPlayerInfoList()
     {
         foreach (var p in playerList)
         {
-            p.choice = Choice.ready;
+            p.choice = Choice.none;
             p.challengeAmount = 0;
             p.canShoot = false;
         }
         victim = null;
+        challengeWinner = null;
+        attackWinner = null;
     }
 
-    int GetPotCoins(int round)
+    public static int GetMinPotCoins()
     {
         int weight = (int)Mathf.Pow(POT_WEIGHT, round - 1);
-        int min = weight * 10;
-        return Random.Range(min, min * (round + 1));
+        return weight * 10;
     }
-    
+    public static int GetMaxPotCoins()
+    {
+        return GetMinPotCoins() * (round + 1);
+    }
+    int GetPotCoins()
+    {
+        return Random.Range(GetMinPotCoins(), GetMaxPotCoins());
+    }
+    bool IsInPotRange(int amount)
+    {
+        if (GetMinPotCoins() <= amount)
+        {
+            if (GetMaxPotCoins() >= amount)
+                return true;
+        }
+        return false;
+    }
+
+    //Check State
     void SetChallengeWinner()
     {
         challengeWinner = null;
+        List<PlayerInfo> list = (from p in playerList
+                                 where p.choice == Choice.challenge && IsInPotRange(p.challengeAmount)
+                                 select p).ToList<PlayerInfo>();
 
-        var list = (from p in playerList
-                    where p.choice == Choice.challenge && p.challengeAmount <= potCoins
-                    select p).ToList<PlayerInfo>();
-
-        if(list.Count > 0)
+        if (list.Count > 0)
         {
             int maxAmount = list.Max(p => p.challengeAmount);
-            challengeWinner =  list.Find(p => p.challengeAmount == maxAmount);
+            challengeWinner = list.Find(p => p.challengeAmount == maxAmount);
         }
     }
 
@@ -217,7 +213,7 @@ public class GambleManager : MonoBehaviour
                     where p.choice == Choice.attack
                     select p).ToList<PlayerInfo>();
 
-        if(list.Count == 1)
+        if (list.Count == 1)
         {
             attackWinner = list.Find(p => p.choice == Choice.attack);
             state = State.attack;
@@ -225,27 +221,28 @@ public class GambleManager : MonoBehaviour
 
     }
 
+    //Apply State
     void KillPlayer(PlayerInfo victim)
     {
-        if(victim == null) return;
+        if (victim == null) return;
         attackWinner.coins += victim.coins;
         victim.coins = 0;
         victim.isLive = false;
-
     }
 
     int SharePlayer()
     {
-        var list = (from p in playerList 
-                        where p.choice == Choice.share 
-                        && p.isLive select p).ToList<PlayerInfo>();
+        var list = (from p in playerList
+                    where p.choice == Choice.share
+                    && p.isLive
+                    select p).ToList<PlayerInfo>();
 
-        foreach(var p in list)
+        foreach (var p in list)
         {
             p.coins += potCoins / list.Count;
         }
 
-        if(list.Count > 0)
+        if (list.Count > 0)
             return potCoins % list.Count;
 
         return 0;
@@ -254,7 +251,7 @@ public class GambleManager : MonoBehaviour
     void SetPlayerRewards()
     {
         KillPlayer(victim);
-        if(challengeWinner != null)
+        if (challengeWinner != null)
         {
             challengeWinner.coins += challengeWinner.challengeAmount;
             potCoins -= challengeWinner.challengeAmount;
@@ -262,24 +259,20 @@ public class GambleManager : MonoBehaviour
         potCoins = SharePlayer();
     }
 
-    public void SetText(GameObject obj, string text)
+    // Update is called once per frame
+    void Update()
     {
-        obj.GetComponent<TextMeshProUGUI>().text = text;
+        Debug.Log(state);
+        switch (state)
+        {
+            case State.standBy: StandBy(); break;
+            case State.decide: Decide(); break;
+            case State.check: Check(); break;
+            case State.attack: Attack(); break;
+            case State.apply: Apply(); coinTime = 0; break;
+            case State.end: break;
+        }
+        coinTime+= Time.deltaTime;
+        if(coinTime > 5f) localPlayer.RemoveCoins();
     }
-
-    void SetUI()
-    {
-        PlayerInfo player = GetPlayerInfo();
-        SetText(playerInfoText.transform.Find("ChoiceText").gameObject, player.choice.ToString());
-        SetText(playerInfoText.transform.Find("ChallengeAmountText").gameObject, player.challengeAmount.ToString());
-        SetText(playerInfoText.transform.Find("CoinsText").gameObject, GetPlayerInfo().coins.ToString()+"G");
-
-
-        SetText(gambleInfoText.transform.Find("RoundText").gameObject, "Round " + round.ToString());
-        SetText(gambleInfoText.transform.Find("ActText").gameObject, "Act " + act.ToString());
-        SetText(gambleInfoText.transform.Find("StateText").gameObject, state.ToString());
-        SetText(gambleInfoText.transform.Find("PotCoinsText").gameObject, "Pot:" + potCoins.ToString());
-    }
-
-
 }

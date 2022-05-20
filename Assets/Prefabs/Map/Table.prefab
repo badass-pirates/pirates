@@ -78,7 +78,6 @@ Transform:
   - {fileID: 6897813008112123505}
   - {fileID: 2456161342459417109}
   - {fileID: 2817988819491202194}
-  - {fileID: 984847040}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
