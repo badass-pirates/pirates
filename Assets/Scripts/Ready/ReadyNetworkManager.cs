@@ -42,7 +42,7 @@ public class ReadyNetworkManager : NetworkManager
     protected override (string, string) GetResourceName ()
     {
         string localPlayer = "Ready/Local Player";
-        string networkPlayer = "Ready/Network Player";
+        string networkPlayer = "Network Player";
         return (localPlayer, networkPlayer);
     }
 }
