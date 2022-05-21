@@ -295,7 +295,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.01, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -1.0338287, y: 0.42234972, z: -1.4943985}
+  m_ConnectedAnchor: {x: 0.4388478, y: 0.42234972, z: 2.8134482}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -308,7 +308,7 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: -115.4875
+    min: -89.640594
     max: 10.9343405
     bounciness: 0
     bounceMinVelocity: 0.2
