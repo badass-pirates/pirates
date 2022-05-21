@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using static ReadyManager;
 using Photon.Pun;
+using UnityEngine.UI;
+
 
 public class ReadyItem : XRGrabInteractable
 {
     public float timer;
+    public GameObject skullCanvas;
+    public Text countText;
 
     private bool isGrabbed = false;
     private float leftTime = 5;
@@ -22,6 +26,7 @@ public class ReadyItem : XRGrabInteractable
     {
         if (!PhotonNetwork.IsMasterClient) return;
         if (!isGrabbed) return;
+        if (skullCanvas.activeSelf == true) countText.text = ((int)leftTime).ToString();
         if (leftTime < 0)
         {
             RM.ChangeScene();
