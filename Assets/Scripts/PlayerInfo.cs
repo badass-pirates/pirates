@@ -1,19 +1,22 @@
 public class PlayerInfo
 {
-    public bool isLive{get; set;}
-    public bool canShoot{get; set;}
-    public int coins{get; set;}
-    public int attackChance{get; set;}
-    public Choice choice{get; set;}
-    public int challengeAmount{get;set;}
+    const int ATTACK_CHANCE = 1;
+    public bool isLive{get; set;} = true;
+    public bool canShoot{get; set;} = false;
+    public int coins{get; set;} = 0;
+    public int attackChance{get; set;} = ATTACK_CHANCE;
+    public Choice choice{get; set;} = Choice.none;
+    public int challengeAmount{get;set;} = 0;
+
+    public int actorNumber{get; private set;}
     
     public PlayerInfo()
     {
-        isLive = true;
-        canShoot = false;
-        coins = 0;
-        attackChance = 1;
-        choice = Choice.ready;
-        challengeAmount = 0;
+        actorNumber = -1;
+    }
+
+    public PlayerInfo(int aNum)
+    {
+        actorNumber = aNum;
     }
 }
