@@ -45,6 +45,11 @@ public class GambleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (state == State.initial) {
+            if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount){
+                state = State.standBy;
+            }
+        }
         Debug.Log(state);
         switch (state)
         {
