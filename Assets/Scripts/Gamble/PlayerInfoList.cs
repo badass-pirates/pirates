@@ -34,6 +34,8 @@ public class PlayerInfoList
     public void DecideChallengeWinners(int potCoins)
     {
         List<PlayerInfo> challengers = players.FindAll(player => player.IsChallengeSuccess(potCoins));
+        if (challengers.Count == 0) return;
+
         int winnerAmount = challengers.Max(player => player.challengeAmount);
         winners = challengers.FindAll(player => player.challengeAmount == winnerAmount);
     }
@@ -43,6 +45,7 @@ public class PlayerInfoList
         attacker = null;
         List<PlayerInfo> attackers = players.FindAll(player => player.IsAttack());
         if (attackers.Count != 1) return;
+
         attacker = attackers.First();
     }
 
