@@ -56,6 +56,7 @@ public class GambleManager : MonoBehaviour
                 coinTime = 0;
                 break;
             case State.end:
+            case State.loading:
                 break;
         }
         coinTime += Time.deltaTime;
@@ -66,14 +67,12 @@ public class GambleManager : MonoBehaviour
     {
         if (!PhotonNetwork.IsMasterClient)
         {
-            NM.SendActorNumberToMaster();
             state = State.loading;
             return;
         }
         if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
         {
-            potCoins += GeneratePotCoins();
-            NM.SendPotCoinsToOthers(potCoins);
+            state = State.loading;
             NM.SendPlayersToOthers(players);
             NM.SetState(State.standBy);
         }
@@ -97,14 +96,18 @@ public class GambleManager : MonoBehaviour
 
     private void OnStandBy()
     {
-        leftTime = MAX_DECIDE_TIME;
-        players.Reset();
         localPlayer.SpawnMedals();
         state = State.loading;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            NM.SetState(State.decide);
-        }
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        potCoins += GeneratePotCoins();
+        NM.SendPotCoinsToOthers(potCoins);
+
+        players.Reset();
+        NM.SendPlayersToOthers(players);
+
+        NM.SetTimer(MAX_DECIDE_TIME);
+        NM.SetState(State.decide);
     }
 
     private void OnDecide()
@@ -117,6 +120,8 @@ public class GambleManager : MonoBehaviour
                 return;
             }
         }
+        state = State.loading;
+
         players.ChangeUndecidedPlayerToShare();
         NM.SendPlayersToOthers(players);
         NM.SetState(State.check);
@@ -125,11 +130,9 @@ public class GambleManager : MonoBehaviour
     private void OnCheck()
     {
         localPlayer.DestroyMedals();
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            state = State.loading;
-            return;
-        }
+        state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
+
         players.DecideChallengeWinner(potCoins);
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
@@ -152,11 +155,8 @@ public class GambleManager : MonoBehaviour
             leftTime -= Time.deltaTime;
             return;
         }
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            state = State.loading;
-            return;
-        }
+        state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
         NM.SendPlayersToOthers(players);
         NM.SetState(State.apply);
     }
