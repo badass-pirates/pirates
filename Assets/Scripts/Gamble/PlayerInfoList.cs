@@ -22,6 +22,11 @@ public class PlayerInfoList
         players.Add(new PlayerInfo(actorNumber));
     }
 
+    public PlayerInfo Find(int actorNumber)
+    {
+        return players.Find(player => player.actorNumber == actorNumber);
+    }
+
     public void Reset()
     {
         players.ForEach(player => player.Reset());
@@ -66,6 +71,12 @@ public class PlayerInfoList
 
         int sharedCoins = potCoins / sharer.Count;
         sharer.ForEach(player => player.AddCoin(sharedCoins));
+    }
+
+    public void SetPlayerChoice(int actorNumber, Choice choice)
+    {
+        PlayerInfo player = Find(actorNumber);
+        player.SetChoice(choice);
     }
 
     public PlayerInfo GetMine()

@@ -62,7 +62,7 @@ public class GambleNetworkManager : NetworkManager
     [PunRPC]
     private void RPC_ReciveMasterActorNumber(int actorNumber)
     {
-        GambleManager.AddPlayer(actorNumber);
+        GambleManager.players.Add(actorNumber);
     }
 
     public void SendPlayersToOthers(PlayerInfoList players)
@@ -74,7 +74,31 @@ public class GambleNetworkManager : NetworkManager
     [PunRPC]
     private void RPC_ReceivePlayers(string jdata)
     {
-        PlayerInfoList players = PlayerInfoList.FromJson(jdata);
-        GambleManager.SetPlayers(players);
+        GambleManager.players = PlayerInfoList.FromJson(jdata);
+    }
+
+    public void SendPotCoins(int coins)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_SendPotCoins", RpcTarget.Others, coins);
+    }
+
+    [PunRPC]
+    private void RPC_SendPotCoins(int coins)
+    {
+        GambleManager.SetPotCoins(coins);
+    }
+
+    public void Choice(Choice choice)
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        PV.RPC("RPC_SendChoice", RpcTarget.MasterClient, actorNumber, choice);
+    }
+
+    [PunRPC]
+    public void RPC_SendChoice(int actorNumber, Choice choice)
+    {
+        GambleManager.players.SetPlayerChoice(actorNumber, choice);
     }
 }

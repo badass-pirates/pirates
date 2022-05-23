@@ -23,7 +23,7 @@ public class GambleManager : MonoBehaviour
     public static GambleNetworkManager NM;
 
 
-    private static PlayerInfoList players = new PlayerInfoList();
+    public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
     public static State state { get; private set; } = State.initial;
 
@@ -74,23 +74,14 @@ public class GambleManager : MonoBehaviour
         }
         if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
         {
+            potCoins += GeneratePotCoins();
+            NM.SendPotCoins(potCoins);
             NM.SendPlayersToOthers(players);
             NM.SetState(State.standBy);
         }
     }
 
-    private void StandBy()
-    {
-        if (localPlayer == null) return;
-
-        players.Reset();
-        potCoins += GetPotCoins();
-        leftTime = MAX_DECIDE_TIME;
-        state = State.decide;
-        localPlayer.SpawnMedals();
-    }
-
-    private int GetPotCoins()
+    private int GeneratePotCoins()
     {
         return Random.Range(GetMinPotCoins(), GetMaxPotCoins());
     }
@@ -106,6 +97,18 @@ public class GambleManager : MonoBehaviour
         return GetMinPotCoins() * (round + 1);
     }
 
+    private void StandBy()
+    {
+        leftTime = MAX_DECIDE_TIME;
+        players.Reset();
+        localPlayer.SpawnMedals();
+        state = State.loading;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            NM.SetState(State.decide);
+        }
+    }
+
     private void Decide()
     {
         if (leftTime > 0)
@@ -116,11 +119,9 @@ public class GambleManager : MonoBehaviour
                 return;
             }
         }
-        else
-        {
-            players.ChangeUndecidedPlayerToShare();
-        }
-        state = State.check;
+        players.ChangeUndecidedPlayerToShare();
+        NM.SendPlayersToOthers(players);
+        NM.SetState(State.check);
     }
 
     private void Check()
@@ -189,7 +190,12 @@ public class GambleManager : MonoBehaviour
 
     public static void SetPlayerChoice(Choice choice)
     {
-        players.GetMine().SetChoice(choice);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            players.GetMine().SetChoice(choice);
+            return;
+        }
+        NM.Choice(choice);
     }
 
     public static void SetPlayerChallengeAmount(int amount)
@@ -207,13 +213,13 @@ public class GambleManager : MonoBehaviour
         state = _state;
     }
 
-    public static void AddPlayer(int actorNumber)
-    {
-        players.Add(actorNumber);
-    }
-
     public static void SetPlayers(PlayerInfoList _players)
     {
         players = _players;
+    }
+
+    public static void SetPotCoins(int _potCoins)
+    {
+        potCoins = _potCoins;
     }
 }
