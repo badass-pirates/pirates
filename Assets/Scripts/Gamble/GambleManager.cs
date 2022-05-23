@@ -157,13 +157,18 @@ public class GambleManager : MonoBehaviour
             state = State.loading;
             return;
         }
-        // 다른 곳에서 attacker.Attack(target)을 실행시켜야함
-        // 이를 통해 canShoot이 false가 되고 아래가 실행됨
-        if (!players.GetAttackWinner().canShoot)
-        {
-            NM.SendPlayersToOthers(players);
-            NM.SetState(State.apply);
-        }
+        NM.SendPlayersToOthers(players);
+        NM.SetState(State.apply);
+    }
+
+    // 다른 곳에서 GambleManager.Attack을 실행시켜야함
+    // 이를 통해 다음 State로 넘어감
+    public static void Attack(PlayerInfo target)
+    {
+        PlayerInfo attacker = players.GetAttackWinner();
+        attacker.Attack(target);
+        NM.SendPlayersToOthers(players);
+        NM.SetState(State.apply);
     }
 
     private void OnApply()
