@@ -19,7 +19,8 @@ public class Utils
     public IEnumerator ChangeScene(string scene, float waitSeconed = 0)
     {
         yield return new WaitForSeconds(waitSeconed);
-        
+
+        PhotonNetwork.DestroyAll();
         PhotonNetwork.LoadLevel(scene);
     }
 }
