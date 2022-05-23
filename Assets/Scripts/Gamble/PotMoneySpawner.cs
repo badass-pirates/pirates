@@ -18,7 +18,7 @@ public class PotMoneySpawner : MonoBehaviour
         chest.transform.LookAt(playerTransform);
     }
 
-    public void DistroyPot()
+    public void DestroyPot()
     {
         if (chest == null) return;
         else
