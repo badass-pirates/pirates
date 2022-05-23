@@ -25,11 +25,11 @@ public class GambleManager : MonoBehaviour
 
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
-    public static State state { get; private set; } = State.initial;
+    public static State state { get; set; } = State.initial;
 
     public static int round { get; private set; } = 1;
     public static int act { get; private set; } = 1;
-    public static int potCoins { get; private set; } = 0;
+    public static int potCoins { get; set; } = 0;
     public static int chestCoins { get; set; }
     public static float leftTime { get; private set; }
     float coinTime = 0f;
@@ -69,7 +69,7 @@ public class GambleManager : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
         {
             NM.SendActorNumberToMaster();
-            SetState(State.loading);
+            state = State.loading;
             return;
         }
         if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
@@ -206,20 +206,5 @@ public class GambleManager : MonoBehaviour
     public static PlayerInfo GetMyInfo()
     {
         return players.GetMine();
-    }
-
-    public static void SetState(State _state)
-    {
-        state = _state;
-    }
-
-    public static void SetPlayers(PlayerInfoList _players)
-    {
-        players = _players;
-    }
-
-    public static void SetPotCoins(int _potCoins)
-    {
-        potCoins = _potCoins;
     }
 }

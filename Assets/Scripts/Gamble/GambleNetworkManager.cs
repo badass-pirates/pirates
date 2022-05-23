@@ -50,7 +50,7 @@ public class GambleNetworkManager : NetworkManager
     [PunRPC]
     private void RPC_SetState(State state)
     {
-        GambleManager.SetState(state);
+        GambleManager.state = state;
     }
 
     public void SendActorNumberToMaster()
@@ -86,7 +86,7 @@ public class GambleNetworkManager : NetworkManager
     [PunRPC]
     private void RPC_SendPotCoins(int coins)
     {
-        GambleManager.SetPotCoins(coins);
+        GambleManager.potCoins = coins;
     }
 
     public void Choice(Choice choice)
