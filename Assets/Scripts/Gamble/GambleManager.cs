@@ -69,6 +69,7 @@ public class GambleManager : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
         {
             state = State.loading;
+            NM.SendActorNumberToMaster();
             return;
         }
         if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
