@@ -65,16 +65,17 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.players.Add(actorNumber);
     }
 
-    public void SendPlayersToOthers(PlayerInfoList players)
+    public void SendPlayersToOthers(PlayerInfoList _players)
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        PV.RPC("RPC_ReceivePlayers", RpcTarget.Others, players.ToJson());
+        (string players, string winner, string attacker) = _players.ToJson();
+        PV.RPC("RPC_ReceivePlayers", RpcTarget.Others, players, winner, attacker);
     }
 
     [PunRPC]
-    private void RPC_ReceivePlayers(string jdata)
+    private void RPC_ReceivePlayers(string players, string winner, string attacker)
     {
-        GambleManager.players = PlayerInfoList.FromJson(jdata);
+        GambleManager.players = PlayerInfoList.FromJson(players, winner, attacker);
     }
 
     public void SendPotCoins(int coins)

@@ -16,6 +16,12 @@ public class PlayerInfoList
     {
         players = _players;
     }
+    public PlayerInfoList(List<PlayerInfo> _players, PlayerInfo _winner = null, PlayerInfo _attacker = null)
+    {
+        players = _players;
+        winner = _winner;
+        attacker = _attacker;
+    }
 
     public void Add(int actorNumber)
     {
@@ -100,14 +106,23 @@ public class PlayerInfoList
         return attacker;
     }
 
-    public string ToJson()
+    public (string, string, string) ToJson()
     {
-        return JsonUtility.ToJson(new Serialization<PlayerInfo>(players));
+        string jsonPlayers = JsonUtility.ToJson(new Serialization<PlayerInfo>(players));
+        string jsonWinner = JsonUtility.ToJson(winner);
+        string jsonAttacker = JsonUtility.ToJson(attacker);
+        return (jsonPlayers, jsonWinner, jsonAttacker);
     }
 
-    public static PlayerInfoList FromJson(string jdata)
+    public static PlayerInfoList FromJson(string _players, string _winner = null, string _attacker = null)
     {
-        List<PlayerInfo> players = JsonUtility.FromJson<Serialization<PlayerInfo>>(jdata).target;
-        return new PlayerInfoList(players);
+        List<PlayerInfo> players = JsonUtility.FromJson<Serialization<PlayerInfo>>(_players).target;
+        if (_winner == null || _attacker == null)
+        {
+            return new PlayerInfoList(players);
+        }
+        PlayerInfo winner = JsonUtility.FromJson<PlayerInfo>(_winner);
+        PlayerInfo attacker = JsonUtility.FromJson<PlayerInfo>(_attacker);
+        return new PlayerInfoList(players, winner, attacker);
     }
 }
