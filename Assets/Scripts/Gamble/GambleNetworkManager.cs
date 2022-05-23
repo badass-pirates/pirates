@@ -101,7 +101,7 @@ public class GambleNetworkManager : NetworkManager
     public void SetTimer(int time)
     {
         if (PhotonNetwork.IsMasterClient) return;
-        PV.RPC("RPC_ReceiveLeftTime", RpcTarget.Others, time);
+        PV.RPC("RPC_ReceiveLeftTime", RpcTarget.AllViaServer, time);
     }
 
     [PunRPC]
