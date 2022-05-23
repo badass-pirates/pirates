@@ -69,7 +69,7 @@ public class PlayerInfo
         return IsChallenge() && challengeAmount <= potCoins; 
     }
 
-    public bool IsDecide()
+    public bool IsDecided()
     {
         return choice != Choice.none;
     }

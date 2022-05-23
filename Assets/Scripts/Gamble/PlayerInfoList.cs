@@ -22,12 +22,12 @@ public class PlayerInfoList
 
     public bool EveryDecided()
     {
-        return players.TrueForAll(player => player.IsDecide());
+        return players.TrueForAll(player => player.IsDecided());
     }
 
     public void ChangeUndecidedPlayerToShare()
     {
-        players.FindAll(player => player.isLive && !player.IsDecide())
+        players.FindAll(player => player.isLive && !player.IsDecided())
             .ForEach(player => player.ChoiceShare());
     }
 
