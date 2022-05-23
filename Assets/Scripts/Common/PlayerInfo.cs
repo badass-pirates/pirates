@@ -42,6 +42,7 @@ public class PlayerInfo
         attackChance--;
         coins += target.coins;
         target.Dead();
+        canShoot = false;
     }
 
     public void AddCoin(int _coins)

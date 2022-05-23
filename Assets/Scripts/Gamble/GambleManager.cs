@@ -31,7 +31,7 @@ public class GambleManager : MonoBehaviour
     public static int act { get; private set; } = 1;
     public static int potCoins { get; set; } = 0;
     public static int chestCoins { get; set; }
-    public static float leftTime { get; private set; }
+    public static float leftTime { get; set; }
     float coinTime = 0f;
 
     void Update()
@@ -140,6 +140,7 @@ public class GambleManager : MonoBehaviour
         {
             attacker.SuccessChoiceAttack();
             NM.SendPlayersToOthers(players);
+            NM.SetTimer(MAX_ATTACK_TIME);
             NM.SetState(State.attack);
             return;
         }
@@ -149,16 +150,23 @@ public class GambleManager : MonoBehaviour
 
     private void Attack()
     {
-        PlayerInfo attacker = players.GetAttackWinner();
-        if (attacker.canShoot && leftTime > 0)
+        if (leftTime > 0)
         {
             leftTime -= Time.deltaTime;
             return;
         }
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            state = State.loading;
+            return;
+        }
         // 다른 곳에서 attacker.Attack(target)을 실행시켜야함
-        // PlayerInfo target = new PlayerInfo();
-        // attacker.Attack(target);
-        state = State.apply;
+        // 이를 통해 canShoot이 false가 되고 아래가 실행됨
+        if (!players.GetAttackWinner().canShoot)
+        {
+            NM.SendPlayersToOthers(players);
+            NM.SetState(State.apply);
+        }
     }
 
     private void Apply()

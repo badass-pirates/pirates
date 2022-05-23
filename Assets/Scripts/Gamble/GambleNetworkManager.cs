@@ -102,4 +102,16 @@ public class GambleNetworkManager : NetworkManager
     {
         GambleManager.players.SetPlayerChoice(actorNumber, choice);
     }
+
+    public void SetTimer(int time)
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_ReceiveLeftTime", RpcTarget.Others, time);
+    }
+
+    [PunRPC]
+    public void RPC_ReceiveLeftTime(int time)
+    {
+        GambleManager.leftTime = time;
+    }
 }
