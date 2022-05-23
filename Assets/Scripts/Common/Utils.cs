@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+[System.Serializable]
+public class Serialization<T>
+{
+    public Serialization(List<T> _target) => target = _target;
+    public List<T> target;
+}
+
 public class Utils
 {
     #region Singleton

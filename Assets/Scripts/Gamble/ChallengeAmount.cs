@@ -8,14 +8,13 @@ using UnityEngine.UI;
 public class ChallengeAmount : MonoBehaviour
 {
     public XRController controller;
-    public GameObject chellengeCanvas;
+    public GameObject challengeCanvas;
     public Image amountLeft;
     public Image amountRight;
     public Text amountText;
 
-    private int amount;
 
-    public int Amount { get => amount; set => amount = value; }
+    public int amount { get; private set; }
 
     void Start()
     {
@@ -24,10 +23,10 @@ public class ChallengeAmount : MonoBehaviour
 
     void Update()
     {
-        if (chellengeCanvas.activeSelf == true)
+        if (challengeCanvas.activeSelf == true)
         {
             DecideAmount();
-            amountText.text = Amount.ToString();
+            amountText.text = amount.ToString();
         }
     }
 
@@ -37,11 +36,11 @@ public class ChallengeAmount : MonoBehaviour
         {
             if (position.x > 0) // thumb stick Right movement
             {
-                Amount++;
+                amount++;
             }
             else if (position.x < 0) // thumb stick Left movement
             {
-                Amount--;
+                amount--;
             }
         }
     }
