@@ -36,6 +36,7 @@ public class GambleManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(state);
         switch (state)
         {
             case State.initial:
@@ -127,16 +128,23 @@ public class GambleManager : MonoBehaviour
     private void Check()
     {
         localPlayer.DestroyMedals();
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            state = State.loading;
+            return;
+        }
         players.DecideChallengeWinners(potCoins);
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
         {
             attacker.SuccessChoiceAttack();
-            state = State.attack;
+            NM.SendPlayersToOthers(players);
+            NM.SetState(State.attack);
             return;
         }
-        state = State.apply;
+        NM.SendPlayersToOthers(players);
+        NM.SetState(State.apply);
     }
 
     private void Attack()
