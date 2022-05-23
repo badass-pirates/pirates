@@ -56,9 +56,9 @@ public class GambleManager : MonoBehaviour
                 break;
             case State.apply:
                 Apply();
-                coinTime = 0; 
+                coinTime = 0;
                 break;
-            case State.end: 
+            case State.end:
                 break;
         }
         coinTime += Time.deltaTime;
@@ -171,19 +171,22 @@ public class GambleManager : MonoBehaviour
 
     private void Apply()
     {
-        SetPlayerRewards();
-        //네트워크에 각자 T 결과에 따라 처리하도록 전송
-        if (MAX_ROUND <= round && MAX_ACT <= act)
+        if (!PhotonNetwork.IsMasterClient)
         {
-            state = State.end;
+            state = State.loading;
             return;
         }
-        int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
-        localPlayer.AddCoins(winCoins);
-        state = State.standBy;
-        if (act % MAX_ACT == 0)
-            round++;
-        act = (act % MAX_ACT) + 1;
+        SetPlayerRewards();
+        NM.SendPlayersToOthers(players);
+        NM.SendPotCoins(potCoins);
+        if (round >= MAX_ROUND && act >= MAX_ACT)
+        {
+            NM.SetState(State.end);
+            return;
+        }
+        NM.Reward();
+        NM.NextAct();
+        NM.SetState(State.standBy);
     }
 
     private void SetPlayerRewards()
@@ -198,6 +201,18 @@ public class GambleManager : MonoBehaviour
         potCoins %= players.Count();
     }
 
+    public static void NextAct()
+    {
+        if (act % MAX_ACT == 0)
+            round++;
+        act = (act % MAX_ACT) + 1;
+    }
+
+    public static void Reward()
+    {
+        int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
+        localPlayer.AddCoins(winCoins);
+    }
 
     public static void SetLocalPlayer(GamblePlayer player)
     {

@@ -87,7 +87,7 @@ public class GambleNetworkManager : NetworkManager
     [PunRPC]
     private void RPC_ReceivePotCoins(int coins)
     {
-        GambleManager.potCoins += coins;
+        GambleManager.potCoins = coins;
     }
 
     public void Choice(Choice choice)
@@ -98,7 +98,7 @@ public class GambleNetworkManager : NetworkManager
     }
 
     [PunRPC]
-    public void RPC_ReceiveChoice(int actorNumber, Choice choice)
+    private void RPC_ReceiveChoice(int actorNumber, Choice choice)
     {
         GambleManager.players.SetPlayerChoice(actorNumber, choice);
     }
@@ -110,8 +110,32 @@ public class GambleNetworkManager : NetworkManager
     }
 
     [PunRPC]
-    public void RPC_ReceiveLeftTime(int time)
+    private void RPC_ReceiveLeftTime(int time)
     {
         GambleManager.leftTime = time;
+    }
+
+    public void Reward()
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_Reward", RpcTarget.AllViaServer);
+    }
+
+    [PunRPC]
+    private void RPC_Reward()
+    {
+        GambleManager.Reward();
+    }
+
+    public void NextAct()
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_NextAct", RpcTarget.AllViaServer);
+    }
+
+    [PunRPC]
+    private void RPC_NextAct()
+    {
+        GambleManager.NextAct();
     }
 }
