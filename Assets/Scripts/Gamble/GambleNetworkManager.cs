@@ -123,4 +123,10 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.NextAct();
         GambleManager.state = State.standBy;
     }
+
+    [PunRPC]
+    protected override void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    {
+        base.RPC_OtherReceiveActorNumbers(_actorNumbers);
+    }
 }
