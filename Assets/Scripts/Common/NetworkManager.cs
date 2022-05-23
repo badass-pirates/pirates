@@ -22,10 +22,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         int index = Array.FindIndex<int>(actorNumbers, x => x == actorNumber);
         Transform startPoint = CalculateStartPoint(index);
-        if (PV.IsMine)
-        {
-            Instantiate(Resources.Load<GameObject>(localPlayer), startPoint.position, startPoint.rotation);
-        }
+        Instantiate(Resources.Load<GameObject>(localPlayer), startPoint.position, startPoint.rotation);
         spawnedPlayer = PhotonNetwork.Instantiate(networkPlayer, startPoint.position, startPoint.rotation);
         yield break;
     }
