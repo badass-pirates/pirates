@@ -31,7 +31,8 @@ public class GambleManager : MonoBehaviour
 
     public static State state { get; private set; }
 
-    public static GamblePlayer localPlayer {get; private set;}
+    public static GamblePlayer localPlayer { get; private set; }
+    public PotMoneySpawner potmoneySpawner;
 
     private static PlayerInfoList players = new PlayerInfoList();
 
@@ -45,8 +46,10 @@ public class GambleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (state == State.initial) {
-            if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount){
+        if (state == State.initial)
+        {
+            if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
                 state = State.standBy;
             }
         }
@@ -74,6 +77,7 @@ public class GambleManager : MonoBehaviour
         leftTime = MAX_DECIDE_TIME;
         state = State.decide;
         localPlayer.SpawnMedals();
+        potmoneySpawner.SpawnPot(localPlayer.transform, round);
     }
 
     private int GetPotCoins()
@@ -153,6 +157,7 @@ public class GambleManager : MonoBehaviour
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
+        potmoneySpawner.DistroyPot();
     }
 
     private void SetPlayerRewards()
