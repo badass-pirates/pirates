@@ -115,27 +115,17 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.leftTime = time;
     }
 
-    public void Reward()
+    public void EndAct()
     {
         if (PhotonNetwork.IsMasterClient) return;
-        PV.RPC("RPC_Reward", RpcTarget.AllViaServer);
+        PV.RPC("RPC_EndAct", RpcTarget.AllViaServer);
     }
 
     [PunRPC]
-    private void RPC_Reward()
+    private void RPC_EndAct()
     {
         GambleManager.Reward();
-    }
-
-    public void NextAct()
-    {
-        if (PhotonNetwork.IsMasterClient) return;
-        PV.RPC("RPC_NextAct", RpcTarget.AllViaServer);
-    }
-
-    [PunRPC]
-    private void RPC_NextAct()
-    {
         GambleManager.NextAct();
+        GambleManager.state = State.standBy;
     }
 }

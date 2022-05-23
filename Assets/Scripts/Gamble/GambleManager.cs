@@ -43,19 +43,19 @@ public class GambleManager : MonoBehaviour
                 OnInitial();
                 break;
             case State.standBy:
-                StandBy();
+                OnStandBy();
                 break;
             case State.decide:
-                Decide();
+                OnDecide();
                 break;
             case State.check:
-                Check();
+                OnCheck();
                 break;
             case State.attack:
-                Attack();
+                OnAttack();
                 break;
             case State.apply:
-                Apply();
+                OnApply();
                 coinTime = 0;
                 break;
             case State.end:
@@ -98,7 +98,7 @@ public class GambleManager : MonoBehaviour
         return GetMinPotCoins() * (round + 1);
     }
 
-    private void StandBy()
+    private void OnStandBy()
     {
         leftTime = MAX_DECIDE_TIME;
         players.Reset();
@@ -110,7 +110,7 @@ public class GambleManager : MonoBehaviour
         }
     }
 
-    private void Decide()
+    private void OnDecide()
     {
         if (leftTime > 0)
         {
@@ -125,7 +125,7 @@ public class GambleManager : MonoBehaviour
         NM.SetState(State.check);
     }
 
-    private void Check()
+    private void OnCheck()
     {
         localPlayer.DestroyMedals();
         if (!PhotonNetwork.IsMasterClient)
@@ -148,7 +148,7 @@ public class GambleManager : MonoBehaviour
         NM.SetState(State.apply);
     }
 
-    private void Attack()
+    private void OnAttack()
     {
         if (leftTime > 0)
         {
@@ -169,7 +169,7 @@ public class GambleManager : MonoBehaviour
         }
     }
 
-    private void Apply()
+    private void OnApply()
     {
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -177,16 +177,12 @@ public class GambleManager : MonoBehaviour
             return;
         }
         SetPlayerRewards();
-        NM.SendPlayersToOthers(players);
-        NM.SendPotCoins(potCoins);
         if (round >= MAX_ROUND && act >= MAX_ACT)
         {
             NM.SetState(State.end);
             return;
         }
-        NM.Reward();
-        NM.NextAct();
-        NM.SetState(State.standBy);
+        NM.EndAct();
     }
 
     private void SetPlayerRewards()
@@ -199,6 +195,15 @@ public class GambleManager : MonoBehaviour
         }
         players.ShareCoins(potCoins);
         potCoins %= players.Count();
+
+        NM.SendPlayersToOthers(players);
+        NM.SendPotCoins(potCoins);
+    }
+
+    public static void Reward()
+    {
+        int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
+        localPlayer.AddCoins(winCoins);
     }
 
     public static void NextAct()
@@ -206,12 +211,6 @@ public class GambleManager : MonoBehaviour
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
-    }
-
-    public static void Reward()
-    {
-        int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
-        localPlayer.AddCoins(winCoins);
     }
 
     public static void SetLocalPlayer(GamblePlayer player)
