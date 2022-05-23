@@ -116,11 +116,7 @@ public class PlayerInfoList
 
     public static PlayerInfoList FromJson(string _players, string _winner = null, string _attacker = null)
     {
-        List<PlayerInfo> players = JsonUtility.FromJson<Serialization<PlayerInfo>>(_players).target;
-        if (_winner == null || _attacker == null)
-        {
-            return new PlayerInfoList(players);
-        }
+        List<PlayerInfo> players = JsonUtility.FromJson<Serialization<PlayerInfo>>(_players).ToList();
         PlayerInfo winner = JsonUtility.FromJson<PlayerInfo>(_winner);
         PlayerInfo attacker = JsonUtility.FromJson<PlayerInfo>(_attacker);
         return new PlayerInfoList(players, winner, attacker);
