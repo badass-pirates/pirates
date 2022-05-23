@@ -98,6 +98,8 @@ public class GambleManager : MonoBehaviour
 
     private void OnStandBy()
     {
+        // pot distroy
+        potmoneySpawner.DistroyPot();
         leftTime = MAX_DECIDE_TIME;
         players.Reset();
         localPlayer.SpawnMedals();
@@ -106,7 +108,8 @@ public class GambleManager : MonoBehaviour
         {
             NM.SetState(State.decide);
         }
-        //pot spawn
+        // pot spawn
+        potmoneySpawner.SpawnPot(localPlayer.transform, round);
     }
 
     private void OnDecide()
@@ -215,7 +218,6 @@ public class GambleManager : MonoBehaviour
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
-        //pot destroy
     }
 
     public static void SetLocalPlayer(GamblePlayer player)
