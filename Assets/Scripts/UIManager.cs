@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     }
     void SetTextUI()
     {
-        PlayerInfo player = GambleManager.localPlayerInfo;
+        PlayerInfo player = GambleManager.GetMyInfo();
         timeText.text = ((int)GambleManager.leftTime).ToString();
         SetText(playerInfoText.transform.Find("ChoiceText").gameObject, player.choice.ToString());
         SetText(playerInfoText.transform.Find("ChallengeAmountText").gameObject, player.challengeAmount.ToString());
