@@ -19,16 +19,16 @@ public class PlayerInfo
     {
         actorNumber = _actorNumber;
         Reset();
+        isLive = true;
+        coins = 0;
+        attackChance = 1;
     }
 
     public void Reset()
     {
-        isLive = true;
-        coins = 0;
         choice = Choice.none;
         challengeAmount = 0;
         canShoot = false;
-        attackChance = 1;
     }
 
     public void SuccessChoiceAttack()
