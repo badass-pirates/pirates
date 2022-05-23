@@ -862,8 +862,8 @@ GameObject:
   - component: {fileID: -2002535368212942416}
   - component: {fileID: -4459117502785646219}
   - component: {fileID: 8774176741001696630}
-  - component: {fileID: 4455435675552314452}
   - component: {fileID: 4148510545106498117}
+  - component: {fileID: 7621727302457870095}
   m_Layer: 7
   m_Name: MedalAttack
   m_TagString: medal
@@ -1157,19 +1157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choice: 3
---- !u!114 &4455435675552314452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7857068654301646024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a43dad4dbff9e40b936237079e4ea1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collideSound: {fileID: 4148510545106498117}
 --- !u!82 &4148510545106498117
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1266,6 +1253,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7621727302457870095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857068654301646024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429ab6c650b22054b8931ae37952c729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collideSound: {fileID: 4148510545106498117}
 --- !u!1 &8317935398537599437
 GameObject:
   m_ObjectHideFlags: 0

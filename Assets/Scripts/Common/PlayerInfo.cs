@@ -9,12 +9,6 @@ public class PlayerInfo
     public int attackChance { get; private set; }
 
     public int actorNumber { get; private set; }
-    
-    public PlayerInfo()
-    {
-        actorNumber = -1;
-        Reset();
-    }
 
     public PlayerInfo(int _actorNumber)
     {
@@ -50,7 +44,7 @@ public class PlayerInfo
         coins += _coins;
     }
 
-    public void Win()
+    public void ChallengeWin()
     {
         AddCoin(challengeAmount);
     }

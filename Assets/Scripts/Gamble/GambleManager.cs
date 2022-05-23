@@ -130,7 +130,7 @@ public class GambleManager : MonoBehaviour
             state = State.loading;
             return;
         }
-        players.DecideChallengeWinners(potCoins);
+        players.DecideChallengeWinner(potCoins);
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
@@ -187,7 +187,7 @@ public class GambleManager : MonoBehaviour
         PlayerInfo challengeWinner = players.GetChallengeWinner();
         if (challengeWinner != null && challengeWinner.isLive)
         {
-            challengeWinner.Win();
+            challengeWinner.ChallengeWin();
             potCoins -= challengeWinner.challengeAmount;
         }
         players.ShareCoins(potCoins);

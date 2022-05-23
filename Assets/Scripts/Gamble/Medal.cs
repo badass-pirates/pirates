@@ -8,7 +8,7 @@ public class Medal : MonoBehaviour
     GameObject playerZone, choiceZone;
 
     bool isCorrectPos;
-    const float timeConstraint = 3f;
+    const float timeConstraint = 2f;
     float passTime = 0f;
 
     private void OnTriggerEnter(Collider other)
@@ -19,6 +19,11 @@ public class Medal : MonoBehaviour
         {
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
+            if(choice == Choice.challenge)
+            {
+                ChallengeAmount cAmount = GetComponent<ChallengeAmount>();
+                GambleManager.SetPlayerChallengeAmount(cAmount.amount);
+            }
             return;
         }
 
