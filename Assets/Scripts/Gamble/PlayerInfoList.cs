@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
-
+using UnityEngine;
 
 public class PlayerInfoList
 {
@@ -10,9 +10,27 @@ public class PlayerInfoList
     private PlayerInfo winner = null;
     private PlayerInfo attacker = null;
 
+    public PlayerInfoList() { }
+
+    public PlayerInfoList(List<PlayerInfo> _players)
+    {
+        players = _players;
+    }
+    public PlayerInfoList(List<PlayerInfo> _players, PlayerInfo _winner = null, PlayerInfo _attacker = null)
+    {
+        players = _players;
+        winner = _winner;
+        attacker = _attacker;
+    }
+
     public void Add(int actorNumber)
     {
         players.Add(new PlayerInfo(actorNumber));
+    }
+
+    public PlayerInfo Find(int actorNumber)
+    {
+        return players.Find(player => player.actorNumber == actorNumber);
     }
 
     public void Reset()
@@ -61,6 +79,12 @@ public class PlayerInfoList
         sharer.ForEach(player => player.AddCoin(sharedCoins));
     }
 
+    public void SetPlayerChoice(int actorNumber, Choice choice)
+    {
+        PlayerInfo player = Find(actorNumber);
+        player.SetChoice(choice);
+    }
+
     public PlayerInfo GetMine()
     {
         int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
@@ -80,5 +104,25 @@ public class PlayerInfoList
     public PlayerInfo GetAttackWinner()
     {
         return attacker;
+    }
+
+    public (string, string, string) ToJson()
+    {
+        string jsonPlayers = JsonUtility.ToJson(new Serialization<PlayerInfo>(players));
+        string jsonWinner = JsonUtility.ToJson(winner);
+        string jsonAttacker = JsonUtility.ToJson(attacker);
+        return (jsonPlayers, jsonWinner, jsonAttacker);
+    }
+
+    public static PlayerInfoList FromJson(string _players, string _winner = null, string _attacker = null)
+    {
+        List<PlayerInfo> players = JsonUtility.FromJson<Serialization<PlayerInfo>>(_players).target;
+        if (_winner == null || _attacker == null)
+        {
+            return new PlayerInfoList(players);
+        }
+        PlayerInfo winner = JsonUtility.FromJson<PlayerInfo>(_winner);
+        PlayerInfo attacker = JsonUtility.FromJson<PlayerInfo>(_attacker);
+        return new PlayerInfoList(players, winner, attacker);
     }
 }

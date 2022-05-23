@@ -1,3 +1,4 @@
+[System.Serializable]
 public class PlayerInfo
 {
     public bool isLive { get; private set; }
@@ -8,23 +9,14 @@ public class PlayerInfo
     public int attackChance { get; private set; }
 
     public int actorNumber { get; private set; }
-    
-    public PlayerInfo()
-    {
-        actorNumber = -1;
-        isLive = true;
-        coins = 0;
-        attackChance = 1;
-        Reset();
-    }
 
     public PlayerInfo(int _actorNumber)
     {
         actorNumber = _actorNumber;
+        Reset();
         isLive = true;
         coins = 0;
         attackChance = 1;
-        Reset();
     }
 
     public void Reset()
@@ -44,6 +36,7 @@ public class PlayerInfo
         attackChance--;
         coins += target.coins;
         target.Dead();
+        canShoot = false;
     }
 
     public void AddCoin(int _coins)
