@@ -18,8 +18,10 @@ public class Utils
 
     public IEnumerator ChangeScene(string scene, float waitSeconed = 0)
     {
+        if (!PhotonNetwork.IsMasterClient) yield break;
         yield return new WaitForSeconds(waitSeconed);
-        
+
+        PhotonNetwork.DestroyAll();
         PhotonNetwork.LoadLevel(scene);
     }
 }

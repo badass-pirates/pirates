@@ -29,10 +29,9 @@ public class NetworkPlayer : MonoBehaviour
             {
                 item.enabled = false;
             }
+            leftHandRig = GameObject.Find("Player").transform.Find("Camera Offset/LeftHand Controller");
+            rightHandRig = GameObject.Find("Player").transform.Find("Camera Offset/RightHand Controller");
         }
-
-        leftHandRig = GameObject.Find("Player").transform.Find("Camera Offset/LeftHand Controller");
-        rightHandRig = GameObject.Find("Player").transform.Find("Camera Offset/RightHand Controller");
     }
 
     void Update()
