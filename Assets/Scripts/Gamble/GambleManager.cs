@@ -158,12 +158,11 @@ public class GambleManager : MonoBehaviour
 
     private void SetPlayerRewards()
     {
-        List<PlayerInfo> challengeWinners = players.GetChallengeWinners();
-        if (challengeWinners.Count > 0)
+        PlayerInfo challengeWinner = players.GetChallengeWinner();
+        if (challengeWinner != null && challengeWinner.isLive)
         {
-            int winnerCoins = challengeWinners.First().coins / challengeWinners.Count;
-            challengeWinners.ForEach(winner => winner.AddCoin(winnerCoins));
-            potCoins -= winnerCoins;
+            challengeWinner.Win();
+            potCoins -= challengeWinner.challengeAmount;
         }
         players.ShareCoins(potCoins);
         potCoins %= players.Count();

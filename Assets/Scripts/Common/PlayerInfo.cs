@@ -48,6 +48,11 @@ public class PlayerInfo
         coins += _coins;
     }
 
+    public void Win()
+    {
+        AddCoin(challengeAmount);
+    }
+
     public void Dead()
     {
         isLive = false;

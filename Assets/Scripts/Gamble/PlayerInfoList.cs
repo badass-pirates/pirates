@@ -7,7 +7,7 @@ using Photon.Pun;
 public class PlayerInfoList
 {
     private List<PlayerInfo> players = new List<PlayerInfo>();
-    private List<PlayerInfo> winners = new List<PlayerInfo>();
+    private PlayerInfo winner = null;
     private PlayerInfo attacker = null;
 
     public void Add(int actorNumber)
@@ -33,11 +33,14 @@ public class PlayerInfoList
 
     public void DecideChallengeWinners(int potCoins)
     {
+        winner = null;
         List<PlayerInfo> challengers = players.FindAll(player => player.IsChallengeSuccess(potCoins));
         if (challengers.Count == 0) return;
 
         int winnerAmount = challengers.Max(player => player.challengeAmount);
-        winners = challengers.FindAll(player => player.challengeAmount == winnerAmount);
+        List<PlayerInfo> winners = challengers.FindAll(player => player.challengeAmount == winnerAmount);
+        if (winners.Count != 1) return;
+        winner = winners.First();
     }
 
     public void DecideAttackWinner()
@@ -69,9 +72,9 @@ public class PlayerInfoList
         return players.Count;
     }
 
-    public List<PlayerInfo> GetChallengeWinners()
+    public PlayerInfo GetChallengeWinner()
     {
-        return winners;
+        return winner;
     }
 
     public PlayerInfo GetAttackWinner()
