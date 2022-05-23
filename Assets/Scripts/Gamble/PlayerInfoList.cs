@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
-
+using UnityEngine;
 
 public class PlayerInfoList
 {
     private List<PlayerInfo> players = new List<PlayerInfo>();
     private PlayerInfo winner = null;
     private PlayerInfo attacker = null;
+
+    public PlayerInfoList() { }
+
+    public PlayerInfoList(List<PlayerInfo> _players)
+    {
+        players = _players;
+    }
 
     public void Add(int actorNumber)
     {
@@ -80,5 +87,16 @@ public class PlayerInfoList
     public PlayerInfo GetAttackWinner()
     {
         return attacker;
+    }
+
+    public string ToJson()
+    {
+        return JsonUtility.ToJson(new Serialization<PlayerInfo>(players));
+    }
+
+    public static PlayerInfoList FromJson(string jdata)
+    {
+        List<PlayerInfo> players = JsonUtility.FromJson<Serialization<PlayerInfo>>(jdata).target;
+        return new PlayerInfoList(players);
     }
 }

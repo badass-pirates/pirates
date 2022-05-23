@@ -1,3 +1,4 @@
+[System.Serializable]
 public class PlayerInfo
 {
     public bool isLive { get; private set; }
