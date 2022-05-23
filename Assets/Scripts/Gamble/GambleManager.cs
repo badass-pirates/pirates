@@ -92,7 +92,6 @@ public class GambleManager : MonoBehaviour
         return GetMinPotCoins() * (round + 1);
     }
 
-
     private void Decide()
     {
         if (leftTime > 0)
@@ -128,15 +127,15 @@ public class GambleManager : MonoBehaviour
     private void Attack()
     {
         PlayerInfo attacker = players.GetAttackWinner();
-        if (!attacker.canShoot || leftTime > 0)
+        if (attacker.canShoot && leftTime > 0)
         {
             leftTime -= Time.deltaTime;
+            return;
         }
-        else state = State.apply;
-        //if kill?
-        //사격 시 대상이 플레이어인 경우
-        PlayerInfo target = new PlayerInfo();
-        attacker.Attack(target);
+        // 다른 곳에서 attacker.Attack(target)을 실행시켜야함
+        // PlayerInfo target = new PlayerInfo();
+        // attacker.Attack(target);
+        state = State.apply;
     }
 
     private void Apply()
