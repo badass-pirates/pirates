@@ -73,7 +73,7 @@ public class GambleManager : MonoBehaviour
         if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
         {
             potCoins += GeneratePotCoins();
-            NM.SendPotCoins(potCoins);
+            NM.SendPotCoinsToOthers(potCoins);
             NM.SendPlayersToOthers(players);
             NM.SetState(State.standBy);
         }
@@ -194,7 +194,7 @@ public class GambleManager : MonoBehaviour
         potCoins %= players.Count();
 
         NM.SendPlayersToOthers(players);
-        NM.SendPotCoins(potCoins);
+        NM.SendPotCoinsToOthers(potCoins);
     }
 
     public static void Reward()

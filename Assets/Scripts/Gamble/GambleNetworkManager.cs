@@ -73,7 +73,7 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.players = PlayerInfoList.FromJson(players, winner, attacker);
     }
 
-    public void SendPotCoins(int coins)
+    public void SendPotCoinsToOthers(int coins)
     {
         if (!PhotonNetwork.IsMasterClient) return;
         PV.RPC("RPC_ReceivePotCoins", RpcTarget.Others, coins);
