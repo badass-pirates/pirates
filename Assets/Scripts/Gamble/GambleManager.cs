@@ -112,7 +112,7 @@ public class GambleManager : MonoBehaviour
     private void Check()
     {
         localPlayer.DestroyMedals();
-        players.DecideChallengeWinners(potCoins);
+        players.DecideChallengeWinner(potCoins);
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
@@ -149,6 +149,7 @@ public class GambleManager : MonoBehaviour
         }
         int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
         localPlayer.AddCoins(winCoins);
+        Debug.Log("총코인 : " + players.GetMine().coins + "소환된 코인 : " + localPlayer.coinSpawner.transform.childCount + "상자 코인 : " + chestCoins + "획득코인" + winCoins);
         state = State.standBy;
         if (act % MAX_ACT == 0)
             round++;
@@ -160,7 +161,7 @@ public class GambleManager : MonoBehaviour
         PlayerInfo challengeWinner = players.GetChallengeWinner();
         if (challengeWinner != null && challengeWinner.isLive)
         {
-            challengeWinner.Win();
+            challengeWinner.ChallengeWin();
             potCoins -= challengeWinner.challengeAmount;
         }
         players.ShareCoins(potCoins);

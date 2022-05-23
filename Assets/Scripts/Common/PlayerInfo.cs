@@ -12,23 +12,26 @@ public class PlayerInfo
     public PlayerInfo()
     {
         actorNumber = -1;
+        isLive = true;
+        coins = 0;
+        attackChance = 1;
         Reset();
     }
 
     public PlayerInfo(int _actorNumber)
     {
         actorNumber = _actorNumber;
+        isLive = true;
+        coins = 0;
+        attackChance = 1;
         Reset();
     }
 
     public void Reset()
     {
-        isLive = true;
-        coins = 0;
         choice = Choice.none;
         challengeAmount = 0;
         canShoot = false;
-        attackChance = 1;
     }
 
     public void SuccessChoiceAttack()
@@ -48,7 +51,7 @@ public class PlayerInfo
         coins += _coins;
     }
 
-    public void Win()
+    public void ChallengeWin()
     {
         AddCoin(challengeAmount);
     }

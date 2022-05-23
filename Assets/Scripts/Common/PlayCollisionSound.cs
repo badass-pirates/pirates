@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioCollidePlay : MonoBehaviour
+public class PlayCollisionSound : MonoBehaviour
 {
     public AudioSource collideSound;
 

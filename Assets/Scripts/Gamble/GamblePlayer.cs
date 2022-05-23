@@ -31,13 +31,13 @@ public class GamblePlayer : MonoBehaviour
         Destroy(medalShare);
         Destroy(medalChallenge);
         Destroy(medalAttack);
-        //null 해야할 거 같은데
     }
 
     public void ReSpawnMedals()
     {
         ShowPlayerZone();
         DestroyMedals();
+        ShowMedalEffect();
         SpawnMedals();
     }
 
@@ -46,8 +46,6 @@ public class GamblePlayer : MonoBehaviour
         Transform tr = coinSpawner.transform;
         for (int i = 0; i < count; i++)
         {
-            //동전생성모양 설정 가능
-            //GameObject obj = Instantiate(coin, tr.position + new Vector3(0, i, 0), Quaternion.identity);
             GameObject obj = PhotonNetwork.Instantiate("Coin", tr.position + new Vector3(0, i, 0), Quaternion.identity);
             obj.transform.parent = coinSpawner.transform;
         }

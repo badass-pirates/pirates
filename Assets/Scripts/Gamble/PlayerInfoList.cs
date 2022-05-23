@@ -31,7 +31,7 @@ public class PlayerInfoList
             .ForEach(player => player.ChoiceShare());
     }
 
-    public void DecideChallengeWinners(int potCoins)
+    public void DecideChallengeWinner(int potCoins)
     {
         winner = null;
         List<PlayerInfo> challengers = players.FindAll(player => player.IsChallengeSuccess(potCoins));
