@@ -12,9 +12,9 @@ public class Gun : MonoBehaviour
 
     public void Fire()
     {
-        GameObject spawnedBullet = Instantiate(bullet, barrel.position, barrel.rotation);
-        spawnedBullet.GetComponent<Rigidbody>().velocity = speed * barrel.forward;
+        // GameObject spawnedBullet = Instantiate(bullet, barrel.position, barrel.rotation);
+        // spawnedBullet.GetComponent<Rigidbody>().velocity = speed * barrel.forward;
         audioSource.PlayOneShot(audioClip);
-        Destroy(spawnedBullet, 2);
+        // Destroy(spawnedBullet, 2);
     }
 }

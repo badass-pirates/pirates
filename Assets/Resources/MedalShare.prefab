@@ -676,8 +676,8 @@ GameObject:
   - component: {fileID: 517861189303599582}
   - component: {fileID: -8154088728816424798}
   - component: {fileID: 6935160421604359452}
-  - component: {fileID: 3052492762308836434}
   - component: {fileID: -3733540064903885548}
+  - component: {fileID: 1960828080018345776}
   m_Layer: 7
   m_Name: MedalShare
   m_TagString: medal
@@ -971,19 +971,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choice: 1
---- !u!114 &3052492762308836434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5874407064814141471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a43dad4dbff9e40b936237079e4ea1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collideSound: {fileID: -3733540064903885548}
 --- !u!82 &-3733540064903885548
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1080,6 +1067,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1960828080018345776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874407064814141471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429ab6c650b22054b8931ae37952c729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collideSound: {fileID: -3733540064903885548}
 --- !u!1 &6325188128523913824
 GameObject:
   m_ObjectHideFlags: 0
