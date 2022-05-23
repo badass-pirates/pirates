@@ -45,6 +45,10 @@ MonoBehaviour:
   - RPC_SetState
   - RPC_ReceivePlayers
   - RPC_SendPotCoins
+  - RPC_EndAct
+  - RPC_ReceiveChoice
+  - RPC_ReceiveLeftTime
+  - RPC_ReceivePotCoins
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

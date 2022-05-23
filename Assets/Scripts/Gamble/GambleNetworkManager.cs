@@ -100,7 +100,7 @@ public class GambleNetworkManager : NetworkManager
 
     public void SetTimer(int time)
     {
-        if (PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         PV.RPC("RPC_ReceiveLeftTime", RpcTarget.AllViaServer, time);
     }
 
@@ -112,7 +112,7 @@ public class GambleNetworkManager : NetworkManager
 
     public void EndAct()
     {
-        if (PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         PV.RPC("RPC_EndAct", RpcTarget.AllViaServer);
     }
 
