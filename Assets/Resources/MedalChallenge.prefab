@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  chellengeCanvas: {fileID: 6581074525854882070}
+  challengeCanvas: {fileID: 6581074525854882070}
   amountLeft: {fileID: 2866956744483673696}
   amountRight: {fileID: 9125100923965423771}
   amountText: {fileID: 2116117113814038516}

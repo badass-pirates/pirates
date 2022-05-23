@@ -108,7 +108,8 @@ public class GamblePlayer : MonoBehaviour
     public void GetCoinWithMouse()
     {
         GameObject obj = GetMouseTarget();
-        if (obj.tag == "coin")
+        if(obj == null) return;
+        else if (obj.tag == "coin")
         {
             Destroy(obj);
             GambleManager.chestCoins++;
