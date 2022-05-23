@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class GambleNetworkManager : NetworkManager
 {
+
     private void Start()
     {
         InitActorNumbers();
@@ -38,5 +39,42 @@ public class GambleNetworkManager : NetworkManager
         string localPlayer = "Local Player";
         string networkPlayer = "Network Player";
         return (localPlayer, networkPlayer);
+    }
+
+    public void SetState(State state)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_SetState", RpcTarget.AllViaServer, state);
+    }
+
+    [PunRPC]
+    private void RPC_SetState(State state)
+    {
+        GambleManager.SetState(state);
+    }
+
+    public void SendActorNumberToMaster()
+    {
+        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        PV.RPC("RPC_ReciveMasterActorNumber", RpcTarget.MasterClient, actorNumber);
+    }
+
+    [PunRPC]
+    private void RPC_ReciveMasterActorNumber(int actorNumber)
+    {
+        GambleManager.AddPlayer(actorNumber);
+    }
+
+    public void SendPlayersToOthers(PlayerInfoList players)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_ReceivePlayers", RpcTarget.Others, players.ToJson());
+    }
+
+    [PunRPC]
+    private void RPC_ReceivePlayers(string jdata)
+    {
+        PlayerInfoList players = PlayerInfoList.FromJson(jdata);
+        GambleManager.SetPlayers(players);
     }
 }

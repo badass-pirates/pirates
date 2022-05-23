@@ -41,6 +41,9 @@ MonoBehaviour:
   - RespawnSpaceship
   - RPC_OtherReceivePlayerInfo
   - RPC_OtherReceiveActorNumbers
+  - RPC_ReciveMasterActorNumber
+  - RPC_SetState
+  - RPC_ReceivePlayers
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
