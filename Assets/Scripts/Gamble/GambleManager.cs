@@ -182,11 +182,9 @@ public class GambleManager : MonoBehaviour
 
     private void OnApply()
     {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            state = State.loading;
-            return;
-        }
+        state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
+
         SetPlayerRewards();
         if (round >= MAX_ROUND && act >= MAX_ACT)
         {
