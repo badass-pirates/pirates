@@ -20,6 +20,7 @@ public class GambleManager : MonoBehaviour
     public static GambleNetworkManager NM;
 
 
+    public PotMoneySpawner potmoneySpawner;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
     public static State state { get; set; } = State.initial;
@@ -100,7 +101,9 @@ public class GambleManager : MonoBehaviour
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
+        potmoneySpawner.DestroyPot();
         potCoins += GeneratePotCoins();
+        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         NM.SendPotCoinsToOthers(potCoins);
 
         players.Reset();

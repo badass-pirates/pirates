@@ -36,8 +36,8 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
     {
         GameObject empty = new GameObject();
         Transform startPoint = empty.transform;
-        startPoint.Rotate(new Vector3(0, 360 / actorNumbers.Length * index, 0)); // ÇÊ¿äÇÑ °¢µµ¸¸Å­ È¸Àü
-        startPoint.Translate(new Vector3(0, 0, -3f)); // Å×ÀÌºí ³ÐÀÌ¸¸Å­ ÈÄ¹æÀ¸·Î ÀÌµ¿
+        startPoint.Rotate(new Vector3(0, 360 / actorNumbers.Length * index, 0)); // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ È¸ï¿½ï¿½
+        startPoint.Translate(new Vector3(0, 0, -3f)); // ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½Å­ ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         return startPoint;
     }
 
@@ -64,7 +64,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
 
     protected void MasterRemovePlayerInfo(int actorNum)
     {
-        // OnPlayerLeftRoomÀ¸·Î ¹æÀ» ³ª°¥°æ¿ì ÇÃ·¹ÀÌ¾î Á¦°Å
+        // OnPlayerLeftRoomï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
         int index = Array.FindIndex<int>(actorNumbers, x => x == actorNum);
         actorNumbers[index] = -1;
         MasterSendActorNumbers();
