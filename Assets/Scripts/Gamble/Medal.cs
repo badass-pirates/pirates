@@ -16,11 +16,6 @@ public class Medal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!gameObject.GetComponent<PhotonView>().IsMine)
-        { 
-            enabled = false;
-            return;
-        }
         collide = other.gameObject;
         Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
         if(other.gameObject == playerZone)
@@ -48,6 +43,11 @@ public class Medal : MonoBehaviour
     {
         playerZone = GameObject.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
+        if(!gameObject.GetComponent<PhotonView>().IsMine)
+        { 
+            Debug.Log("Destroyed:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
+            Destroy(this);
+        }
     }
 
     void Update()
@@ -56,6 +56,7 @@ public class Medal : MonoBehaviour
             passTime += Time.deltaTime;
         if(passTime >= timeConstraint)
         {
+        Debug.Log("SPAWN:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
             GambleManager.localPlayer.ReSpawnMedals();
             passTime = 0f;
         }
