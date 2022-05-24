@@ -20,6 +20,10 @@ public class HandPresence : MonoBehaviour
     {
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
+        if (devices.Count == 0)
+        {
+            return;
+        }
         targetDevice = devices[0];
         spawnedHandModel = Instantiate(handModelPrefab, transform);
         handAnimator = spawnedHandModel.GetComponent<Animator>();
@@ -47,6 +51,13 @@ public class HandPresence : MonoBehaviour
 
     void Update()
     {
-        UpdateHandAnimator();
+        if (!targetDevice.isValid)
+        {
+            TryInitialize();
+        }
+        else
+        {
+            UpdateHandAnimator();
+        }
     }
 }
