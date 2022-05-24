@@ -39,18 +39,14 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
-  - RPC_OtherReceivePlayerInfo
-  - RPC_OtherReceiveActorNumbers
-  - RPC_ReciveMasterActorNumber
-  - RPC_SetState
-  - RPC_ReceivePlayers
-  - RPC_SendPotCoins
   - RPC_EndAct
-  - RPC_ReceiveChoice
-  - RPC_ReceiveLeftTime
-  - RPC_ReceivePotCoins
   - RPC_ReceiveActorNumber
   - RPC_ReceiveActorNumbers
+  - RPC_ReceiveChallengeAmount
+  - RPC_ReceiveChoice
+  - RPC_ReceiveLeftTime
+  - RPC_ReceivePlayers
+  - RPC_ReceivePotCoins
   - RPC_ReceiveState
   DisableAutoOpenWizard: 1
   ShowSettings: 1

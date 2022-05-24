@@ -73,7 +73,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         {
             return;
         }
-        PV.RPC("RPC_OtherReceiveActorNumbers", RpcTarget.Others, actorNumbers);
+        PV.RPC("RPC_ReceiveActorNumbers", RpcTarget.Others, actorNumbers);
     }
 
     [PunRPC]

@@ -59,6 +59,7 @@ public class PlayerInfoList
         List<PlayerInfo> winners = challengers.FindAll(player => player.challengeAmount == winnerAmount);
         if (winners.Count != 1) return;
         winner = winners.First();
+        Debug.Log("OnCheck/ ME : "+PhotonNetwork.LocalPlayer.ActorNumber+"| Winner : " + winner.actorNumber + "| Amount : " +winner.challengeAmount+"/"+winnerAmount);
     }
 
     public void DecideAttackWinner()
@@ -82,7 +83,13 @@ public class PlayerInfoList
     public void SetPlayerChoice(int actorNumber, Choice choice)
     {
         PlayerInfo player = Find(actorNumber);
-        player.SetChoice(choice);
+        player.DecideChoice(choice);
+    }
+
+    public void DecidePlayerChallenge(int actorNumber, int amount)
+    {
+        PlayerInfo player = Find(actorNumber);
+        player.DecideChallenge(amount);
     }
 
     public PlayerInfo GetMine()

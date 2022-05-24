@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Medal : MonoBehaviour
 {
     public Choice choice;
+    public GameObject localPlayer;
+    public GameObject disappearEffect, choseEffect;
     GameObject playerZone, choiceZone;
 
     bool isCorrectPos;
@@ -17,28 +20,39 @@ public class Medal : MonoBehaviour
             isCorrectPos = true;
         else if (other.gameObject == choiceZone)
         {
+            isCorrectPos = true;
             passTime = 0f;
-            GambleManager.SetPlayerChoice(choice);
             if (choice == Choice.challenge)
             {
                 ChallengeAmount cAmount = GetComponent<ChallengeAmount>();
-                GambleManager.SetPlayerChallengeAmount((int)cAmount.amount);
+                GambleManager.DecidePlayerChallenge((int)cAmount.amount);
+                return;
             }
-            return;
+            GambleManager.DecideChoice(choice);
         }
-
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == playerZone)
+        if (other.gameObject == playerZone || other.gameObject == choiceZone)
             isCorrectPos = false;
+    }
+
+    public IEnumerator Destroy(Choice _choice)
+    {
+        if (choice == _choice)
+            choseEffect.GetComponent<ParticleSystem>().Play();
+        else
+            disappearEffect.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(1);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     void Awake()
     {
-        playerZone = GameObject.Find("PlayerZone");
-        choiceZone = GameObject.Find("ChoiceZone");
+        playerZone = GameObject.Find("PlayerZone").gameObject;
+        choiceZone = GameObject.Find("ChoiceZone").gameObject;
+        if (!gameObject.GetComponent<PhotonView>().IsMine) Destroy(this);
     }
 
     void Update()

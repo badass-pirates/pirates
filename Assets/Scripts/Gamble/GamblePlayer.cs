@@ -5,39 +5,37 @@ using Photon.Pun;
 
 public class GamblePlayer : MonoBehaviour
 {
-    private void Awake() 
+    private void Awake()
     {
         GambleManager.SetLocalPlayer(this);
     }
 
     public GameObject coin, chest, coinSpawner, medalSpawner;
     public GameObject playerZone;
-    static GameObject medalShare, medalChallenge, medalAttack;
+    static List<GameObject> medals = new List<GameObject>();
 
     public void SpawnMedals()
     {
-        ShowMedalEffect();
+        PlayMedalEffect();
         Transform tr = medalSpawner.transform;
-        medalShare = PhotonNetwork.Instantiate("MedalShare", tr.position, tr.rotation);
-        medalShare.transform.parent = tr;
-        medalChallenge = PhotonNetwork.Instantiate("medalChallenge", tr.position, tr.rotation);
-        medalChallenge.transform.parent = tr;
-        medalAttack = PhotonNetwork.Instantiate("MedalAttack", tr.position, tr.rotation);
-        medalAttack.transform.parent = tr;
+        medals.Add(PhotonNetwork.Instantiate("MedalShare", tr.position + transform.right * 0, tr.rotation));
+        medals.Add(PhotonNetwork.Instantiate("MedalChallenge", tr.position + transform.right * 0.1f, tr.rotation));
+        medals.Add(PhotonNetwork.Instantiate("MedalAttack", tr.position + transform.right * 0.2f, tr.rotation));
+        medals.ForEach(medal => medal.transform.parent = tr);
     }
 
     public void DestroyMedals()
     {
-        PhotonNetwork.Destroy(medalShare);
-        PhotonNetwork.Destroy(medalChallenge);
-        PhotonNetwork.Destroy(medalAttack);
+        medals.ForEach(medal => PhotonNetwork.Destroy(medal));
+        medals = new List<GameObject>();
+        Debug.Log(medals.Count);
     }
 
     public void ReSpawnMedals()
     {
-        ShowPlayerZone();
+        PlayPlayerZoneEffect();
         DestroyMedals();
-        ShowMedalEffect();
+        PlayMedalEffect();
         SpawnMedals();
     }
 
@@ -54,9 +52,9 @@ public class GamblePlayer : MonoBehaviour
     public void RemoveCoins()
     {
         Transform[] coinList = coinSpawner.GetComponentsInChildren<Transform>();
-        foreach(var c in coinList)
+        foreach (var c in coinList)
         {
-            if(c.gameObject == coinSpawner) continue;
+            if (c.gameObject == coinSpawner) continue;
             PhotonNetwork.Destroy(c.gameObject);
             GambleManager.chestCoins++;
         }
@@ -65,64 +63,26 @@ public class GamblePlayer : MonoBehaviour
     public void RemoveCoins(int yConstraint)
     {
         Transform[] coinList = coinSpawner.GetComponentsInChildren<Transform>();
-        foreach(var c in coinList)
+        foreach (var c in coinList)
         {
-            if(c.gameObject == coinSpawner) continue;
-            if(c.position.y < yConstraint) PhotonNetwork.Destroy(c.gameObject);
+            if (c.gameObject == coinSpawner) continue;
+            if (c.position.y < yConstraint) PhotonNetwork.Destroy(c.gameObject);
             GambleManager.chestCoins++;
         }
     }
 
     //그래픽 처리
-    public void ShowPlayerZone()
+    public void PlayPlayerZoneEffect()
     {
         var particles = playerZone.transform.GetComponentsInChildren<ParticleSystem>();
-        foreach(var p in particles) p.Play();
+        foreach (var p in particles) p.Play();
     }
 
-    public void ShowMedalEffect()
+    public void PlayMedalEffect()
     {
         var particles = medalSpawner.transform.GetComponentInChildren<ParticleSystem>();
         var fx = medalSpawner.transform.GetComponentInChildren<AudioSource>();
         particles.Play();
         fx.Play();
-    }
-
-    //마우스 처리
-    public GameObject GetMouseTarget()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-            return hit.transform.gameObject;
-
-        return null;
-    }
-    public void GetCoinWithMouse()
-    {
-        GameObject obj = GetMouseTarget();
-        if(obj == null) return;
-        else if (obj.tag == "coin")
-        {
-            PhotonNetwork.Destroy(obj);
-            GambleManager.chestCoins++;
-        }
-    }
-    public void GetPlayerChoiceByMouse()
-    {
-        if(Input.GetMouseButton(0))
-        {
-            GameObject obj = GetMouseTarget();
-            if(obj == medalShare) GambleManager.SetPlayerChoice(Choice.share);
-            else if(obj == medalChallenge) GambleManager.SetPlayerChoice(Choice.challenge);
-            else if(obj == medalAttack) GambleManager.SetPlayerChoice(Choice.attack);
-            else return;
-        }
-    }
-
-    private void Update() {
-        GetCoinWithMouse();
-        GetPlayerChoiceByMouse();
     }
 }
