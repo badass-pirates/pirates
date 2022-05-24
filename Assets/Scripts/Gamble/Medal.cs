@@ -8,6 +8,7 @@ public class Medal : MonoBehaviour
     public Choice choice;
     public GameObject localPlayer;
     public GameObject playerZone, choiceZone;
+    public GameObject collide;
 
     bool isCorrectPos;
     const float timeConstraint = 2f;
@@ -15,10 +16,18 @@ public class Medal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!gameObject.GetComponent<PhotonView>().IsMine)
+        { 
+            enabled = false;
+            return;
+        }
+        collide = other.gameObject;
+        Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
         if(other.gameObject == playerZone)
             isCorrectPos = true;
         else if(other.gameObject == choiceZone)
         {
+            Time.timeScale = 0;
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
             if(choice == Choice.challenge)
@@ -26,7 +35,6 @@ public class Medal : MonoBehaviour
                 ChallengeAmount cAmount = GetComponent<ChallengeAmount>();
                 GambleManager.SetPlayerChallengeAmount(cAmount.amount);
             }
-            return;
         }
 
     }
@@ -40,12 +48,10 @@ public class Medal : MonoBehaviour
     {
         playerZone = GameObject.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
-        if(!gameObject.GetComponent<PhotonView>().IsMine) enabled = false;
     }
 
     void Update()
     {
-        Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice);
         if(!isCorrectPos)
             passTime += Time.deltaTime;
         if(passTime >= timeConstraint)

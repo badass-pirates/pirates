@@ -973,6 +973,9 @@ MonoBehaviour:
   choice: 1
   localPlayer: {fileID: 4786870295592172765, guid: 8c8d4978f4b784f4f97fc0e7a376c475,
     type: 3}
+  playerZone: {fileID: 0}
+  choiceZone: {fileID: 0}
+  collide: {fileID: 0}
 --- !u!82 &-3733540064903885548
 AudioSource:
   m_ObjectHideFlags: 0
