@@ -37,7 +37,7 @@ public class GambleNetworkManager : NetworkManager
         return (localPlayer, networkPlayer);
     }
 
-    public void SetState(State state)
+    public void SetStateToAll(State state)
     {
         if (!PhotonNetwork.IsMasterClient) return;
         PV.RPC("RPC_ReceiveState", RpcTarget.AllViaServer, state);
@@ -112,7 +112,7 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.players.DecidePlayerChallenge(actorNumber, amount);
     }
 
-    public void SetTimer(int time)
+    public void SetTimerToAll(int time)
     {
         if (!PhotonNetwork.IsMasterClient) return;
         PV.RPC("RPC_ReceiveLeftTime", RpcTarget.AllViaServer, time);
