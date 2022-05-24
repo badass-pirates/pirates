@@ -1,3 +1,4 @@
+using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -39,11 +40,11 @@ public class GambleNetworkManager : NetworkManager
     public void SetState(State state)
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        PV.RPC("RPC_SetState", RpcTarget.AllViaServer, state);
+        PV.RPC("RPC_ReceiveState", RpcTarget.AllViaServer, state);
     }
 
     [PunRPC]
-    private void RPC_SetState(State state)
+    private void RPC_ReceiveState(State state)
     {
         GambleManager.state = state;
     }
@@ -51,11 +52,11 @@ public class GambleNetworkManager : NetworkManager
     public void SendActorNumberToMaster()
     {
         int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-        PV.RPC("RPC_ReciveMasterActorNumber", RpcTarget.MasterClient, actorNumber);
+        PV.RPC("RPC_ReceiveActorNumber", RpcTarget.MasterClient, actorNumber);
     }
 
     [PunRPC]
-    private void RPC_ReciveMasterActorNumber(int actorNumber)
+    private void RPC_ReceiveActorNumber(int actorNumber)
     {
         GambleManager.players.Add(actorNumber);
     }
@@ -125,8 +126,8 @@ public class GambleNetworkManager : NetworkManager
     }
 
     [PunRPC]
-    protected override void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    protected override void RPC_ReceiveActorNumbers(int[] _actorNumbers)
     {
-        base.RPC_OtherReceiveActorNumbers(_actorNumbers);
+        base.RPC_ReceiveActorNumbers(_actorNumbers);
     }
 }
