@@ -7,7 +7,7 @@ public class Medal : MonoBehaviour
 {
     public Choice choice;
     public GameObject localPlayer;
-    GameObject playerZone, choiceZone;
+    public GameObject playerZone, choiceZone;
 
     bool isCorrectPos;
     const float timeConstraint = 2f;
@@ -18,7 +18,8 @@ public class Medal : MonoBehaviour
         if(other.gameObject == playerZone)
             isCorrectPos = true;
         else if(other.gameObject == choiceZone)
-        {
+        {   return;
+            Debug.Log("bullShit"+choice);
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
             if(choice == Choice.challenge)
@@ -40,6 +41,7 @@ public class Medal : MonoBehaviour
     {
         playerZone = localPlayer.transform.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
+        Debug.Log(gameObject.GetComponent<PhotonView>().IsMine);
         if(!gameObject.GetComponent<PhotonView>().IsMine) enabled = false;
     }
 
