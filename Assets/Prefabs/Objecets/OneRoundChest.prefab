@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4401046583180250336}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4064213382753807516}
   - component: {fileID: 4064213382752498870}
   - component: {fileID: 4064213382751792946}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SM_Prop_Chest_Treasure_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4071873690823891834}
   - component: {fileID: 2305063528611800608}
   - component: {fileID: 6749909730030527291}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: OneRoundChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 4064213382753797274}
   - component: {fileID: 4064213382752499476}
   - component: {fileID: 4064213382751824716}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SM_Prop_Chest_Lid_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

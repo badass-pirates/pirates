@@ -28,9 +28,9 @@ public class GamblePlayer : MonoBehaviour
 
     public void DestroyMedals()
     {
-        Destroy(medalShare);
-        Destroy(medalChallenge);
-        Destroy(medalAttack);
+        PhotonNetwork.Destroy(medalShare);
+        PhotonNetwork.Destroy(medalChallenge);
+        PhotonNetwork.Destroy(medalAttack);
     }
 
     public void ReSpawnMedals()
@@ -57,7 +57,7 @@ public class GamblePlayer : MonoBehaviour
         foreach(var c in coinList)
         {
             if(c.gameObject == coinSpawner) continue;
-            Destroy(c.gameObject);
+            PhotonNetwork.Destroy(c.gameObject);
             GambleManager.chestCoins++;
         }
     }
@@ -68,13 +68,9 @@ public class GamblePlayer : MonoBehaviour
         foreach(var c in coinList)
         {
             if(c.gameObject == coinSpawner) continue;
-            if(c.position.y < yConstraint) Destroy(c.gameObject);
+            if(c.position.y < yConstraint) PhotonNetwork.Destroy(c.gameObject);
             GambleManager.chestCoins++;
         }
-    }
-    public void RemoveCoinByIndex(int index)
-    {
-        Destroy(coinSpawner.transform.GetChild(index));
     }
 
     //그래픽 처리
@@ -109,7 +105,7 @@ public class GamblePlayer : MonoBehaviour
         if(obj == null) return;
         else if (obj.tag == "coin")
         {
-            Destroy(obj);
+            PhotonNetwork.Destroy(obj);
             GambleManager.chestCoins++;
         }
     }

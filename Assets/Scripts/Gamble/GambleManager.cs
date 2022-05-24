@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using Photon.Pun;
 
 public class GambleManager : MonoBehaviour
@@ -30,7 +31,6 @@ public class GambleManager : MonoBehaviour
     public static int potCoins { get; set; } = 0;
     public static int chestCoins { get; set; }
     public static float leftTime { get; set; }
-    float coinTime = 0f;
 
     void Update()
     {
@@ -54,14 +54,19 @@ public class GambleManager : MonoBehaviour
                 break;
             case State.apply:
                 OnApply();
-                coinTime = 0;
+                StartCoroutine(RemoveCoins());
                 break;
             case State.end:
             case State.loading:
                 break;
         }
-        coinTime += Time.deltaTime;
-        if (coinTime > 5f) localPlayer.RemoveCoins();
+    }
+
+    private IEnumerator RemoveCoins()
+    {
+        yield return new WaitForSeconds(5);
+        localPlayer.RemoveCoins();
+        yield break;
     }
 
     private void OnInitial()
@@ -84,13 +89,13 @@ public class GambleManager : MonoBehaviour
         return Random.Range(GetMinPotCoins(), GetMaxPotCoins());
     }
 
-    private int GetMinPotCoins()
+    public static int GetMinPotCoins()
     {
         int weight = (int)Mathf.Pow(POT_WEIGHT, round - 1);
         return weight * 10;
     }
 
-    private int GetMaxPotCoins()
+    public static int GetMaxPotCoins()
     {
         return GetMinPotCoins() * (round + 1);
     }
@@ -98,12 +103,12 @@ public class GambleManager : MonoBehaviour
     private void OnStandBy()
     {
         localPlayer.SpawnMedals();
+        potmoneySpawner.DestroyPot();
+        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
-        potmoneySpawner.DestroyPot();
         potCoins += GeneratePotCoins();
-        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         NM.SendPotCoinsToOthers(potCoins);
 
         players.Reset();
@@ -115,15 +120,13 @@ public class GambleManager : MonoBehaviour
 
     private void OnDecide()
     {
-        if (leftTime > 0)
+        if (leftTime > 0 && !players.EveryDecided())
         {
-            if (!players.EveryDecided())
-            {
-                leftTime -= Time.deltaTime;
-                return;
-            }
+            leftTime -= Time.deltaTime;
+            return;
         }
         state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         players.ChangeUndecidedPlayerToShare();
         NM.SendPlayersToOthers(players);
@@ -176,11 +179,9 @@ public class GambleManager : MonoBehaviour
 
     private void OnApply()
     {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            state = State.loading;
-            return;
-        }
+        state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
+
         SetPlayerRewards();
         if (round >= MAX_ROUND && act >= MAX_ACT)
         {
@@ -221,6 +222,8 @@ public class GambleManager : MonoBehaviour
     public static void SetLocalPlayer(GamblePlayer player)
     {
         localPlayer = player;
+        if (PhotonNetwork.IsMasterClient) return;
+        NM.SendActorNumberToMaster();
     }
 
     public static void SetPlayerChoice(Choice choice)

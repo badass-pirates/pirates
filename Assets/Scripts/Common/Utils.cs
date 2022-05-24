@@ -1,13 +1,24 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-[System.Serializable]
+[Serializable]
 public class Serialization<T>
 {
-    public Serialization(List<T> _target) => target = _target;
-    public List<T> target;
+    [SerializeField]
+    List<T> target;
+
+    public Serialization(List<T> target)
+    {
+        this.target = target;
+    }
+
+    public List<T> ToList()
+    {
+        return target;
+    }
 }
 
 public class Utils
@@ -18,8 +29,10 @@ public class Utils
 
     public IEnumerator ChangeScene(string scene, float waitSeconed = 0)
     {
+        if (!PhotonNetwork.IsMasterClient) yield break;
         yield return new WaitForSeconds(waitSeconed);
-        
+
+        PhotonNetwork.DestroyAll();
         PhotonNetwork.LoadLevel(scene);
     }
 }

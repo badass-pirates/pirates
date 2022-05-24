@@ -19,9 +19,11 @@ public class VRNetworkPlayerRig : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        headBodyOffset = transform.position - headConstraint.position;
-        XROrigin rig = FindObjectOfType<XROrigin>();
-        head.vrTarget = GameObject.Find("Player").transform.Find("Camera Offset/Main Camera");
+        if (PV.IsMine)
+        {
+            headBodyOffset = transform.position - headConstraint.position;
+            head.vrTarget = GameObject.Find("Player").transform.Find("Camera Offset/Main Camera");
+        }
     }
 
     private void Update()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - coin
   - medal
+  - local_player
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - Grab
   - Grab Ignore Ray
   - Body
-  - 
-  - 
-  - 
+  - Object Dragger
+  - Coin
+  - Object
   - 
   - 
   - 

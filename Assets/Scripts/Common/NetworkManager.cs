@@ -22,10 +22,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         int index = Array.FindIndex<int>(actorNumbers, x => x == actorNumber);
         Transform startPoint = CalculateStartPoint(index);
-        if (PV.IsMine)
-        {
-            Instantiate(Resources.Load<GameObject>(localPlayer), startPoint.position, startPoint.rotation);
-        }
+        Instantiate(Resources.Load<GameObject>(localPlayer), startPoint.position, startPoint.rotation);
         spawnedPlayer = PhotonNetwork.Instantiate(networkPlayer, startPoint.position, startPoint.rotation);
         yield break;
     }
@@ -80,7 +77,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    protected virtual void RPC_ReceiveActorNumbers(int[] _actorNumbers)
     {
         actorNumbers = _actorNumbers;
         canSpawn = true;
