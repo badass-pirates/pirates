@@ -133,6 +133,26 @@ public class GambleManager : MonoBehaviour
         NM.SetState(State.check);
     }
 
+    public static void DecideChoice(Choice choice)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            players.GetMine().DecideChoice(choice);
+            return;
+        }
+        NM.SendChoiceToMaster(choice);
+    }
+
+    public static void DecidePlayerChallenge(int amount)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            players.GetMine().DecideChallenge(amount);
+            return;
+        }
+        NM.SendChallengeAmountToMaster(amount);
+    }
+
     private void OnCheck()
     {
         localPlayer.DestroyMedals();
@@ -226,21 +246,6 @@ public class GambleManager : MonoBehaviour
         localPlayer = player;
         if (PhotonNetwork.IsMasterClient) return;
         NM.SendActorNumberToMaster();
-    }
-
-    public static void SetPlayerChoice(Choice choice)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            players.GetMine().SetChoice(choice);
-            return;
-        }
-        NM.Choice(choice);
-    }
-
-    public static void SetPlayerChallengeAmount(int amount)
-    {
-        players.GetMine().SetChallengeAmount(amount);
     }
 
     public static PlayerInfo GetMyInfo()

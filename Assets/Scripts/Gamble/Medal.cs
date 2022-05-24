@@ -24,12 +24,13 @@ public class Medal : MonoBehaviour
         {
             isCorrectPos = true;
             passTime = 0f;
-            GambleManager.SetPlayerChoice(choice);
             if(choice == Choice.challenge)
             {
                 ChallengeAmount cAmount = GetComponent<ChallengeAmount>();
-                GambleManager.SetPlayerChallengeAmount(cAmount.amount);
+                GambleManager.DecidePlayerChallenge(cAmount.amount);
+                return;
             }
+            GambleManager.DecideChoice(choice);
         }
 
     }

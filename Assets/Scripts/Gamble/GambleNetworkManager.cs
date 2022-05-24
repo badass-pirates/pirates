@@ -86,7 +86,7 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.potCoins = coins;
     }
 
-    public void Choice(Choice choice)
+    public void SendChoiceToMaster(Choice choice)
     {
         if (PhotonNetwork.IsMasterClient) return;
         int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
@@ -97,6 +97,19 @@ public class GambleNetworkManager : NetworkManager
     private void RPC_ReceiveChoice(int actorNumber, Choice choice)
     {
         GambleManager.players.SetPlayerChoice(actorNumber, choice);
+    }
+
+    public void SendChallengeAmountToMaster(int amount)
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        PV.RPC("RPC_ReceiveChallengeAmount", RpcTarget.MasterClient, actorNumber, amount);
+    }
+
+    [PunRPC]
+    private void RPC_ReceiveChallengeAmount(int actorNumber, int amount)
+    {
+        GambleManager.players.DecidePlayerChallenge(actorNumber, amount);
     }
 
     public void SetTimer(int time)
