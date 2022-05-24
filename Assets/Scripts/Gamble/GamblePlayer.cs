@@ -23,15 +23,17 @@ public class GamblePlayer : MonoBehaviour
         for(int i = 0; i < medals.Length; i++)
         {   
             Vector3 pos = tr.position + transform.right * 0.1f * i;
-            medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
+            medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, tr.position, tr.rotation);
             medals[i].transform.parent = tr;
         }
     }
 
     public void DestroyMedals()
     {
-        foreach(var medal in medals)
-            PhotonNetwork.Destroy(medal);
+        for(int i = 0; i < medals.Length; i++)
+        {
+            PhotonNetwork.Destroy(medals[i]);
+        }
     }
 
     public void DestroyMedalsWithEffect(Choice choice)
@@ -44,8 +46,9 @@ public class GamblePlayer : MonoBehaviour
                 PhotonNetwork.Instantiate(choseEffect.name, tr.position, tr.rotation);
             else
                 PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
+                
+            PhotonNetwork.Destroy(medals[i]);
         }
-        DestroyMedals();
     }
 
     public void ReSpawnMedals()
