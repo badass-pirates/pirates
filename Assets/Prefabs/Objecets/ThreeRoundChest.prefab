@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8454595730728239903}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2994749120806839969}
   - component: {fileID: 7981188227555286724}
   - component: {fileID: 5014411485520500999}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ThreeRoundChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 2984439587127882047}
   - component: {fileID: 2984439587128630113}
   - component: {fileID: 2984439587129890829}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SM_Prop_Chest_Lid_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 2984439587127904993}
   - component: {fileID: 2984439587128611219}
   - component: {fileID: 2984439587129906237}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SM_Prop_Chest_Treasure_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
