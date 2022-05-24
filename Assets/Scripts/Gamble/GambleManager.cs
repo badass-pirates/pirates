@@ -135,7 +135,7 @@ public class GambleManager : MonoBehaviour
 
     public static void DecideChoice(Choice choice)
     {
-        localPlayer.DestroyMedals();
+        localPlayer.DestroyMedalsWithEffect(choice);
         if (PhotonNetwork.IsMasterClient)
         {
             players.GetMine().DecideChoice(choice);
@@ -146,7 +146,7 @@ public class GambleManager : MonoBehaviour
 
     public static void DecidePlayerChallenge(int amount)
     {
-        localPlayer.DestroyMedals();
+        localPlayer.DestroyMedalsWithEffect(Choice.challenge);
         if (PhotonNetwork.IsMasterClient)
         {
             players.GetMine().DecideChallenge(amount);

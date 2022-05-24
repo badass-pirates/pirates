@@ -12,23 +12,38 @@ public class GamblePlayer : MonoBehaviour
 
     public GameObject coin, chest, coinSpawner, medalSpawner;
     public GameObject playerZone;
-    static List<GameObject> medals = new List<GameObject>();
+    static GameObject[] medals = new GameObject[3];
+    const int share = 0, challenge = 1, attack = 2;
+    static string[] medalNames = {"MedalShare", "MedalChallenge", "MedalAttack"};
 
     public void SpawnMedals()
     {
         PlayMedalEffect();
         Transform tr = medalSpawner.transform;
-        medals.Add(PhotonNetwork.Instantiate("MedalShare", tr.position + transform.right * 0, tr.rotation));
-        medals.Add(PhotonNetwork.Instantiate("MedalChallenge", tr.position + transform.right * 0.1f, tr.rotation));
-        medals.Add(PhotonNetwork.Instantiate("MedalAttack", tr.position + transform.right * 0.2f, tr.rotation));
-        medals.ForEach(medal => medal.transform.parent = tr);
+        for(int i = 0; i < medals.Length; i++)
+        {   
+            Vector3 pos = tr.position + transform.right * 0.1f * i;
+            medals[i] = PhotonNetwork.Instantiate(medalNames[i], pos, tr.rotation);
+            medals[i].transform.parent = tr;
+        }
     }
 
     public void DestroyMedals()
     {
-        medals.ForEach(medal => PhotonNetwork.Destroy(medal));
-        medals = new List<GameObject>();
-        Debug.Log(medals.Count);
+        for(int i = 0; i < medals.Length; i++)
+        {
+            PhotonNetwork.Destroy(medals[i]);
+            medals[i] = null;
+        }
+    }
+
+    public void DestroyMedalsWithEffect(Choice choice)
+    {
+        for(int i = 0; i < medals.Length; i++)
+        {
+            medals[i].GetComponent<Medal>().Destroy(choice);
+            medals[i] = null;
+        }
     }
 
     public void ReSpawnMedals()
