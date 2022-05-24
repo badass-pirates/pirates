@@ -18,8 +18,7 @@ public class Medal : MonoBehaviour
         if(other.gameObject == playerZone)
             isCorrectPos = true;
         else if(other.gameObject == choiceZone)
-        {   return;
-            Debug.Log("bullShit"+choice);
+        {
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
             if(choice == Choice.challenge)
