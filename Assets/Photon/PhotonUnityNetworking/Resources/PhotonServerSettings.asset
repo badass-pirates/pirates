@@ -49,6 +49,9 @@ MonoBehaviour:
   - RPC_ReceiveChoice
   - RPC_ReceiveLeftTime
   - RPC_ReceivePotCoins
+  - RPC_ReceiveActorNumber
+  - RPC_ReceiveActorNumbers
+  - RPC_ReceiveState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
