@@ -74,7 +74,6 @@ public class GambleManager : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
         {
             state = State.loading;
-            NM.SendActorNumberToMaster();
             return;
         }
         if (players.Count() == PhotonNetwork.CurrentRoom.PlayerCount)
@@ -104,12 +103,12 @@ public class GambleManager : MonoBehaviour
     private void OnStandBy()
     {
         localPlayer.SpawnMedals();
+        potmoneySpawner.DestroyPot();
+        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
-        potmoneySpawner.DestroyPot();
         potCoins += GeneratePotCoins();
-        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         NM.SendPotCoinsToOthers(potCoins);
 
         players.Reset();
@@ -121,15 +120,13 @@ public class GambleManager : MonoBehaviour
 
     private void OnDecide()
     {
-        if (leftTime > 0)
+        if (leftTime > 0 && !players.EveryDecided())
         {
-            if (!players.EveryDecided())
-            {
-                leftTime -= Time.deltaTime;
-                return;
-            }
+            leftTime -= Time.deltaTime;
+            return;
         }
         state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         players.ChangeUndecidedPlayerToShare();
         NM.SendPlayersToOthers(players);
@@ -225,6 +222,8 @@ public class GambleManager : MonoBehaviour
     public static void SetLocalPlayer(GamblePlayer player)
     {
         localPlayer = player;
+        if (PhotonNetwork.IsMasterClient) return;
+        NM.SendActorNumberToMaster();
     }
 
     public static void SetPlayerChoice(Choice choice)

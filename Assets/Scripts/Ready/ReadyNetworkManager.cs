@@ -47,8 +47,8 @@ public class ReadyNetworkManager : NetworkManager
     }
 
     [PunRPC]
-    protected override void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    protected override void RPC_ReceiveActorNumbers(int[] _actorNumbers)
     {
-        base.RPC_OtherReceiveActorNumbers(_actorNumbers);
+        base.RPC_ReceiveActorNumbers(_actorNumbers);
     }
 }
