@@ -13,28 +13,29 @@ public class Medal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == playerZone)
+        if (other.gameObject == playerZone)
             isCorrectPos = true;
-        else if(other.gameObject == choiceZone)
+        else if (other.gameObject == choiceZone)
         {
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
-            if(choice == Choice.challenge)
+            if (choice == Choice.challenge)
             {
                 ChallengeAmount cAmount = GetComponent<ChallengeAmount>();
-                GambleManager.SetPlayerChallengeAmount(cAmount.amount);
+                GambleManager.SetPlayerChallengeAmount((int)cAmount.amount);
             }
             return;
         }
 
     }
 
-    private void OnTriggerExit(Collider other) {
-        if(other.gameObject == playerZone)
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == playerZone)
             isCorrectPos = false;
     }
 
-    void Awake() 
+    void Awake()
     {
         playerZone = GameObject.Find("PlayerZone");
         choiceZone = GameObject.Find("ChoiceZone");
@@ -42,9 +43,9 @@ public class Medal : MonoBehaviour
 
     void Update()
     {
-        if(!isCorrectPos)
+        if (!isCorrectPos)
             passTime += Time.deltaTime;
-        if(passTime >= timeConstraint)
+        if (passTime >= timeConstraint)
         {
             GambleManager.localPlayer.ReSpawnMedals();
             passTime = 0f;
