@@ -17,7 +17,10 @@ public class Medal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == playerZone)
+        {
             isCorrectPos = true;
+            passTime = 0f;
+        }
         else if (other.gameObject == choiceZone)
         {
             isCorrectPos = true;
@@ -40,6 +43,7 @@ public class Medal : MonoBehaviour
 
     public IEnumerator Destroy(Choice _choice)
     {
+        isCorrectPos = true;
         if (choice == _choice)
             choseEffect.GetComponent<ParticleSystem>().Play();
         else
@@ -59,6 +63,7 @@ public class Medal : MonoBehaviour
     {
         if (!isCorrectPos)
             passTime += Time.deltaTime;
+            
         if (passTime >= timeConstraint)
         {
             GambleManager.localPlayer.ReSpawnMedals();

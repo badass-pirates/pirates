@@ -12,8 +12,7 @@ public class GamblePlayer : MonoBehaviour
 
     public GameObject coin, chest, coinSpawner, medalSpawner;
     public GameObject playerZone;
-    static GameObject[] medals = new GameObject[3];
-    const int share = 0, challenge = 1, attack = 2;
+    public GameObject[] medals = new GameObject[3];
     static string[] medalNames = {"MedalShare", "MedalChallenge", "MedalAttack"};
 
     public void SpawnMedals()
@@ -32,7 +31,8 @@ public class GamblePlayer : MonoBehaviour
     {
         for(int i = 0; i < medals.Length; i++)
         {
-            PhotonNetwork.Destroy(medals[i]);
+            if(medals[i].GetType() ==  typeof(GameObject))
+                PhotonNetwork.Destroy(medals[i]);
             medals[i] = null;
         }
     }
@@ -41,8 +41,8 @@ public class GamblePlayer : MonoBehaviour
     {
         for(int i = 0; i < medals.Length; i++)
         {
-            medals[i].GetComponent<Medal>().Destroy(choice);
-            medals[i] = null;
+            Debug.Log(i+":"+medals[i]);
+            StartCoroutine(medals[i].GetComponent<Medal>().Destroy(choice));
         }
     }
 
