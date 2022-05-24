@@ -157,7 +157,6 @@ public class GambleManager : MonoBehaviour
 
     private void OnCheck()
     {
-        localPlayer.DestroyMedals();
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 

@@ -36,12 +36,14 @@ public class GamblePlayer : MonoBehaviour
 
     public void DestroyMedalsWithEffect(Choice choice)
     {
+        Transform tr = null;
         for(int i = 0; i < medals.Length; i++)
         {
+            tr = medals[i].transform;
             if(choice == medals[i].GetComponent<Medal>().choice) 
-                PhotonNetwork.Instantiate(choseEffect.name, medals[i].transform.position, Quaternion.identity);
+                PhotonNetwork.Instantiate(choseEffect.name, tr.position, tr.rotation);
             else
-                PhotonNetwork.Instantiate(disappearEffect.name, medals[i].transform.position, Quaternion.identity);
+                PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
         }
         DestroyMedals();
     }
