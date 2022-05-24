@@ -120,15 +120,13 @@ public class GambleManager : MonoBehaviour
 
     private void OnDecide()
     {
-        if (leftTime > 0)
+        if (leftTime > 0 && !players.EveryDecided())
         {
-            if (!players.EveryDecided())
-            {
-                leftTime -= Time.deltaTime;
-                return;
-            }
+            leftTime -= Time.deltaTime;
+            return;
         }
         state = State.loading;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         players.ChangeUndecidedPlayerToShare();
         NM.SendPlayersToOthers(players);
