@@ -5,6 +5,7 @@ using UnityEngine;
 public class Medal : MonoBehaviour
 {
     public Choice choice;
+    public GameObject localPlayer;
     GameObject playerZone, choiceZone;
 
     bool isCorrectPos;
@@ -36,8 +37,8 @@ public class Medal : MonoBehaviour
 
     void Awake() 
     {
-        playerZone = GameObject.Find("PlayerZone");
-        choiceZone = GameObject.Find("ChoiceZone");
+        playerZone = localPlayer.transform.Find("PlayerZone").gameObject;
+        choiceZone = GameObject.Find("ChoiceZone").gameObject;
     }
 
     void Update()

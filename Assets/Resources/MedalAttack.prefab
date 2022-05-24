@@ -1157,6 +1157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choice: 3
+  localPlayer: {fileID: 4786870295592172765, guid: 8c8d4978f4b784f4f97fc0e7a376c475,
+    type: 3}
 --- !u!82 &4148510545106498117
 AudioSource:
   m_ObjectHideFlags: 0
