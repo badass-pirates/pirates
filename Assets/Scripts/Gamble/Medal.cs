@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Medal : MonoBehaviour
@@ -39,6 +40,7 @@ public class Medal : MonoBehaviour
     {
         playerZone = localPlayer.transform.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
+        if(!gameObject.GetComponent<PhotonView>().IsMine) enabled = false;
     }
 
     void Update()
