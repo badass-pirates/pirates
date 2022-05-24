@@ -80,7 +80,7 @@ public class GambleManager : MonoBehaviour
         {
             state = State.loading;
             NM.SendPlayersToOthers(players);
-            NM.SetState(State.standBy);
+            NM.SetStateToAll(State.standBy);
         }
     }
 
@@ -114,8 +114,8 @@ public class GambleManager : MonoBehaviour
         players.Reset();
         NM.SendPlayersToOthers(players);
 
-        NM.SetTimer(MAX_DECIDE_TIME);
-        NM.SetState(State.decide);
+        NM.SetTimerToAll(MAX_DECIDE_TIME);
+        NM.SetStateToAll(State.decide);
     }
 
     private void OnDecide()
@@ -130,7 +130,27 @@ public class GambleManager : MonoBehaviour
 
         players.ChangeUndecidedPlayerToShare();
         NM.SendPlayersToOthers(players);
-        NM.SetState(State.check);
+        NM.SetStateToAll(State.check);
+    }
+
+    public static void DecideChoice(Choice choice)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            players.GetMine().DecideChoice(choice);
+            return;
+        }
+        NM.SendChoiceToMaster(choice);
+    }
+
+    public static void DecidePlayerChallenge(int amount)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            players.GetMine().DecideChallenge(amount);
+            return;
+        }
+        NM.SendChallengeAmountToMaster(amount);
     }
 
     private void OnCheck()
@@ -146,12 +166,12 @@ public class GambleManager : MonoBehaviour
         {
             attacker.SuccessChoiceAttack();
             NM.SendPlayersToOthers(players);
-            NM.SetTimer(MAX_ATTACK_TIME);
-            NM.SetState(State.attack);
+            NM.SetTimerToAll(MAX_ATTACK_TIME);
+            NM.SetStateToAll(State.attack);
             return;
         }
         NM.SendPlayersToOthers(players);
-        NM.SetState(State.apply);
+        NM.SetStateToAll(State.apply);
     }
 
     private void OnAttack()
@@ -164,7 +184,7 @@ public class GambleManager : MonoBehaviour
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
         NM.SendPlayersToOthers(players);
-        NM.SetState(State.apply);
+        NM.SetStateToAll(State.apply);
     }
 
     // 다른 곳에서 GambleManager.Attack을 실행시켜야함
@@ -174,7 +194,7 @@ public class GambleManager : MonoBehaviour
         PlayerInfo attacker = players.GetAttackWinner();
         attacker.Attack(target);
         NM.SendPlayersToOthers(players);
-        NM.SetState(State.apply);
+        NM.SetStateToAll(State.apply);
     }
 
     private void OnApply()
@@ -185,7 +205,7 @@ public class GambleManager : MonoBehaviour
         SetPlayerRewards();
         if (round >= MAX_ROUND && act >= MAX_ACT)
         {
-            NM.SetState(State.end);
+            NM.SetStateToAll(State.end);
             return;
         }
         NM.EndAct();
@@ -226,21 +246,6 @@ public class GambleManager : MonoBehaviour
         localPlayer = player;
         if (PhotonNetwork.IsMasterClient) return;
         NM.SendActorNumberToMaster();
-    }
-
-    public static void SetPlayerChoice(Choice choice)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            players.GetMine().SetChoice(choice);
-            return;
-        }
-        NM.Choice(choice);
-    }
-
-    public static void SetPlayerChallengeAmount(int amount)
-    {
-        players.GetMine().SetChallengeAmount(amount);
     }
 
     public static PlayerInfo GetMyInfo()

@@ -94,13 +94,14 @@ public class PlayerInfo
         return choice == Choice.share;
     }
 
-    public void SetChoice(Choice _choice)
+    public void DecideChoice(Choice _choice)
     {
         choice = _choice;
     }
 
-    public void SetChallengeAmount(int amount)
+    public void DecideChallenge(int amount)
     {
+        choice = Choice.challenge;
         challengeAmount = amount;
     }
 }

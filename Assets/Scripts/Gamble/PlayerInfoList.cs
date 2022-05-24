@@ -83,7 +83,13 @@ public class PlayerInfoList
     public void SetPlayerChoice(int actorNumber, Choice choice)
     {
         PlayerInfo player = Find(actorNumber);
-        player.SetChoice(choice);
+        player.DecideChoice(choice);
+    }
+
+    public void DecidePlayerChallenge(int actorNumber, int amount)
+    {
+        PlayerInfo player = Find(actorNumber);
+        player.DecideChallenge(amount);
     }
 
     public PlayerInfo GetMine()

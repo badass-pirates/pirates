@@ -114,9 +114,9 @@ public class GamblePlayer : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             GameObject obj = GetMouseTarget();
-            if(obj == medalShare) GambleManager.SetPlayerChoice(Choice.share);
-            else if(obj == medalChallenge) GambleManager.SetPlayerChoice(Choice.challenge);
-            else if(obj == medalAttack) GambleManager.SetPlayerChoice(Choice.attack);
+            if(obj == medalShare) GambleManager.DecideChoice(Choice.share);
+            else if(obj == medalChallenge) GambleManager.DecideChoice(Choice.challenge);
+            else if(obj == medalAttack) GambleManager.DecideChoice(Choice.attack);
             else return;
         }
     }
