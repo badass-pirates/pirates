@@ -17,17 +17,16 @@ public class Medal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         collide = other.gameObject;
-        //Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
         if(other.gameObject == playerZone)
             isCorrectPos = true;
-        else if(other.gameObject == choiceZone)
+        else if (other.gameObject == choiceZone)
         {
             isCorrectPos = true;
             passTime = 0f;
             if(choice == Choice.challenge)
             {
                 ChallengeAmount cAmount = GetComponent<ChallengeAmount>();
-                GambleManager.DecidePlayerChallenge(cAmount.amount);
+                GambleManager.DecidePlayerChallenge((int)cAmount.amount);
                 return;
             }
             GambleManager.DecideChoice(choice);
@@ -40,24 +39,19 @@ public class Medal : MonoBehaviour
             isCorrectPos = false;
     }
 
-    void Awake() 
+    void Awake()
     {
         playerZone = GameObject.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
-        if(!gameObject.GetComponent<PhotonView>().IsMine)
-        { 
-            //Debug.Log("Destroyed:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
-            Destroy(this);
-        }
+        if(!gameObject.GetComponent<PhotonView>().IsMine) Destroy(this);
     }
 
     void Update()
     {
-        if(!isCorrectPos)
+        if (!isCorrectPos)
             passTime += Time.deltaTime;
-        if(passTime >= timeConstraint)
+        if (passTime >= timeConstraint)
         {
-        //Debug.Log("SPAWN:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
             GambleManager.localPlayer.ReSpawnMedals();
             passTime = 0f;
         }

@@ -13,12 +13,15 @@ public class ChallengeAmount : MonoBehaviour
     public Image amountRight;
     public Text amountText;
 
+    float velocity = 1;
 
-    public int amount { get; private set; }
+
+    public float amount { get; private set; }
 
     void Start()
     {
         controller = GameObject.Find("LeftHand Controller").GetComponent<XRController>();
+        amount = GambleManager.GetMinPotCoins();
     }
 
     void Update()
@@ -26,7 +29,7 @@ public class ChallengeAmount : MonoBehaviour
         if (challengeCanvas.activeSelf == true)
         {
             DecideAmount();
-            amountText.text = amount.ToString();
+            amountText.text = ((int)amount).ToString();
         }
     }
 
@@ -34,13 +37,21 @@ public class ChallengeAmount : MonoBehaviour
     {
         if (controller.inputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 position))
         {
-            if (position.x > 0) // thumb stick Right movement
+            velocity *= 1.05f;
+
+            if (position.x > 0 && amount < GambleManager.GetMaxPotCoins()) // thumb stick Right movement
             {
-                amount++;
+                amount += Time.deltaTime * velocity;
             }
-            else if (position.x < 0) // thumb stick Left movement
+            else if (position.x < 0 && (int)amount > GambleManager.GetMinPotCoins()) // thumb stick Left movement
             {
-                amount--;
+                amount -= Time.deltaTime * velocity;
+            }
+            else
+            {
+                velocity = 1;
+                Debug.Log("amount : " + amount + " ceil : " + Mathf.Ceil(amount));
+                Mathf.Ceil(amount);
             }
         }
     }
