@@ -103,12 +103,12 @@ public class GambleManager : MonoBehaviour
     private void OnStandBy()
     {
         localPlayer.SpawnMedals();
+        potmoneySpawner.DestroyPot();
+        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
-        potmoneySpawner.DestroyPot();
         potCoins += GeneratePotCoins();
-        potmoneySpawner.SpawnPot(localPlayer.transform, round);
         NM.SendPotCoinsToOthers(potCoins);
 
         players.Reset();
