@@ -1161,6 +1161,7 @@ MonoBehaviour:
     type: 3}
   playerZone: {fileID: 0}
   choiceZone: {fileID: 0}
+  collide: {fileID: 0}
 --- !u!82 &4148510545106498117
 AudioSource:
   m_ObjectHideFlags: 0
