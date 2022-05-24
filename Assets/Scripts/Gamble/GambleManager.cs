@@ -90,13 +90,13 @@ public class GambleManager : MonoBehaviour
         return Random.Range(GetMinPotCoins(), GetMaxPotCoins());
     }
 
-    private int GetMinPotCoins()
+    public static int GetMinPotCoins()
     {
         int weight = (int)Mathf.Pow(POT_WEIGHT, round - 1);
         return weight * 10;
     }
 
-    private int GetMaxPotCoins()
+    public static int GetMaxPotCoins()
     {
         return GetMinPotCoins() * (round + 1);
     }
