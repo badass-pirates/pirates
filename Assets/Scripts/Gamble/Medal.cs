@@ -41,12 +41,12 @@ public class Medal : MonoBehaviour
     {
         playerZone = localPlayer.transform.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
-        Debug.Log(gameObject.GetComponent<PhotonView>().IsMine);
         if(!gameObject.GetComponent<PhotonView>().IsMine) enabled = false;
     }
 
     void Update()
     {
+        Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice);
         if(!isCorrectPos)
             passTime += Time.deltaTime;
         if(passTime >= timeConstraint)
