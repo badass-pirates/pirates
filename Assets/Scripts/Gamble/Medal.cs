@@ -39,7 +39,7 @@ public class Medal : MonoBehaviour
 
     void Awake() 
     {
-        playerZone = localPlayer.transform.Find("PlayerZone").gameObject;
+        playerZone = GameObject.Find("PlayerZone").gameObject;
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
         if(!gameObject.GetComponent<PhotonView>().IsMine) enabled = false;
     }
