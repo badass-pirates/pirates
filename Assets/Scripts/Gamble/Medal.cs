@@ -22,6 +22,7 @@ public class Medal : MonoBehaviour
             isCorrectPos = true;
         else if(other.gameObject == choiceZone)
         {
+            isCorrectPos = true;
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
             if(choice == Choice.challenge)
@@ -34,7 +35,7 @@ public class Medal : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
-        if(other.gameObject == playerZone)
+        if(other.gameObject == playerZone || other.gameObject == choiceZone)
             isCorrectPos = false;
     }
 
