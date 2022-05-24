@@ -17,6 +17,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     void OnConnectedToServer()
     {
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnConnectedToMaster()

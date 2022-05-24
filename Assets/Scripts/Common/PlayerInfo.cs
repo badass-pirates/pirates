@@ -1,14 +1,23 @@
-[System.Serializable]
+using System;
+using UnityEngine;
+
+[Serializable]
 public class PlayerInfo
 {
-    public bool isLive { get; private set; }
-    public int coins { get; private set; }
-    public Choice choice { get; private set; }
-    public int challengeAmount { get; private set; }
-    public bool canShoot { get; private set; }
-    public int attackChance { get; private set; }
-
-    public int actorNumber { get; private set; }
+    [SerializeField]
+    public bool isLive;
+    [SerializeField]
+    public int coins;
+    [SerializeField]
+    public Choice choice;
+    [SerializeField]
+    public int challengeAmount;
+    [SerializeField]
+    public bool canShoot;
+    [SerializeField]
+    public int attackChance;
+    [SerializeField]
+    public int actorNumber;
 
     public PlayerInfo(int _actorNumber)
     {

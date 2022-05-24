@@ -45,4 +45,10 @@ public class ReadyNetworkManager : NetworkManager
         string networkPlayer = "Network Player";
         return (localPlayer, networkPlayer);
     }
+
+    [PunRPC]
+    protected override void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    {
+        base.RPC_OtherReceiveActorNumbers(_actorNumbers);
+    }
 }

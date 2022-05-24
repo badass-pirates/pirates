@@ -26,6 +26,7 @@ public class ReadyManager : MonoBehaviourPunCallbacks
 
     public void ChangeScene()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         Transform transform = readyItem.transform;
         PhotonNetwork.Destroy(readyItem);
         PhotonNetwork.Instantiate("Ready/SkullExplosion", transform.position, transform.rotation);
