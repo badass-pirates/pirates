@@ -17,7 +17,7 @@ public class Medal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         collide = other.gameObject;
-        Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
+        //Debug.Log(gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
         if(other.gameObject == playerZone)
             isCorrectPos = true;
         else if(other.gameObject == choiceZone)
@@ -45,7 +45,7 @@ public class Medal : MonoBehaviour
         choiceZone = GameObject.Find("ChoiceZone").gameObject;
         if(!gameObject.GetComponent<PhotonView>().IsMine)
         { 
-            Debug.Log("Destroyed:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
+            //Debug.Log("Destroyed:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
             Destroy(this);
         }
     }
@@ -56,7 +56,7 @@ public class Medal : MonoBehaviour
             passTime += Time.deltaTime;
         if(passTime >= timeConstraint)
         {
-        Debug.Log("SPAWN:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
+        //Debug.Log("SPAWN:"+gameObject.GetComponent<PhotonView>().IsMine+","+isCorrectPos + ", "+ choice+","+collide);
             GambleManager.localPlayer.ReSpawnMedals();
             passTime = 0f;
         }

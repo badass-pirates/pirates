@@ -210,6 +210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoundInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 1638418299660438578, guid: adca993c05a717046b2cf4513abd6ec5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1876648227007242454, guid: adca993c05a717046b2cf4513abd6ec5,
         type: 3}
       propertyPath: m_Name
@@ -383,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 4070185636318183203, guid: adca993c05a717046b2cf4513abd6ec5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -604.5758
+      value: -603.5542
       objectReference: {fileID: 0}
     - target: {fileID: 4070185636318183203, guid: adca993c05a717046b2cf4513abd6ec5,
         type: 3}
@@ -399,6 +404,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431150048634845395, guid: adca993c05a717046b2cf4513abd6ec5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4983913822587915465, guid: adca993c05a717046b2cf4513abd6ec5,
         type: 3}
@@ -445,10 +455,20 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.0000019073486
       objectReference: {fileID: 0}
+    - target: {fileID: 5410333889964391730, guid: adca993c05a717046b2cf4513abd6ec5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6823231412836234785, guid: adca993c05a717046b2cf4513abd6ec5,
         type: 3}
       propertyPath: m_Name
       value: ActText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340884596289969600, guid: adca993c05a717046b2cf4513abd6ec5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adca993c05a717046b2cf4513abd6ec5, type: 3}
