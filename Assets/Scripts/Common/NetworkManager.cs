@@ -77,7 +77,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    protected virtual void RPC_OtherReceiveActorNumbers(int[] _actorNumbers)
+    protected virtual void RPC_ReceiveActorNumbers(int[] _actorNumbers)
     {
         actorNumbers = _actorNumbers;
         canSpawn = true;
