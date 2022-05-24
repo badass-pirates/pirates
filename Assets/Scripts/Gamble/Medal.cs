@@ -22,7 +22,6 @@ public class Medal : MonoBehaviour
             isCorrectPos = true;
         else if(other.gameObject == choiceZone)
         {
-            Time.timeScale = 0;
             passTime = 0f;
             GambleManager.SetPlayerChoice(choice);
             if(choice == Choice.challenge)
