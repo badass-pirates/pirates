@@ -113,8 +113,9 @@ MonoBehaviour:
     DefaultPreset: " <sbspreset pkgurl=\"pkg://Coin\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"1181479073\" type=\"8\" value=\"10,10\" />\n</sbspreset>\n"
     CurrentStatePreset: " <sbspreset pkgurl=\"pkg://Coin\" label=\"\" >\n  <presetinput
-      identifier=\"$outputsize\" uid=\"1181479073\" type=\"8\" value=\"10,10\" />\n
-      </sbspreset>\n"
+      identifier=\"$outputsize\" uid=\"1181479073\" type=\"8\" value=\"10,10\" />\n 
+      <presetinput identifier=\"Icons\" uid=\"836146147\" type=\"4\" value=\"3\"
+      />\n </sbspreset>\n"
     IsRuntimeOnly: 0
   RefreshMaterial: 1
   Name: graph_0
@@ -297,7 +298,7 @@ MonoBehaviour:
           Type: 4
           WidgetType: 5
         _Index: 6
-        _Data: 1
+        _Data: 3
         _isVisible: 1
         _GraphID: 0
         _NumericalDescription:
@@ -390,7 +391,7 @@ MonoBehaviour:
           WidgetType: 5
         _Index: 8
         _Data: 1
-        _isVisible: 1
+        _isVisible: 0
         _GraphID: 0
         _NumericalDescription:
           _DefaultValue: 1

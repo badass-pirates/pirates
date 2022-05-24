@@ -18,11 +18,12 @@ public class GamblePlayer : MonoBehaviour
     {
         ShowMedalEffect();
         Transform tr = medalSpawner.transform;
-        medalShare = PhotonNetwork.Instantiate("MedalShare", tr.position, tr.rotation);
+        float biasShare = 0f, biasChallenge = 1f, biasAttack = 2f;
+        medalShare = PhotonNetwork.Instantiate("MedalShare", tr.position + tr.right * biasShare, tr.rotation);
         medalShare.transform.parent = tr;
-        medalChallenge = PhotonNetwork.Instantiate("medalChallenge", tr.position, tr.rotation);
+        medalChallenge = PhotonNetwork.Instantiate("MedalShare", tr.position + tr.right * biasChallenge, tr.rotation);
         medalChallenge.transform.parent = tr;
-        medalAttack = PhotonNetwork.Instantiate("MedalAttack", tr.position, tr.rotation);
+        medalAttack = PhotonNetwork.Instantiate("MedalShare", tr.position + tr.right * biasAttack, tr.rotation);
         medalAttack.transform.parent = tr;
     }
 

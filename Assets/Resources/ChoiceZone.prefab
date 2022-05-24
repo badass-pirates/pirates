@@ -9797,8 +9797,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4920381145193834700}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.395}
+  m_LocalScale: {x: 0.38770103, y: 0.38770103, z: 0.38770103}
   m_Children: []
   m_Father: {fileID: 4919250873290833928}
   m_RootOrder: 2
@@ -9993,7 +9993,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.2901961}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -11141,8 +11141,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.31166828, g: 0.13714845, b: 0.4339623, a: 0.30980393}
-        key1: {r: 0.1792453, g: 0.0042274827, b: 0.17727885, a: 0.6745098}
+        key0: {r: 0.31166828, g: 0.13714845, b: 0.4339623, a: 0.13725491}
+        key1: {r: 0.1792453, g: 0.0042274827, b: 0.17727885, a: 0.46666667}
         key2: {r: 1, g: 0.141, b: 0.13333334, a: 0.8980392}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11158,14 +11158,14 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65150
+        atime1: 65342
         atime2: 65150
         atime3: 0
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
-        m_Mode: 0
+        m_Mode: 1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -24455,8 +24455,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4922068769178182786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.395}
+  m_LocalScale: {x: 0.38770103, y: 0.38770103, z: 0.38770103}
   m_Children: []
   m_Father: {fileID: 4919250873290833928}
   m_RootOrder: 3
