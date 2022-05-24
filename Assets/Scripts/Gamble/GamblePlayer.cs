@@ -12,8 +12,9 @@ public class GamblePlayer : MonoBehaviour
 
     public GameObject coin, chest, coinSpawner, medalSpawner;
     public GameObject playerZone;
-    public GameObject[] medals = new GameObject[3];
-    static string[] medalNames = {"MedalShare", "MedalChallenge", "MedalAttack"};
+    public GameObject disappearEffect, choseEffect;
+    public GameObject[] medalObjects = new GameObject[3];
+    static GameObject[] medals = new GameObject[3];
 
     public void SpawnMedals()
     {
@@ -22,28 +23,27 @@ public class GamblePlayer : MonoBehaviour
         for(int i = 0; i < medals.Length; i++)
         {   
             Vector3 pos = tr.position + transform.right * 0.1f * i;
-            medals[i] = PhotonNetwork.Instantiate(medalNames[i], pos, tr.rotation);
+            medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
             medals[i].transform.parent = tr;
         }
     }
 
     public void DestroyMedals()
     {
-        for(int i = 0; i < medals.Length; i++)
-        {
-            if(medals[i].GetType() ==  typeof(GameObject))
-                PhotonNetwork.Destroy(medals[i]);
-            medals[i] = null;
-        }
+        foreach(var medal in medals)
+            PhotonNetwork.Destroy(medal);
     }
 
     public void DestroyMedalsWithEffect(Choice choice)
     {
         for(int i = 0; i < medals.Length; i++)
         {
-            Debug.Log(i+":"+medals[i]);
-            StartCoroutine(medals[i].GetComponent<Medal>().Destroy(choice));
+            if(choice == medals[i].GetComponent<Medal>().choice) 
+                PhotonNetwork.Instantiate(choseEffect.name, medals[i].transform.position, Quaternion.identity);
+            else
+                PhotonNetwork.Instantiate(disappearEffect.name, medals[i].transform.position, Quaternion.identity);
         }
+        DestroyMedals();
     }
 
     public void ReSpawnMedals()
@@ -59,7 +59,8 @@ public class GamblePlayer : MonoBehaviour
         Transform tr = coinSpawner.transform;
         for (int i = 0; i < count; i++)
         {
-            GameObject obj = PhotonNetwork.Instantiate("Coin", tr.position + new Vector3(0, i, 0), Quaternion.identity);
+            Vector3 pos = tr.position + tr.up * 0.1f * i;
+            GameObject obj = PhotonNetwork.Instantiate(coin.name, pos, Quaternion.identity);
             obj.transform.parent = coinSpawner.transform;
         }
     }
