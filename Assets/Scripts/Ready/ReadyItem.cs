@@ -38,7 +38,7 @@ public class ReadyItem : XRGrabNetworkInteractable
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         base.OnSelectEntered(interactor);
-        rig.useGravity = false;
+        photonView.RPC("SetUseGravity", RpcTarget.All, false);
         leftTime = timer;
     }
 
@@ -46,7 +46,13 @@ public class ReadyItem : XRGrabNetworkInteractable
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
         base.OnSelectExiting(interactor);
-        rig.useGravity = true;
+        photonView.RPC("SetUseGravity", RpcTarget.All, true);
         leftTime = timer;
+    }
+
+    [PunRPC]
+    private void SetUseGravity(bool value)
+    {
+        rig.useGravity = value;
     }
 }

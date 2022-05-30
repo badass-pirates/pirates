@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class XRGrabNetworkInteractable : XRGrabInteractable
 {
-    private PhotonView photonView;
+    protected PhotonView photonView;
 
     // Start is called before the first frame update
     void Start()
