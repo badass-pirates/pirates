@@ -9,6 +9,13 @@ public class XRGrabNetworkInteractable : XRGrabInteractable
     public PhotonView photonView;
     public Rigidbody rig;
 
+    private void Start()
+    {
+        if (photonView.IsMine) return;
+        rig.useGravity = false;
+        enabled = false;
+    }
+
     [System.Obsolete]
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {

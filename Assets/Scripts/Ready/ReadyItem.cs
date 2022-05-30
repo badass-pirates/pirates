@@ -13,7 +13,7 @@ public class ReadyItem : XRGrabNetworkInteractable
     public GameObject skullCanvas;
     public Text countText;
 
-    private float leftTime = 5;
+    private float leftTime = 9999;
 
     void Update()
     {
@@ -31,5 +31,19 @@ public class ReadyItem : XRGrabNetworkInteractable
     public void SetTimer(float _timer)
     {
         timer = _timer;
+    }
+
+    [System.Obsolete]
+    protected override void OnSelectEntered(XRBaseInteractor interactor)
+    {
+        base.OnSelectEntered(interactor);
+        leftTime = timer;
+    }
+
+    [System.Obsolete]
+    protected override void OnSelectExiting(XRBaseInteractor interactor)
+    {
+        base.OnSelectExiting(interactor);
+        leftTime = timer;
     }
 }
