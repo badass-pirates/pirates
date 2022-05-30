@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class ParticleDestroyer : MonoBehaviour
 {
-    private void OnParticleTrigger()
+    private void OnParticleSystemStopped()
     {
         if (this.GetComponent<PhotonView>().IsMine)
             PhotonNetwork.Destroy(gameObject);
