@@ -19,15 +19,13 @@ public class ReadyItem : XRGrabInteractable
 
     void Start()
     {
-        //if (PhotonNetwork.IsMasterClient) return;
-        //enabled = false;
-        photonView = gameObject.GetComponent<PhotonView>();
-
+        if (PhotonNetwork.IsMasterClient) return;
+        enabled = false;
     }
 
     void Update()
     {
-        //if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         if (!isGrabbed) return;
         if (skullCanvas.activeSelf == true) countText.text = ((int)leftTime).ToString();
         if (leftTime < 0)
@@ -46,7 +44,6 @@ public class ReadyItem : XRGrabInteractable
     [System.Obsolete]
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
-        photonView.RequestOwnership();
         base.OnSelectEntered(interactor);
         isGrabbed = true;
         leftTime = timer;

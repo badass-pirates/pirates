@@ -10523,6 +10523,7 @@ GameObject:
   - component: {fileID: 4096423710415322282}
   - component: {fileID: 7037667733375104988}
   - component: {fileID: 4853204357420812090}
+  - component: {fileID: 8621237571723908306}
   m_Layer: 7
   m_Name: Skull
   m_TagString: Untagged
@@ -15453,6 +15454,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 4853204357420812090}
+  - {fileID: 8621237571723908306}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -15631,6 +15633,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 4853204357420812090}
+  - {fileID: 8621237571723908306}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -15650,6 +15653,22 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &8621237571723908306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524126609201465966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &8588931109469995365
 GameObject:
   m_ObjectHideFlags: 0
