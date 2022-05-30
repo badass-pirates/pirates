@@ -10118,7 +10118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5219557981035467860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10538,7 +10538,7 @@ Transform:
   m_GameObject: {fileID: 8524126609201465966}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.63515, y: 0.63515, z: 0.63515}
   m_Children:
   - {fileID: 533953639124823011}
   - {fileID: 5131462272412038016}
@@ -15624,7 +15624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 0
+  m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &8588931109469995365
 GameObject:
