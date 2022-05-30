@@ -7,7 +7,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 
 
-public class ReadyItem : XRGrabInteractable
+public class ReadyItem : XRGrabNetworkInteractable
 {
     public float timer;
     public GameObject skullCanvas;
