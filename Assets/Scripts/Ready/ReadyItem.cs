@@ -13,13 +13,12 @@ public class ReadyItem : XRGrabNetworkInteractable
     public GameObject skullCanvas;
     public Text countText;
 
-    private bool isGrabbed = false;
     private float leftTime = 5;
 
     void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        if (!isGrabbed) return;
+        if (!isSelected) return;
         if (skullCanvas.activeSelf == true) countText.text = ((int)leftTime).ToString();
         if (leftTime < 0)
         {
@@ -38,7 +37,6 @@ public class ReadyItem : XRGrabNetworkInteractable
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         base.OnSelectEntered(interactor);
-        isGrabbed = true;
         leftTime = timer;
     }
 
@@ -46,7 +44,6 @@ public class ReadyItem : XRGrabNetworkInteractable
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
         base.OnSelectExiting(interactor);
-        isGrabbed = false;
         leftTime = timer;
     }
 }

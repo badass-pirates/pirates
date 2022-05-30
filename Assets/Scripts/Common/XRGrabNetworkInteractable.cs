@@ -17,7 +17,7 @@ public class XRGrabNetworkInteractable : XRGrabInteractable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     [System.Obsolete]
