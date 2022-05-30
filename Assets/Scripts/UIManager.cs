@@ -37,8 +37,8 @@ public class UIManager : MonoBehaviour
         gambleInfo.transform.LookAt(GambleManager.localPlayer.transform);
         gambleInfo.transform.Rotate(0, 180, 0);
         round.text = GambleManager.round + "-" + GambleManager.act;
-        leftTime.text = GambleManager.leftTime.ToString();
+        leftTime.text = ((int)GambleManager.leftTime).ToString();
         potRange.text = "["+GambleManager.GetMinPotCoins() + " ~ " + GambleManager.GetMaxPotCoins()+"]";
-        myCoins.text = "Pot : " + GambleManager.potCoins + " My : " + player.coins + "G";
+        myCoins.text = " My : " + player.coins + "G";
     }
 }
