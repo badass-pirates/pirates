@@ -38,7 +38,7 @@ public class GamblePlayer : MonoBehaviour
                 PhotonNetwork.Destroy(medals[i]);
                 medals[i] = null;
             }
-            else Debug.Log("medals"+[i]+" destroy failed");
+            else Debug.Log("medals"+i+" destroy failed");
         }
     }
 
