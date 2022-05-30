@@ -21,7 +21,7 @@ public class GambleManager : MonoBehaviour
     public static GambleNetworkManager NM;
 
 
-    public PotMoneySpawner potmoneySpawner;
+    public PotMoneySpawner potMoneySpawner;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
     public static State state { get; set; } = State.initial;
@@ -34,7 +34,6 @@ public class GambleManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(state);
         switch (state)
         {
             case State.initial:
@@ -103,8 +102,8 @@ public class GambleManager : MonoBehaviour
     private void OnStandBy()
     {
         localPlayer.SpawnMedals();
-        potmoneySpawner.DestroyPot();
-        potmoneySpawner.SpawnPot(localPlayer.transform, round);
+        potMoneySpawner.DestroyPot();
+        potMoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
@@ -135,7 +134,7 @@ public class GambleManager : MonoBehaviour
 
     public static void DecideChoice(Choice choice)
     {
-        localPlayer.DestroyMedals();
+        localPlayer.DestroyMedalsWithEffect(choice);
         if (PhotonNetwork.IsMasterClient)
         {
             players.GetMine().DecideChoice(choice);
@@ -146,7 +145,7 @@ public class GambleManager : MonoBehaviour
 
     public static void DecidePlayerChallenge(int amount)
     {
-        localPlayer.DestroyMedals();
+        localPlayer.DestroyMedalsWithEffect(Choice.challenge);
         if (PhotonNetwork.IsMasterClient)
         {
             players.GetMine().DecideChallenge(amount);
@@ -157,6 +156,8 @@ public class GambleManager : MonoBehaviour
 
     private void OnCheck()
     {
+        localPlayer.DestroyMedals();
+        Debug.Log("NO");
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 

@@ -12,27 +12,59 @@ public class GamblePlayer : MonoBehaviour
 
     public GameObject coin, chest, coinSpawner, medalSpawner;
     public GameObject playerZone;
-    static List<GameObject> medals = new List<GameObject>();
+    public GameObject disappearEffect, choseEffect;
+    public GameObject[] medalObjects = new GameObject[3];
+    static GameObject[] medals = new GameObject[3];
 
     public void SpawnMedals()
     {
+        Debug.Log("Spawn Medals"+PhotonNetwork.LocalPlayer.ActorNumber);
         PlayMedalEffect();
         Transform tr = medalSpawner.transform;
-        medals.Add(PhotonNetwork.Instantiate("MedalShare", tr.position + transform.right * 0, tr.rotation));
-        medals.Add(PhotonNetwork.Instantiate("MedalChallenge", tr.position + transform.right * 0.1f, tr.rotation));
-        medals.Add(PhotonNetwork.Instantiate("MedalAttack", tr.position + transform.right * 0.2f, tr.rotation));
-        medals.ForEach(medal => medal.transform.parent = tr);
+        for(int i = 0; i < medals.Length; i++)
+        {   
+            Vector3 pos = tr.position + transform.right * 0.1f * i;
+            medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
+            medals[i].transform.parent = tr;
+        }
     }
 
     public void DestroyMedals()
     {
-        medals.ForEach(medal => PhotonNetwork.Destroy(medal));
-        medals = new List<GameObject>();
-        Debug.Log(medals.Count);
+        for(int i = 0; i < medals.Length; i++)
+        {   
+            if(medals[i]!=null)
+            {
+                Debug.Log("Destroy "+ medals[i].GetComponent<Medal>().choice);
+                PhotonNetwork.Destroy(medals[i]);
+                medals[i] = null;
+            }
+            else Debug.Log("medals"+i+" destroy failed");
+        }
+    }
+
+    public void DestroyMedalsWithEffect(Choice choice)
+    {
+        Transform tr = null;
+        for(int i = 0; i < medals.Length; i++)
+        {
+            if (medals[i] == null) continue;
+
+            tr = medals[i].transform;
+            if(choice == medals[i].GetComponent<Medal>().choice) 
+                PhotonNetwork.Instantiate(choseEffect.name, tr.position, tr.rotation);
+            else
+                PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
+                
+            Debug.Log("Destroy "+ medals[i].GetComponent<Medal>().choice);
+            PhotonNetwork.Destroy(medals[i]);
+            medals[i] = null;
+        }
     }
 
     public void ReSpawnMedals()
     {
+        Debug.Log("Medal Respawn " + PhotonNetwork.LocalPlayer.ActorNumber);
         PlayPlayerZoneEffect();
         DestroyMedals();
         PlayMedalEffect();
@@ -44,7 +76,8 @@ public class GamblePlayer : MonoBehaviour
         Transform tr = coinSpawner.transform;
         for (int i = 0; i < count; i++)
         {
-            GameObject obj = PhotonNetwork.Instantiate("Coin", tr.position + new Vector3(0, i, 0), Quaternion.identity);
+            Vector3 pos = tr.position + tr.up * 0.1f * i;
+            GameObject obj = PhotonNetwork.Instantiate(coin.name, pos, Quaternion.identity);
             obj.transform.parent = coinSpawner.transform;
         }
     }

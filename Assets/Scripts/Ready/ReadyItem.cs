@@ -7,25 +7,18 @@ using Photon.Pun;
 using UnityEngine.UI;
 
 
-public class ReadyItem : XRGrabInteractable
+public class ReadyItem : XRGrabNetworkInteractable
 {
     public float timer;
     public GameObject skullCanvas;
     public Text countText;
 
-    private bool isGrabbed = false;
-    private float leftTime = 5;
-
-    void Start()
-    {
-        if (PhotonNetwork.IsMasterClient) return;
-        enabled = false;
-    }
+    private float leftTime = 9999;
 
     void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        if (!isGrabbed) return;
+        if (!isSelected) return;
         if (skullCanvas.activeSelf == true) countText.text = ((int)leftTime).ToString();
         if (leftTime < 0)
         {
@@ -44,7 +37,6 @@ public class ReadyItem : XRGrabInteractable
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         base.OnSelectEntered(interactor);
-        isGrabbed = true;
         leftTime = timer;
     }
 
@@ -52,7 +44,6 @@ public class ReadyItem : XRGrabInteractable
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
         base.OnSelectExiting(interactor);
-        isGrabbed = false;
         leftTime = timer;
     }
 }
