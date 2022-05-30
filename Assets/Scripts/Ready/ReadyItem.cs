@@ -7,7 +7,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 
 
-public class ReadyItem : XRGrabInteractable
+public class ReadyItem : XRGrabNetworkInteractable
 {
     public float timer;
     public GameObject skullCanvas;
@@ -15,13 +15,6 @@ public class ReadyItem : XRGrabInteractable
 
     private bool isGrabbed = false;
     private float leftTime = 5;
-    private PhotonView photonView;
-
-    void Start()
-    {
-        if (PhotonNetwork.IsMasterClient) return;
-        enabled = false;
-    }
 
     void Update()
     {
