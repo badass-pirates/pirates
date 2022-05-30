@@ -12,6 +12,7 @@ public class ReadyItem : XRGrabNetworkInteractable
     public float timer;
     public GameObject skullCanvas;
     public Text countText;
+    public Rigidbody rig;
 
     private float leftTime = 5;
 
@@ -37,6 +38,7 @@ public class ReadyItem : XRGrabNetworkInteractable
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         base.OnSelectEntered(interactor);
+        rig.useGravity = false;
         leftTime = timer;
     }
 
@@ -44,6 +46,7 @@ public class ReadyItem : XRGrabNetworkInteractable
     protected override void OnSelectExiting(XRBaseInteractor interactor)
     {
         base.OnSelectExiting(interactor);
+        rig.useGravity = true;
         leftTime = timer;
     }
 }
