@@ -34,11 +34,10 @@ public class GamblePlayer : MonoBehaviour
         for(int i = 0; i < medals.Length; i++)
         {   if(medals[i]!=null)
             {
-                PhotonNetwork.Destroy(medals[i]);
                 Debug.Log("Destroy "+ medals[i].GetComponent<Medal>().choice);
+                PhotonNetwork.Destroy(medals[i]);
+                medals[i] = null;
             }
-            else
-                Debug.Log("Destroy failed "+ medals[i].GetComponent<Medal>().choice);
         }
     }
 
