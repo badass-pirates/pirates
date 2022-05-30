@@ -7,6 +7,7 @@ using Photon.Realtime;
 public abstract class NetworkManager : MonoBehaviourPunCallbacks
 {
     public PhotonView PV;
+    public float distance;
 
     protected GameObject spawnedPlayer;
     protected int[] actorNumbers;
@@ -34,7 +35,7 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
         GameObject empty = new GameObject();
         Transform startPoint = empty.transform;
         startPoint.Rotate(new Vector3(0, 360 / actorNumbers.Length * index, 0)); // �ʿ��� ������ŭ ȸ��
-        startPoint.Translate(new Vector3(0, 0, -3f)); // ���̺� ���̸�ŭ �Ĺ����� �̵�
+        startPoint.Translate(new Vector3(0, 0, distance * -1)); // ���̺� ���̸�ŭ �Ĺ����� �̵�
         return startPoint;
     }
 

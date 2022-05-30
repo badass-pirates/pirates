@@ -773,6 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 1226852556}
+  distance: 3
 --- !u!114 &1226852556
 MonoBehaviour:
   m_ObjectHideFlags: 0
