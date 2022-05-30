@@ -7,7 +7,7 @@ public class Medal : MonoBehaviour
 {
     public Choice choice;
     public GameObject localPlayer;
-    public GameObject disappearEffect, choseEffect;
+    public ParticleSystem disappearEffect, choseEffect;
     GameObject playerZone, choiceZone;
 
     bool isCorrectPos;
@@ -17,7 +17,10 @@ public class Medal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == playerZone)
+        {
             isCorrectPos = true;
+            passTime = 0f;
+        }
         else if (other.gameObject == choiceZone)
         {
             isCorrectPos = true;
@@ -38,16 +41,6 @@ public class Medal : MonoBehaviour
             isCorrectPos = false;
     }
 
-    public IEnumerator Destroy(Choice _choice)
-    {
-        if (choice == _choice)
-            choseEffect.GetComponent<ParticleSystem>().Play();
-        else
-            disappearEffect.GetComponent<ParticleSystem>().Play();
-        yield return new WaitForSeconds(1);
-        PhotonNetwork.Destroy(gameObject);
-    }
-
     void Awake()
     {
         playerZone = GameObject.Find("PlayerZone").gameObject;
@@ -59,6 +52,7 @@ public class Medal : MonoBehaviour
     {
         if (!isCorrectPos)
             passTime += Time.deltaTime;
+            
         if (passTime >= timeConstraint)
         {
             GambleManager.localPlayer.ReSpawnMedals();
