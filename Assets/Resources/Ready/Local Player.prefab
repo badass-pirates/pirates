@@ -38,10 +38,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7767762850942955868}
     m_Modifications:
-    - target: {fileID: 801111585569880834, guid: 4cb90ab5546fedd409bd4253460a748b,
+    - target: {fileID: 801111585122016537, guid: 4cb90ab5546fedd409bd4253460a748b,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 801111585329314443, guid: 4cb90ab5546fedd409bd4253460a748b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 801111585435865143, guid: 4cb90ab5546fedd409bd4253460a748b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 801111585569880837, guid: 4cb90ab5546fedd409bd4253460a748b,
         type: 3}
@@ -173,6 +183,21 @@ PrefabInstance:
       propertyPath: m_InvalidColorGradient.key1.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 801111585862402875, guid: 4cb90ab5546fedd409bd4253460a748b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 801111586025942572, guid: 4cb90ab5546fedd409bd4253460a748b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 801111586425272156, guid: 4cb90ab5546fedd409bd4253460a748b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 801111586756546308, guid: 4cb90ab5546fedd409bd4253460a748b,
         type: 3}
       propertyPath: m_Parameters.widthMultiplier
@@ -237,6 +262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_InvalidColorGradient.key1.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 801111586756546311, guid: 4cb90ab5546fedd409bd4253460a748b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 801111585569880832, guid: 4cb90ab5546fedd409bd4253460a748b, type: 3}
