@@ -1222,7 +1222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c842e6689bf6034fb637178463e70bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   challengeCanvas: {fileID: 6581074525854882070}
   amountLeft: {fileID: 2866956744483673696}
   amountRight: {fileID: 9125100923965423771}
