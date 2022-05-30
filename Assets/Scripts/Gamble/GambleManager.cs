@@ -21,7 +21,7 @@ public class GambleManager : MonoBehaviour
     public static GambleNetworkManager NM;
 
 
-    public potMoneySpawner potMoneySpawner;
+    public PotMoneySpawner potMoneySpawner;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
     public static State state { get; set; } = State.initial;
