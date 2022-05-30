@@ -15610,6 +15610,7 @@ MonoBehaviour:
   timer: 0
   skullCanvas: {fileID: 6019489531624631003}
   countText: {fileID: 5336354695458106865}
+  rig: {fileID: 3776105885926302102}
 --- !u!114 &8621237571723908306
 MonoBehaviour:
   m_ObjectHideFlags: 0
