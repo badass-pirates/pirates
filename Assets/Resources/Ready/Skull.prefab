@@ -10128,7 +10128,7 @@ RectTransform:
   m_GameObject: {fileID: 6019489531624631003}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.03}
-  m_LocalScale: {x: 0.006, y: 0.006, z: 0.006}
+  m_LocalScale: {x: 0.0080196, y: 0.0080196, z: 0.0080196}
   m_Children:
   - {fileID: 8744997842015928520}
   m_Father: {fileID: 2032263156546213567}
@@ -10136,7 +10136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.435}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: 69.2738, y: 55.4207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5698193389517609593
@@ -10521,8 +10521,7 @@ GameObject:
   - component: {fileID: 3900477520576490027}
   - component: {fileID: 3396637534292688889}
   - component: {fileID: 4096423710415322282}
-  - component: {fileID: 7037667733375104988}
-  - component: {fileID: 4853204357420812090}
+  - component: {fileID: 8621237571723908306}
   m_Layer: 7
   m_Name: Skull
   m_TagString: Untagged
@@ -10539,7 +10538,7 @@ Transform:
   m_GameObject: {fileID: 8524126609201465966}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.63515, y: 0.63515, z: 0.63515}
   m_Children:
   - {fileID: 533953639124823011}
   - {fileID: 5131462272412038016}
@@ -15452,7 +15451,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 4853204357420812090}
+  - {fileID: 8621237571723908306}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -15608,10 +15607,12 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  photonView: {fileID: 3900477520576490027}
+  rig: {fileID: 3776105885926302102}
   timer: 0
   skullCanvas: {fileID: 6019489531624631003}
   countText: {fileID: 5336354695458106865}
---- !u!114 &7037667733375104988
+--- !u!114 &8621237571723908306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15620,36 +15621,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8524126609201465966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 4853204357420812090}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &4853204357420812090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8524126609201465966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &8588931109469995365
 GameObject:
   m_ObjectHideFlags: 0

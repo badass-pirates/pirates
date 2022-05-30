@@ -16,7 +16,7 @@ MonoBehaviour:
     AppIdRealtime: e19a204b-c743-45e5-8bb1-446d4032df81
     AppIdFusion: 
     AppIdChat: 
-    AppIdVoice: 
+    AppIdVoice: 4996f195-4106-459b-a694-9a338b0b221a
     AppVersion: 
     UseNameServer: 1
     FixedRegion: 
@@ -48,6 +48,9 @@ MonoBehaviour:
   - RPC_ReceivePlayers
   - RPC_ReceivePotCoins
   - RPC_ReceiveState
+  - CantHearYou
+  - HeresWhy
+  - SetUseGravity
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
