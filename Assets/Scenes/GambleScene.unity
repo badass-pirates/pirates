@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172fa99844843004aa1ad6b29b62d77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potmoneySpawner: {fileID: 1415799459}
+  potMoneySpawner: {fileID: 1415799459}
 --- !u!4 &518420890
 Transform:
   m_ObjectHideFlags: 0
