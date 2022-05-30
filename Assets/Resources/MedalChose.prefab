@@ -9770,6 +9770,7 @@ GameObject:
   - component: {fileID: 2840608050767418538}
   - component: {fileID: -5323877518663089491}
   - component: {fileID: -9148279236585223414}
+  - component: {fileID: -4488934341186517547}
   m_Layer: 0
   m_Name: MedalChose
   m_TagString: Untagged
@@ -14719,3 +14720,15 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-4488934341186517547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6127363499306475012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb9f0acbddf27243af5bbb8ca8ed7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
