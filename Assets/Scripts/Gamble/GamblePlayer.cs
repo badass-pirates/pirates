@@ -18,6 +18,7 @@ public class GamblePlayer : MonoBehaviour
 
     public void SpawnMedals()
     {
+        Debug.Log("Spawn Medals"+PhotonNetwork.localPlayer.ActorNumber);
         PlayMedalEffect();
         Transform tr = medalSpawner.transform;
         for(int i = 0; i < medals.Length; i++)
@@ -31,8 +32,13 @@ public class GamblePlayer : MonoBehaviour
     public void DestroyMedals()
     {
         for(int i = 0; i < medals.Length; i++)
-        {
-            PhotonNetwork.Destroy(medals[i]);
+        {   if(medals[i]!=null)
+            {
+                PhotonNetwork.Destroy(medals[i]);
+                Debug("Destroy "+ medals[i].GetComponent<Medal>().choice);
+            }
+            else
+                Debug("Destroy failed "+ medals[i].GetComponent<Medal>().choice);
         }
     }
 
@@ -47,12 +53,15 @@ public class GamblePlayer : MonoBehaviour
             else
                 PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
                 
+            Debug("Destroy "+ medals[i].GetComponent<Medal>().choice);
             PhotonNetwork.Destroy(medals[i]);
+            medals[i] = null;
         }
     }
 
     public void ReSpawnMedals()
     {
+        Debug.Log("Medal Respawn", PhotonNetwork.localPlayer.ActorNumber);
         PlayPlayerZoneEffect();
         DestroyMedals();
         PlayMedalEffect();
