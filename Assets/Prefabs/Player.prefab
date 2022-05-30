@@ -754,7 +754,6 @@ GameObject:
   - component: {fileID: 801111585569880832}
   - component: {fileID: 801111585569880833}
   - component: {fileID: 801111585569880834}
-  - component: {fileID: 3527071223811921480}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -866,14 +865,6 @@ MonoBehaviour:
   m_Controllers:
   - {fileID: 801111586425272128}
   m_DeadZone: 0.75
---- !u!81 &3527071223811921480
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801111585569880860}
-  m_Enabled: 1
 --- !u!1 &801111585578392690
 GameObject:
   m_ObjectHideFlags: 0
