@@ -12451,11 +12451,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36a0138174d3f048ae2faa0d5b2bbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coin: {fileID: 2683738288439260219, guid: 3849b4dad5d51a6469d76c1e1850a57b, type: 3}
+  coin: {fileID: 2683738288439260219, guid: 4e451a82caa6da845a81d6988bae1744, type: 3}
   chest: {fileID: 3173661757617594067}
   coinSpawner: {fileID: 6004679693169061784}
   medalSpawner: {fileID: 4117838641331684871}
   playerZone: {fileID: 4324484247449965784}
+  disappearEffect: {fileID: 1269658436619853312, guid: d7cc241231df47f4d8e14bc738e616f4,
+    type: 3}
+  choseEffect: {fileID: 6127363499306475012, guid: 22b140c02f42fcf4e96d8b6c158af74f,
+    type: 3}
+  medalObjects:
+  - {fileID: 5874407064814141471, guid: acfc67913ae0c3d4891b78453047c438, type: 3}
+  - {fileID: 7968115104783060007, guid: cbadf3fb04cb15d4fae4566a4e9db1e6, type: 3}
+  - {fileID: 7857068654301646024, guid: 1e40c2279409a6643b6cd9ef501d3199, type: 3}
 --- !u!1 &4824870824642896507
 GameObject:
   m_ObjectHideFlags: 0

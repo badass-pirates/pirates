@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PV: {fileID: 1054482369}
   readyItemSpawnPoint: {fileID: 1473604593}
-  timer: 5
+  timer: 0
 --- !u!114 &1054482369
 MonoBehaviour:
   m_ObjectHideFlags: 0
