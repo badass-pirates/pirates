@@ -6,24 +6,27 @@ using Photon.Pun;
 
 public class XRGrabNetworkInteractable : XRGrabInteractable
 {
-    protected PhotonView photonView;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        photonView = GetComponent<PhotonView>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public PhotonView photonView;
+    public Rigidbody rig;
 
     [System.Obsolete]
     protected override void OnSelectEntered(XRBaseInteractor interactor)
     {
         photonView.RequestOwnership();
+        photonView.RPC("SetUseGravity", RpcTarget.All, false);
         base.OnSelectEntered(interactor);
+    }
+
+    [System.Obsolete]
+    protected override void OnSelectExiting(XRBaseInteractor interactor)
+    {
+        photonView.RPC("SetUseGravity", RpcTarget.All, true);
+        base.OnSelectExiting(interactor);
+    }
+
+    [PunRPC]
+    protected void SetUseGravity(bool value)
+    {
+        rig.useGravity = value;
     }
 }
