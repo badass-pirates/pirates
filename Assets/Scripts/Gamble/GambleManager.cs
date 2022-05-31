@@ -9,7 +9,6 @@ public class GambleManager : MonoBehaviour
     {
         if (instance != null) return;
         instance = this;
-
         NM = FindObjectOfType<GambleNetworkManager>();
         players.Add(PhotonNetwork.LocalPlayer.ActorNumber);
     }
@@ -20,7 +19,7 @@ public class GambleManager : MonoBehaviour
 
     public static GambleNetworkManager NM;
 
-
+    public UIManager UIM;
     public PotMoneySpawner potMoneySpawner;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
@@ -56,6 +55,8 @@ public class GambleManager : MonoBehaviour
                 StartCoroutine(RemoveCoins());
                 break;
             case State.end:
+                UIM.SetEndingTextUI();
+                break;
             case State.loading:
                 break;
         }
@@ -219,7 +220,7 @@ public class GambleManager : MonoBehaviour
         if (challengeWinner != null && challengeWinner.isLive)
         {
             challengeWinner.ChallengeWin();
-            Debug.Log("Winner : "+challengeWinner.actorNumber+" : "+challengeWinner.coins);
+            Debug.Log("Winner : " + challengeWinner.actorNumber + " : " + challengeWinner.coins);
             potCoins -= challengeWinner.challengeAmount;
         }
         players.ShareCoins(potCoins);
@@ -232,7 +233,7 @@ public class GambleManager : MonoBehaviour
     public static void Reward()
     {
         int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
-        Debug.Log("Reward : "+winCoins+"="+players.GetMine().coins+"-"+localPlayer.coinSpawner.transform.childCount+"-"+chestCoins);
+        Debug.Log("Reward : " + winCoins + "=" + players.GetMine().coins + "-" + localPlayer.coinSpawner.transform.childCount + "-" + chestCoins);
         localPlayer.AddCoins(winCoins);
     }
 

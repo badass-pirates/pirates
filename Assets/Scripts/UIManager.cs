@@ -6,6 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public GameObject gambleInfo;
+    public GameObject endingUI;
     TextMeshProUGUI round, leftTime, potRange, myCoins;
 
     // Start is called before the first frame update
@@ -38,7 +39,13 @@ public class UIManager : MonoBehaviour
         gambleInfo.transform.Rotate(0, 180, 0);
         round.text = GambleManager.round + "-" + GambleManager.act;
         leftTime.text = ((int)GambleManager.leftTime).ToString();
-        potRange.text = "["+GambleManager.GetMinPotCoins() + " ~ " + GambleManager.GetMaxPotCoins()+"]";
+        potRange.text = "[" + GambleManager.GetMinPotCoins() + " ~ " + GambleManager.GetMaxPotCoins() + "]";
         myCoins.text = " My : " + player.coins + "G";
+    }
+
+    public void SetEndingTextUI()
+    {
+        endingUI.SetActive(true);
+        endingUI.transform.LookAt(GambleManager.localPlayer.transform);
     }
 }
