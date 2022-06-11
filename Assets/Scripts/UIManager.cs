@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public GameObject gambleInfo;
     public GameObject endingUI;
     TextMeshProUGUI round, leftTime, potRange, myCoins;
+    private Vector3 targetPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
     public void SetEndingTextUI()
     {
         endingUI.SetActive(true);
-        endingUI.transform.LookAt(GambleManager.localPlayer.transform);
+        targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
+        endingUI.transform.LookAt(targetPosition);
     }
 }
