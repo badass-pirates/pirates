@@ -173,9 +173,6 @@ MonoBehaviour:
   RmsValue: 0
   DbValue: 0
   PitchValue: 0
-  startMicOnStartup: 1
-  stopMicrophoneListener: 0
-  startMicrophoneListener: 0
   disableOutputSound: 0
   masterMixer: {fileID: 24100000, guid: 9586cd5d045052b488db8451743b14c4, type: 2}
   component: {fileID: 2093423901}
@@ -464,7 +461,6 @@ GameObject:
   - component: {fileID: 2093423904}
   - component: {fileID: 2093423903}
   - component: {fileID: 2093423902}
-  - component: {fileID: 2093423906}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -548,15 +544,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2093423906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093423901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2af50c01a49c9aa449fb66c97499ddaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
