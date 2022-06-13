@@ -169,13 +169,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 100
   loudness: 0
-  pitch: 0
-  RmsValue: 0
-  DbValue: 0
-  PitchValue: 0
-  disableOutputSound: 0
-  masterMixer: {fileID: 24100000, guid: 9586cd5d045052b488db8451743b14c4, type: 2}
   component: {fileID: 2093423901}
+  scale: 1
+  minumScale: 1
+  maximumScale: 3
+  pivotLoundness: 20
 --- !u!82 &366820800
 AudioSource:
   m_ObjectHideFlags: 0
@@ -350,7 +348,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786201181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

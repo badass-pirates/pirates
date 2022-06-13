@@ -11,6 +11,10 @@ public class MicrophoneListener : MonoBehaviour
     AudioSource _audio;
 
     public GameObject component;
+    public float scale = 1f;
+    public float minumScale = 1f;
+    public float maximumScale = 3f;
+    public float pivotLoundness;
 
     void Start()
     {
@@ -30,7 +34,16 @@ public class MicrophoneListener : MonoBehaviour
 
     void ChangeComponentScale()
     {
-        component.transform.localScale = new Vector3(loudness, loudness, loudness);
+        scale += (loudness > pivotLoundness) ? Time.deltaTime : -Time.deltaTime;
+        if (scale < minumScale)
+        {
+            scale = minumScale;
+        }
+        if (scale > maximumScale)
+        {
+            scale = maximumScale;
+        }
+        component.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     float GetAveragedVolume()
