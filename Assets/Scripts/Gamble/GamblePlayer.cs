@@ -18,11 +18,11 @@ public class GamblePlayer : MonoBehaviour
 
     public void SpawnMedals()
     {
-        Debug.Log("Spawn Medals"+PhotonNetwork.LocalPlayer.ActorNumber);
+        Debug.Log("Spawn Medals" + PhotonNetwork.LocalPlayer.ActorNumber);
         PlayMedalEffect();
         Transform tr = medalSpawner.transform;
-        for(int i = 0; i < medals.Length; i++)
-        {   
+        for (int i = 0; i < medals.Length; i++)
+        {
             Vector3 pos = tr.position + transform.right * 0.1f * i;
             medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
             medals[i].transform.parent = tr;
@@ -31,32 +31,32 @@ public class GamblePlayer : MonoBehaviour
 
     public void DestroyMedals()
     {
-        for(int i = 0; i < medals.Length; i++)
-        {   
-            if(medals[i]!=null)
+        for (int i = 0; i < medals.Length; i++)
+        {
+            if (medals[i] != null)
             {
-                Debug.Log("Destroy "+ medals[i].GetComponent<Medal>().choice);
+                Debug.Log("Destroy " + medals[i].GetComponent<Medal>().choice);
                 PhotonNetwork.Destroy(medals[i]);
                 medals[i] = null;
             }
-            else Debug.Log("medals"+i+" destroy failed");
+            else Debug.Log("medals" + i + " destroy failed");
         }
     }
 
     public void DestroyMedalsWithEffect(Choice choice)
     {
         Transform tr = null;
-        for(int i = 0; i < medals.Length; i++)
+        for (int i = 0; i < medals.Length; i++)
         {
             if (medals[i] == null) continue;
 
             tr = medals[i].transform;
-            if(choice == medals[i].GetComponent<Medal>().choice) 
+            if (choice == medals[i].GetComponent<Medal>().choice)
                 PhotonNetwork.Instantiate(choseEffect.name, tr.position, tr.rotation);
             else
                 PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
-                
-            Debug.Log("Destroy "+ medals[i].GetComponent<Medal>().choice);
+
+            Debug.Log("Destroy " + medals[i].GetComponent<Medal>().choice);
             PhotonNetwork.Destroy(medals[i]);
             medals[i] = null;
         }
@@ -92,7 +92,8 @@ public class GamblePlayer : MonoBehaviour
             GambleManager.chestCoins++;
         }
     }
-    //현재는 y값으로만 처리하도록 되어있음
+
+    // 현재는 y값으로만 처리하도록 되어있음
     public void RemoveCoins(int yConstraint)
     {
         Transform[] coinList = coinSpawner.GetComponentsInChildren<Transform>();

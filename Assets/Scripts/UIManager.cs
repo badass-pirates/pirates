@@ -32,7 +32,6 @@ public class UIManager : MonoBehaviour
     {
         PlayerInfo player = GambleManager.GetMyInfo();
         if (player == null) return;
-
         // timeText.text = ((int)GambleManager.leftTime).ToString();
         // SetText(playerInfoText.transform.Find("ChoiceText").gameObject, player.choice.ToString());
         // SetText(playerInfoText.transform.Find("ChallengeAmountText").gameObject, player.challengeAmount.ToString());
@@ -46,8 +45,13 @@ public class UIManager : MonoBehaviour
 
     public void SetEndingTextUI()
     {
-        endingUI.SetActive(true);
-        targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
-        endingUI.transform.LookAt(targetPosition);
+        if (GambleManager.endUIActive)
+        {
+            endingUI.SetActive(true);
+            targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
+            endingUI.transform.LookAt(targetPosition);
+            endingUI.transform.position = endingUI.transform.position + new Vector3(0, 0, -1);
+            GambleManager.endUIActive = false;
+        }
     }
 }

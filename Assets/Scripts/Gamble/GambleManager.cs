@@ -14,7 +14,7 @@ public class GambleManager : MonoBehaviour
     }
 
     const int MAX_DECIDE_TIME = 60, MAX_ATTACK_TIME = 60;
-    const int MAX_ROUND = 3, MAX_ACT = 5;
+    const int MAX_ROUND = 1, MAX_ACT = 1;
     const int POT_WEIGHT = 1;
 
     public static GambleNetworkManager NM;
@@ -30,6 +30,7 @@ public class GambleManager : MonoBehaviour
     public static int potCoins { get; set; } = 0;
     public static int chestCoins { get; set; }
     public static float leftTime { get; set; }
+    public static bool endUIActive = true;
 
     void Update()
     {
