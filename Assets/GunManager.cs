@@ -24,7 +24,11 @@ public class GunManager : MonoBehaviour
         Vector3 direction = barrel.transform.forward;
         is_Hit = Physics.Raycast(barrel.transform.position, direction, out hit);
         if (is_Hit)
+        {
+            lineRenderer.SetPosition(0, barrel.transform.position);
             lineRenderer.SetPosition(1, hit.point);
+
+        }
     }
 
     public void Shoot()
@@ -32,7 +36,7 @@ public class GunManager : MonoBehaviour
         int actorNumber = -1;
 
         if (!is_Hit) return;
-
+        Debug.Log("Gun Hit "+hit.transform.name);
         //#9 is body layer
         if (hit.transform.gameObject.layer == 9)
         {
