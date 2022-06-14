@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 public class GunManager : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public Transform barrel;
     public GameObject gunFx, bloodFx, dustFx;
     RaycastHit hit;
     bool is_Hit = false;
@@ -21,11 +20,11 @@ public class GunManager : MonoBehaviour
 
     void DrawLine()
     {
-        Vector3 direction = barrel.transform.forward;
-        is_Hit = Physics.Raycast(barrel.transform.position, direction, out hit);
+        Vector3 direction = transform.forward;
+        is_Hit = Physics.Raycast(transform.position, direction, out hit);
         if (is_Hit)
         {
-            lineRenderer.SetPosition(0, barrel.transform.position);
+            lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, hit.point);
 
         }
