@@ -23,7 +23,7 @@ public class GamblePlayer : MonoBehaviour
         Transform tr = medalSpawner.transform;
         for(int i = 0; i < medals.Length; i++)
         {   
-            Vector3 pos = tr.position + transform.right * 0.1f * i;
+            Vector3 pos = tr.position + transform.right * 0.2f * i;
             medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
             medals[i].transform.parent = tr;
         }
