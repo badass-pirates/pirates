@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI round, leftTime, potRange, myCoins;
     private Vector3 targetPosition;
 
-    // Start is called before the first frame update
     void Start()
     {
         round = gambleInfo.transform.Find("RoundText").GetComponent<TextMeshProUGUI>();
@@ -19,7 +18,6 @@ public class UIManager : MonoBehaviour
         myCoins = gambleInfo.transform.Find("MyCoinsText").GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (GambleManager.localPlayer != null) SetTextUI();
@@ -47,6 +45,7 @@ public class UIManager : MonoBehaviour
     {
         if (GambleManager.endUIActive)
         {
+            gambleInfo.SetActive(false);
             endingUI.SetActive(true);
             targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
             endingUI.transform.LookAt(targetPosition);

@@ -256,4 +256,9 @@ public class GambleManager : MonoBehaviour
     {
         return players.GetMine();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
