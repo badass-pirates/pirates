@@ -325,9 +325,9 @@ MonoBehaviour:
   m_Activated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2832096755865385404}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: 
+      - m_Target: {fileID: 6491195036732920920}
+        m_TargetAssemblyTypeName: GunManager, Assembly-CSharp
+        m_MethodName: Shoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -512,7 +512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e3498222b91a94481813f5ab33a516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 0}
-  barrel: {fileID: 0}
-  bloodFx: {fileID: 0}
-  dustFx: {fileID: 0}
+  lineRenderer: {fileID: 9060057385569963622}
+  barrel: {fileID: 2008987936}
+  gunFx: {fileID: 6496565280229916251, guid: 953c45ce3ff776c4585c099717c232b6, type: 3}
+  bloodFx: {fileID: 3215385922827913619, guid: cdf11f72f10be914abc4a0ce334afc92, type: 3}
+  dustFx: {fileID: 5778418202406409231, guid: ee0bf5a86ba83d244983784e9f631084, type: 3}

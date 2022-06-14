@@ -8,20 +8,15 @@ public class GunManager : MonoBehaviour
 {
     public LineRenderer lineRenderer;
     public Transform barrel;
-    public GameObject bloodFx, dustFx;
+    public GameObject gunFx, bloodFx, dustFx;
     RaycastHit hit;
     bool is_Hit = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-
+        DrawLine();
     }
 
     void DrawLine()
@@ -32,11 +27,11 @@ public class GunManager : MonoBehaviour
             lineRenderer.SetPosition(1, hit.point);
     }
 
-    int Shoot()
+    public void Shoot()
     {
         int actorNumber = -1;
 
-        if (!is_Hit) return actorNumber;
+        if (!is_Hit) return;
 
         //#9 is body layer
         if (hit.transform.gameObject.layer == 9)
@@ -45,12 +40,15 @@ public class GunManager : MonoBehaviour
             if (pv == null) actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
             else actorNumber = pv.ViewID / 1000;
         }
-
-        return actorNumber;
+        PlayHitEffect(actorNumber, hit.transform);
     }
 
-    void PlayHitEffect(int actorNumber, Vector3 pos)
+    void PlayHitEffect(int actorNumber, Transform tr)
     {
-        //if (actorNumber == -1)
+        Quaternion rotateValue = Quaternion.Euler(new Vector3(0, 180, 0));
+        if (actorNumber == -1)
+            PhotonNetwork.Instantiate(dustFx.name, tr.position, tr.rotation*rotateValue);
+        else
+            PhotonNetwork.Instantiate(bloodFx.name, tr.position, tr.rotation*rotateValue);
     }
 }
