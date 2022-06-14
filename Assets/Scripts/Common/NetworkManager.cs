@@ -48,7 +48,8 @@ public abstract class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
-        PhotonNetwork.Destroy(spawnedPlayer);
+        if (spawnedPlayer != null)
+            PhotonNetwork.Destroy(spawnedPlayer);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

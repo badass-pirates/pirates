@@ -59,7 +59,7 @@ public class PlayerInfoList
         List<PlayerInfo> winners = challengers.FindAll(player => player.challengeAmount == winnerAmount);
         if (winners.Count != 1) return;
         winner = winners.First();
-        Debug.Log("OnCheck/ ME : "+PhotonNetwork.LocalPlayer.ActorNumber+"| Winner : " + winner.actorNumber + "| Amount : " +winner.challengeAmount+"/"+winnerAmount);
+        Debug.Log("OnCheck/ ME : " + PhotonNetwork.LocalPlayer.ActorNumber + "| Winner : " + winner.actorNumber + "| Amount : " + winner.challengeAmount + "/" + winnerAmount);
     }
 
     public void DecideAttackWinner()
@@ -111,6 +111,23 @@ public class PlayerInfoList
     public PlayerInfo GetAttackWinner()
     {
         return attacker;
+    }
+
+    public List<PlayerInfo> GetRankList()
+    {
+        List<PlayerInfo> rankList = new List<PlayerInfo>(players);
+        rankList.Sort(delegate (PlayerInfo A, PlayerInfo B)
+        {
+            if (A.coins < B.coins) return -1;
+            else if (A.coins > B.coins) return 1;
+            else
+            {
+                if (A.actorNumber < B.actorNumber) return -1;
+                else if (A.actorNumber > B.actorNumber) return 1;
+            }
+            return 0;
+        });
+        return rankList;
     }
 
     public (string, string, string) ToJson()
