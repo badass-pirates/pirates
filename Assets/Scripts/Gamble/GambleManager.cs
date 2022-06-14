@@ -262,10 +262,4 @@ public class GambleManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-    public void MoveToReadyScene()
-    {
-        Destroy(GameObject.Find("Voice Manager"));
-        SceneManager.LoadScene("ReadyScene", LoadSceneMode.Single);
-    }
 }
