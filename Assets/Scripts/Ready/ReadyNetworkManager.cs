@@ -39,7 +39,7 @@ public class ReadyNetworkManager : NetworkManager
         actorNumbers = new int[8] { -1, -1, -1, -1, -1, -1, -1, -1 };
     }
 
-    protected override (string, string) GetResourceName ()
+    protected override (string, string) GetResourceName()
     {
         string localPlayer = "Ready/Local Player";
         string networkPlayer = "Network Player";

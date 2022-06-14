@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class GambleManager : MonoBehaviour
 {
@@ -9,18 +10,17 @@ public class GambleManager : MonoBehaviour
     {
         if (instance != null) return;
         instance = this;
-
         NM = FindObjectOfType<GambleNetworkManager>();
         players.Add(PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
     const int MAX_DECIDE_TIME = 60, MAX_ATTACK_TIME = 60;
-    const int MAX_ROUND = 3, MAX_ACT = 5;
+    const int MAX_ROUND = 1, MAX_ACT = 1;
     const int POT_WEIGHT = 1;
 
     public static GambleNetworkManager NM;
 
-
+    public UIManager UIM;
     public PotMoneySpawner potMoneySpawner;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
@@ -31,6 +31,7 @@ public class GambleManager : MonoBehaviour
     public static int potCoins { get; set; } = 0;
     public static int chestCoins { get; set; }
     public static float leftTime { get; set; }
+    public static bool endUIActive = true;
 
     void Update()
     {
@@ -56,6 +57,8 @@ public class GambleManager : MonoBehaviour
                 StartCoroutine(RemoveCoins());
                 break;
             case State.end:
+                UIM.SetEndingTextUI();
+                break;
             case State.loading:
                 break;
         }
@@ -219,7 +222,7 @@ public class GambleManager : MonoBehaviour
         if (challengeWinner != null && challengeWinner.isLive)
         {
             challengeWinner.ChallengeWin();
-            Debug.Log("Winner : "+challengeWinner.actorNumber+" : "+challengeWinner.coins);
+            Debug.Log("Winner : " + challengeWinner.actorNumber + " : " + challengeWinner.coins);
             potCoins -= challengeWinner.challengeAmount;
         }
         players.ShareCoins(potCoins);
@@ -232,7 +235,7 @@ public class GambleManager : MonoBehaviour
     public static void Reward()
     {
         int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
-        Debug.Log("Reward : "+winCoins+"="+players.GetMine().coins+"-"+localPlayer.coinSpawner.transform.childCount+"-"+chestCoins);
+        Debug.Log("Reward : " + winCoins + "=" + players.GetMine().coins + "-" + localPlayer.coinSpawner.transform.childCount + "-" + chestCoins);
         localPlayer.AddCoins(winCoins);
     }
 
@@ -253,5 +256,10 @@ public class GambleManager : MonoBehaviour
     public static PlayerInfo GetMyInfo()
     {
         return players.GetMine();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
