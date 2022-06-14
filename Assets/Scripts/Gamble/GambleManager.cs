@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
-using static Utils;
+using UnityEngine.SceneManagement;
 
 public class GambleManager : MonoBehaviour
 {
@@ -265,6 +265,7 @@ public class GambleManager : MonoBehaviour
 
     public void MoveToReadyScene()
     {
-        StartCoroutine(U.ChangeScene("ReadyScene", 1));
+        Destroy(GameObject.Find("Voice Manager"));
+        SceneManager.LoadScene("ReadyScene", LoadSceneMode.Single);
     }
 }
