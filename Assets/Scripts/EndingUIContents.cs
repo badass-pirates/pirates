@@ -16,7 +16,7 @@ public class EndingUIContents : MonoBehaviour
 
     private void init()
     {
-        foreach (PlayerInfo player in GambleManager.players.GetList())
+        foreach (PlayerInfo player in GambleManager.players.GetRankList())
         {
             if (GambleManager.GetMyInfo().name == player.name)
             {

@@ -113,9 +113,21 @@ public class PlayerInfoList
         return attacker;
     }
 
-    public List<PlayerInfo> GetList()
+    public List<PlayerInfo> GetRankList()
     {
-        return new List<PlayerInfo>(players);
+        List<PlayerInfo> rankList = new List<PlayerInfo>(players);
+        rankList.Sort(delegate (PlayerInfo A, PlayerInfo B)
+        {
+            if (A.coins < B.coins) return -1;
+            else if (A.coins > B.coins) return 1;
+            else
+            {
+                if (A.actorNumber < B.actorNumber) return -1;
+                else if (A.actorNumber > B.actorNumber) return 1;
+            }
+            return 0;
+        });
+        return rankList;
     }
 
     public (string, string, string) ToJson()
