@@ -28,7 +28,6 @@ public class MicrophoneListener : MonoBehaviour
     void Update()
     {
         loudness = GetAveragedVolume() * sensitivity;
-        Debug.Log(loudness);
         ChangeComponentScale();
     }
 
