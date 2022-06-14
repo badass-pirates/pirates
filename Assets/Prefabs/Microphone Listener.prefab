@@ -50,7 +50,7 @@ MonoBehaviour:
   scale: 1
   minumScale: 1
   maximumScale: 3
-  pivotLoundness: 20
+  pivotLoundness: 5
 --- !u!82 &8468805701508463325
 AudioSource:
   m_ObjectHideFlags: 0
