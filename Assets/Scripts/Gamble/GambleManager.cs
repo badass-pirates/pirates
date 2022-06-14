@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
+using static Utils;
 
 public class GambleManager : MonoBehaviour
 {
@@ -260,5 +261,10 @@ public class GambleManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void MoveToReadyScene()
+    {
+        StartCoroutine(U.ChangeScene("ReadyScene", 1));
     }
 }
