@@ -24,7 +24,7 @@ public class VRNetworkPlayerRig : MonoBehaviourPunCallbacks
         {
             headBodyOffset = transform.position - headConstraint.position;
             head.vrTarget = GameObject.Find("Player").transform.Find("Camera Offset/Main Camera");
-            vrHeadModel = GameObject.Find("Player").transform.Find("Camera Offset/Model/Hips/Spine_01/Spine_02/Spine_03/Neck/Head");
+            vrHeadModel = GameObject.Find("Player").transform.Find("Camera Offset/Model/Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head");
         }
     }
 
