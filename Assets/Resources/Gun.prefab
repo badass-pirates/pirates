@@ -40,9 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2008987936}
   - component: {fileID: 9060057385569963622}
-  - component: {fileID: 8411501194496610647}
   - component: {fileID: 7222285328863287977}
-  - component: {fileID: 6231776021253527793}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -162,22 +160,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &8411501194496610647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008987935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e3498222b91a94481813f5ab33a516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 9060057385569963622}
-  gunFx: {fileID: 6496565280229916251, guid: 953c45ce3ff776c4585c099717c232b6, type: 3}
-  bloodFx: {fileID: 3215385922827913619, guid: cdf11f72f10be914abc4a0ce334afc92, type: 3}
-  dustFx: {fileID: 5778418202406409231, guid: ee0bf5a86ba83d244983784e9f631084, type: 3}
 --- !u!54 &7222285328863287977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -194,22 +176,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6231776021253527793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008987935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2832096755865385404
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +192,7 @@ GameObject:
   - component: {fileID: 4890162591919689295}
   - component: {fileID: 1823758407}
   - component: {fileID: 8987495763738058006}
+  - component: {fileID: 274304561432031962}
   m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
@@ -376,7 +343,7 @@ MonoBehaviour:
   m_Activated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8411501194496610647}
+      - m_Target: {fileID: 274304561432031962}
         m_TargetAssemblyTypeName: GunManager, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 1
@@ -570,7 +537,24 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 6231776021253527793}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &274304561432031962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2832096755865385404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e3498222b91a94481813f5ab33a516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 9060057385569963622}
+  barrel: {fileID: 2008987936}
+  gunFx: {fileID: 6496565280229916251, guid: 953c45ce3ff776c4585c099717c232b6, type: 3}
+  bloodFx: {fileID: 3215385922827913619, guid: cdf11f72f10be914abc4a0ce334afc92, type: 3}
+  dustFx: {fileID: 5778418202406409231, guid: ee0bf5a86ba83d244983784e9f631084, type: 3}
