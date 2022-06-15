@@ -105,13 +105,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5389759300989674460}
   - component: {fileID: 7157781496392247321}
+  - component: {fileID: 4906685456495408345}
   m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5389759300989674460
 Transform:
   m_ObjectHideFlags: 0
@@ -224,6 +225,24 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &4906685456495408345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389759300989674467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e3498222b91a94481813f5ab33a516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 7157781496392247321}
+  barrel: {fileID: 5389759300989674460}
+  gunFx: {fileID: 3723485633011437978, guid: e091ed2757a9b2f40ac806d6b18d1e91, type: 3}
+  bloodFx: {fileID: 3215385922827913619, guid: cdf11f72f10be914abc4a0ce334afc92, type: 3}
+  dustFx: {fileID: 5778418202406409231, guid: ee0bf5a86ba83d244983784e9f631084, type: 3}
+  target: {fileID: 2560788616657775486}
 --- !u!1 &5389759302119019204
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,8 +286,6 @@ GameObject:
   - component: {fileID: 7890840333358186004}
   - component: {fileID: 7882810486466525226}
   - component: {fileID: 5813280688139975550}
-  - component: {fileID: 5389759300905337531}
-  - component: {fileID: 5600527242729918851}
   - component: {fileID: 5822909097289126080}
   m_Layer: 7
   m_Name: Gun
@@ -373,121 +390,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &5389759300905337531
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7890840333355983680}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &5600527242729918851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7890840333355983680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e3498222b91a94481813f5ab33a516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 7157781496392247321}
-  barrel: {fileID: 5389759300989674460}
-  gunFx: {fileID: 3723485633011437978, guid: e091ed2757a9b2f40ac806d6b18d1e91, type: 3}
-  bloodFx: {fileID: 3215385922827913619, guid: cdf11f72f10be914abc4a0ce334afc92, type: 3}
-  dustFx: {fileID: 5778418202406409231, guid: ee0bf5a86ba83d244983784e9f631084, type: 3}
-  target: {fileID: 2560788616657775486}
-  is_grabbed: 0
 --- !u!114 &5822909097289126080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,7 +462,7 @@ MonoBehaviour:
   m_Activated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5600527242729918851}
+      - m_Target: {fileID: 4906685456495408345}
         m_TargetAssemblyTypeName: GunManager, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 1

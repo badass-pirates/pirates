@@ -29,8 +29,8 @@ public class GunManager : MonoBehaviour
         {
             lineRenderer.SetPosition(0, barrel.transform.position);
             lineRenderer.SetPosition(1, hit.point);
-            if(hit.transform == transform) {is_Hit = false; return;}
             target.transform.position = hit.point;
+            if(hit.transform == transform) {is_Hit = false; return;}
         }
     }
 
