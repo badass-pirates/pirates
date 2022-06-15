@@ -7,12 +7,11 @@ using UnityEngine.EventSystems;
 public class GunManager : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public Transform barrel;
     public GameObject gunFx, bloodFx, dustFx;
     
-    public GameObject target;
+    public GameObject barrel, target;
     RaycastHit hit;
-    bool is_Hit = false;
+    bool isHit = false, isGrab = false;
 
 
     // Update is called once per frame
@@ -21,27 +20,34 @@ public class GunManager : MonoBehaviour
         DrawLine();
     }
 
+    public void CheckGrab(bool isGrab)
+    {
+        this.isGrab = isGrab;
+        barrel.SetActive(isGrab);
+    }
+
     void DrawLine()
     {
         Vector3 direction = barrel.transform.forward;
-        is_Hit = Physics.Raycast(barrel.transform.position, direction, out hit);
-        if (is_Hit)
+        isHit = Physics.Raycast(barrel.transform.position, direction, out hit);
+        if (isHit)
         {
             lineRenderer.SetPosition(0, barrel.transform.position);
             lineRenderer.SetPosition(1, hit.point);
             target.transform.position = hit.point;
-            if(hit.transform == transform) {is_Hit = false; return;}
+            if(hit.transform == transform) {isHit = false; return;}
         }
     }
 
     public void Shoot()
     {
         int actorNumber = -1;
+        if(!isGrab) return;
+
         DrawLine();
         PhotonNetwork.Instantiate(gunFx.name, barrel.transform.position, barrel.transform.rotation);
 
-
-        if (!is_Hit) return;
+        if (!isHit) return;
         //#9 is body layer
         if (hit.transform.gameObject.layer == 9)
         {
