@@ -27,7 +27,6 @@ public class GunManager : MonoBehaviour
         is_Hit = Physics.Raycast(barrel.transform.position, direction, out hit);
         if (is_Hit)
         {
-            Debug.Log("Gun Hit "+hit.transform.name);
             lineRenderer.SetPosition(0, barrel.transform.position);
             lineRenderer.SetPosition(1, hit.point);
             if(hit.transform == transform) {is_Hit = false; return;}
@@ -51,6 +50,8 @@ public class GunManager : MonoBehaviour
             else actorNumber = pv.ViewID / 1000;
         }
         PlayHitEffect(actorNumber, target.transform);
+        Debug.Log("Gun Hit "+hit.transform.name+" #"+actorNumber);
+        
     }
 
     void PlayHitEffect(int actorNumber, Transform tr)
