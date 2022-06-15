@@ -9,6 +9,8 @@ public class GunManager : MonoBehaviour
     public LineRenderer lineRenderer;
     public Transform barrel;
     public GameObject gunFx, bloodFx, dustFx;
+    
+    public GameObject target;
     RaycastHit hit;
     bool is_Hit = false;
 
@@ -25,9 +27,11 @@ public class GunManager : MonoBehaviour
         is_Hit = Physics.Raycast(barrel.transform.position, direction, out hit);
         if (is_Hit)
         {
+            Debug.Log("Gun Hit "+hit.transform.name);
             lineRenderer.SetPosition(0, barrel.transform.position);
             lineRenderer.SetPosition(1, hit.point);
-
+            if(hit.transform == transform) {is_Hit = false; return;}
+            target.transform.position = hit.point;
         }
     }
 
@@ -35,9 +39,10 @@ public class GunManager : MonoBehaviour
     {
         int actorNumber = -1;
         DrawLine();
-        
+        PhotonNetwork.Instantiate(gunFx.name, barrel.transform.position, barrel.transform.rotation);
+
+
         if (!is_Hit) return;
-        Debug.Log("Gun Hit "+hit.transform.name);
         //#9 is body layer
         if (hit.transform.gameObject.layer == 9)
         {
@@ -45,15 +50,14 @@ public class GunManager : MonoBehaviour
             if (pv == null) actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
             else actorNumber = pv.ViewID / 1000;
         }
-        PlayHitEffect(actorNumber, hit.transform);
+        PlayHitEffect(actorNumber, target.transform);
     }
 
     void PlayHitEffect(int actorNumber, Transform tr)
     {
-        Quaternion rotateValue = Quaternion.Euler(new Vector3(0, 180, 0));
         if (actorNumber == -1)
-            PhotonNetwork.Instantiate(dustFx.name, tr.position, tr.rotation*rotateValue);
+            PhotonNetwork.Instantiate(dustFx.name, tr.position, tr.rotation);
         else
-            PhotonNetwork.Instantiate(bloodFx.name, tr.position, tr.rotation*rotateValue);
+            PhotonNetwork.Instantiate(bloodFx.name, tr.position, tr.rotation);
     }
 }
