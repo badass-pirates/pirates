@@ -20,9 +20,9 @@ public class GamblePlayer : MonoBehaviour
     {
         PlayMedalEffect();
         Transform tr = medalSpawner.transform;
-        for(int i = 0; i < medals.Length; i++)
-        {   
-            Vector3 pos = tr.position + transform.right * 0.1f * i;
+        for (int i = 0; i < medals.Length; i++)
+        {
+            Vector3 pos = tr.position + transform.right * 0.2f * i;
             medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
             medals[i].transform.parent = tr;
         }
@@ -32,27 +32,25 @@ public class GamblePlayer : MonoBehaviour
     {
         for(int i = 0; i < medals.Length; i++)
         {   
-            if(medals[i] != null)
-            {
-                PhotonNetwork.Destroy(medals[i]);
-                medals[i] = null;
-            }
+            if(medals[i] == null) continue;
+            PhotonNetwork.Destroy(medals[i]);
+            medals[i] = null;
         }
     }
 
     public void DestroyMedalsWithEffect(Choice choice)
     {
         Transform tr = null;
-        for(int i = 0; i < medals.Length; i++)
+        for (int i = 0; i < medals.Length; i++)
         {
             if (medals[i] == null) continue;
 
             tr = medals[i].transform;
-            if(choice == medals[i].GetComponent<Medal>().choice) 
+            if (choice == medals[i].GetComponent<Medal>().choice)
                 PhotonNetwork.Instantiate(choseEffect.name, tr.position, tr.rotation);
             else
                 PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
-                
+
             PhotonNetwork.Destroy(medals[i]);
             medals[i] = null;
         }
@@ -87,7 +85,8 @@ public class GamblePlayer : MonoBehaviour
             GambleManager.chestCoins++;
         }
     }
-    //현재는 y값으로만 처리하도록 되어있음
+
+    // 현재는 y값으로만 처리하도록 되어있음
     public void RemoveCoins(int yConstraint)
     {
         Transform[] coinList = coinSpawner.GetComponentsInChildren<Transform>();
