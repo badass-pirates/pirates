@@ -171,16 +171,20 @@ public class GambleManager : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
 
         players.DecideChallengeWinner(potCoins);
+
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
         {
             attacker.SuccessChoiceAttack();
+            localPlayer.LogOnBoard($"{attacker.name} success to choice attack!");
             NM.SendPlayersToOthers(players);
             NM.SetTimerToAll(MAX_ATTACK_TIME);
             NM.SetStateToAll(State.attack);
             return;
         }
+        players.GetAttackersName()
+            .ForEach(name => localPlayer.LogOnBoard($"{name} fail to choice attack!"));
         NM.SendPlayersToOthers(players);
         NM.SetStateToAll(State.apply);
     }
