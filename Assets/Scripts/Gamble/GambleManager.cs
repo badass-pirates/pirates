@@ -15,7 +15,7 @@ public class GambleManager : MonoBehaviour
     }
 
     const int MAX_DECIDE_TIME = 60, MAX_ATTACK_TIME = 60;
-    const int MAX_ROUND = 1, MAX_ACT = 1;
+    const int MAX_ROUND = 2, MAX_ACT = 3;
     const int POT_WEIGHT = 1;
 
     public static GambleNetworkManager NM;
@@ -123,7 +123,7 @@ public class GambleManager : MonoBehaviour
         {
             localPlayer.LogOnBoard($"Round {round} start!");
         }
-        localPlayer.LogOnBoard($"Act {act}---");
+        localPlayer.LogOnBoard($"Act {act}");
     }
 
     private void OnDecide()
@@ -261,7 +261,6 @@ public class GambleManager : MonoBehaviour
 
     public static void NextAct()
     {
-        localPlayer.LogOnBoard("----------------------");
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
