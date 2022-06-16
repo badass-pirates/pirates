@@ -105,6 +105,7 @@ public class GambleManager : MonoBehaviour
     private void OnStandBy()
     {
         localPlayer.SpawnMedals();
+        localPlayer.SpawnLogBoard();
         potMoneySpawner.DestroyPot();
         potMoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
@@ -118,6 +119,12 @@ public class GambleManager : MonoBehaviour
 
         NM.SetTimerToAll(MAX_DECIDE_TIME);
         NM.SetStateToAll(State.decide);
+
+        if (act == 1)
+        {
+            localPlayer.LogOnBoard($"Round {round} start!");
+        }
+        localPlayer.LogOnBoard($"Act {act}---");
     }
 
     private void OnDecide()

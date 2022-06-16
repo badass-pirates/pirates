@@ -16,10 +16,13 @@ public class GamblePlayer : MonoBehaviour
     public GameObject[] medalObjects = new GameObject[3];
     static GameObject[] medals = new GameObject[3];
     public GameObject logBoard;
+    private LogBoardContents logBoardContents;
+
+    private bool isBoradSpawned = false;
 
     public void SpawnMedals()
     {
-        PlayMedalEffect();
+        PlayMedalSpawnEffect();
         Transform tr = medalSpawner.transform;
         for (int i = 0; i < medals.Length; i++)
         {
@@ -31,9 +34,9 @@ public class GamblePlayer : MonoBehaviour
 
     public void DestroyMedals()
     {
-        for(int i = 0; i < medals.Length; i++)
-        {   
-            if(medals[i] == null) continue;
+        for (int i = 0; i < medals.Length; i++)
+        {
+            if (medals[i] == null) continue;
             PhotonNetwork.Destroy(medals[i]);
             medals[i] = null;
         }
@@ -61,7 +64,7 @@ public class GamblePlayer : MonoBehaviour
     {
         PlayPlayerZoneEffect();
         DestroyMedals();
-        PlayMedalEffect();
+        PlayMedalSpawnEffect();
         SpawnMedals();
     }
 
@@ -106,7 +109,7 @@ public class GamblePlayer : MonoBehaviour
         foreach (var p in particles) p.Play();
     }
 
-    public void PlayMedalEffect()
+    public void PlayMedalSpawnEffect()
     {
         var particles = medalSpawner.transform.GetComponentInChildren<ParticleSystem>();
         var fx = medalSpawner.transform.GetComponentInChildren<AudioSource>();
@@ -116,27 +119,19 @@ public class GamblePlayer : MonoBehaviour
 
     public void SpawnLogBoard()
     {
-        PlayLogBoardEffect();
-        Transform tr = logBoard.transform;
+        if (isBoradSpawned) return;
+        PlayLogBoardSpawnEffect();
         logBoard = PhotonNetwork.Instantiate(logBoard.name, logBoardSpawner.transform.position, Quaternion.identity);
-        logBoard.transform.parent = tr;
+        logBoardContents = logBoard.transform.GetComponentInChildren<LogBoardContents>();
+        isBoradSpawned = true;
     }
 
-    public void DestroyLogBoard()
+    public void LogOnBoard(string message)
     {
-        for (int i = 0; i < medals.Length; i++)
-        {
-            if (medals[i] != null)
-            {
-                Debug.Log("Destroy " + medals[i].GetComponent<Medal>().choice);
-                PhotonNetwork.Destroy(medals[i]);
-                medals[i] = null;
-            }
-            else Debug.Log("medals" + i + " destroy failed");
-        }
+        logBoardContents.LogMessage(message);
     }
 
-    public void PlayLogBoardEffect()
+    public void PlayLogBoardSpawnEffect()
     {
         var particles = logBoardSpawner.transform.GetComponentInChildren<ParticleSystem>();
         var fx = logBoardSpawner.transform.GetComponentInChildren<AudioSource>();
