@@ -31,7 +31,6 @@ public class GambleManager : MonoBehaviour
     public static int potCoins { get; set; } = 0;
     public static int chestCoins { get; set; }
     public static float leftTime { get; set; }
-    public static bool endUIActive = true;
 
     void Update()
     {
@@ -57,7 +56,7 @@ public class GambleManager : MonoBehaviour
                 StartCoroutine(RemoveCoins());
                 break;
             case State.end:
-                UIM.SetEndingTextUI();
+                OnEnd();
                 break;
             case State.loading:
                 break;
@@ -266,6 +265,13 @@ public class GambleManager : MonoBehaviour
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
+    }
+
+    private void OnEnd()
+    {
+        state = State.loading;
+        localPlayer.LogOnBoard("The End!");
+        UIM.SetEndingTextUI();
     }
 
     public static void SetLocalPlayer(GamblePlayer player)

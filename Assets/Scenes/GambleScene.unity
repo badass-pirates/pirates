@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gambleInfo: {fileID: 1176418721}
-  endingUI: {fileID: 0}
+  endingUI: {fileID: 5589732069579133359}
 --- !u!82 &518420892
 AudioSource:
   m_ObjectHideFlags: 0
