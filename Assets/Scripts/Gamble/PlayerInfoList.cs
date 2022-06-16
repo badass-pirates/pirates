@@ -62,6 +62,13 @@ public class PlayerInfoList
         winner = winners.First();
     }
 
+    public List<string> GetChallengersName()
+    {
+        return players.FindAll(player => player.IsChallenge())
+            .Select(player => player.name)
+            .ToList<string>();
+    }
+
     public void DecideAttackWinner()
     {
         attacker = null;

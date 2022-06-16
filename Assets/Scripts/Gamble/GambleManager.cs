@@ -171,6 +171,13 @@ public class GambleManager : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
 
         players.DecideChallengeWinner(potCoins);
+        PlayerInfo challengeWinner = players.GetChallengeWinner();
+        if (challengeWinner != null)
+        {
+            localPlayer.LogOnBoard($"{challengeWinner.name} success to choice attack!");
+        }
+        players.GetChallengersName()
+            .ForEach(name => localPlayer.LogOnBoard($"{name} fail to choice challenge!"));
 
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
