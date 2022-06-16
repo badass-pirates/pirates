@@ -160,7 +160,6 @@ public class GambleManager : MonoBehaviour
     private void OnCheck()
     {
         localPlayer.DestroyMedals();
-        Debug.Log("NO");
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
@@ -222,7 +221,6 @@ public class GambleManager : MonoBehaviour
         if (challengeWinner != null && challengeWinner.isLive)
         {
             challengeWinner.ChallengeWin();
-            Debug.Log("Winner : " + challengeWinner.actorNumber + " : " + challengeWinner.coins);
             potCoins -= challengeWinner.challengeAmount;
         }
         players.ShareCoins(potCoins);
@@ -235,7 +233,6 @@ public class GambleManager : MonoBehaviour
     public static void Reward()
     {
         int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
-        Debug.Log("Reward : " + winCoins + "=" + players.GetMine().coins + "-" + localPlayer.coinSpawner.transform.childCount + "-" + chestCoins);
         localPlayer.AddCoins(winCoins);
     }
 
