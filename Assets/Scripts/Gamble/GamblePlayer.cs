@@ -10,11 +10,12 @@ public class GamblePlayer : MonoBehaviour
         GambleManager.SetLocalPlayer(this);
     }
 
-    public GameObject coin, chest, coinSpawner, medalSpawner;
+    public GameObject coin, chest, coinSpawner, medalSpawner, logBoardSpawner;
     public GameObject playerZone;
     public GameObject disappearEffect, choseEffect;
     public GameObject[] medalObjects = new GameObject[3];
     static GameObject[] medals = new GameObject[3];
+    public GameObject logBoard;
 
     public void SpawnMedals()
     {
@@ -116,6 +117,36 @@ public class GamblePlayer : MonoBehaviour
     {
         var particles = medalSpawner.transform.GetComponentInChildren<ParticleSystem>();
         var fx = medalSpawner.transform.GetComponentInChildren<AudioSource>();
+        particles.Play();
+        fx.Play();
+    }
+
+    public void SpawnLogBoard()
+    {
+        PlayLogBoardEffect();
+        Transform tr = logBoard.transform;
+        logBoard = PhotonNetwork.Instantiate(logBoard.name, logBoardSpawner.transform.position, Quaternion.identity);
+        logBoard.transform.parent = tr;
+    }
+
+    public void DestroyLogBoard()
+    {
+        for (int i = 0; i < medals.Length; i++)
+        {
+            if (medals[i] != null)
+            {
+                Debug.Log("Destroy " + medals[i].GetComponent<Medal>().choice);
+                PhotonNetwork.Destroy(medals[i]);
+                medals[i] = null;
+            }
+            else Debug.Log("medals" + i + " destroy failed");
+        }
+    }
+
+    public void PlayLogBoardEffect()
+    {
+        var particles = logBoardSpawner.transform.GetComponentInChildren<ParticleSystem>();
+        var fx = logBoardSpawner.transform.GetComponentInChildren<AudioSource>();
         particles.Play();
         fx.Play();
     }
