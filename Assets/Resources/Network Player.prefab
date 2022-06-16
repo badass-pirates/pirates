@@ -324,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
+  m_SynchronizeScale: 0
   m_UseLocal: 1
 --- !u!114 &4825894055761676234
 MonoBehaviour:
@@ -1106,6 +1106,7 @@ MonoBehaviour:
   - {fileID: 518643639469511921}
   - {fileID: 8584855855045412244}
   - {fileID: 4253361962154452215}
+  - {fileID: 8568258190581596079}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
