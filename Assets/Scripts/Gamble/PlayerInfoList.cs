@@ -58,8 +58,15 @@ public class PlayerInfoList
         int winnerAmount = challengers.Max(player => player.challengeAmount);
         List<PlayerInfo> winners = challengers.FindAll(player => player.challengeAmount == winnerAmount);
         if (winners.Count != 1) return;
+
         winner = winners.First();
-        Debug.Log("OnCheck/ ME : " + PhotonNetwork.LocalPlayer.ActorNumber + "| Winner : " + winner.actorNumber + "| Amount : " + winner.challengeAmount + "/" + winnerAmount);
+    }
+
+    public List<string> GetChallengersName()
+    {
+        return players.FindAll(player => player.IsChallenge())
+            .Select(player => player.name)
+            .ToList<string>();
     }
 
     public void DecideAttackWinner()
@@ -69,6 +76,13 @@ public class PlayerInfoList
         if (attackers.Count != 1) return;
 
         attacker = attackers.First();
+    }
+
+    public List<string> GetAttackersName()
+    {
+        return players.FindAll(player => player.IsAttack())
+            .Select(player => player.name)
+            .ToList<string>();
     }
 
     public void ShareCoins(int potCoins)

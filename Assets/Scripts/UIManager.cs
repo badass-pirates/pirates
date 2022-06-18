@@ -43,14 +43,10 @@ public class UIManager : MonoBehaviour
 
     public void SetEndingTextUI()
     {
-        if (GambleManager.endUIActive)
-        {
-            gambleInfo.SetActive(false);
-            endingUI.SetActive(true);
-            targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
-            endingUI.transform.LookAt(targetPosition);
-            endingUI.transform.position = endingUI.transform.position + new Vector3(0, 0, -1);
-            GambleManager.endUIActive = false;
-        }
+        gambleInfo.SetActive(false);
+        endingUI.SetActive(true);
+        targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
+        endingUI.transform.LookAt(targetPosition);
+        endingUI.transform.position = endingUI.transform.position + new Vector3(0, 0, -1);
     }
 }
