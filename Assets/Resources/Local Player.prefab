@@ -11543,7 +11543,7 @@ Transform:
   m_Children:
   - {fileID: 5768595074043635607}
   m_Father: {fileID: 6568297569548642900}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -13.862, z: 0}
 --- !u!33 &3459699075280120726
 MeshFilter:
@@ -12216,7 +12216,7 @@ Transform:
   m_Children:
   - {fileID: 2225008202263079580}
   m_Father: {fileID: 6568297569548642900}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4167215348264275190
 GameObject:
@@ -12248,6 +12248,36 @@ Transform:
   m_Father: {fileID: 2756241593700562159}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: 90, z: 90}
+--- !u!1 &4186275987449715955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8301559747829470423}
+  m_Layer: 0
+  m_Name: GunSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8301559747829470423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186275987449715955}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.115, y: 1.385, z: 1.055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6568297569548642900}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4266594228983874329
 GameObject:
   m_ObjectHideFlags: 0
@@ -12311,7 +12341,7 @@ Transform:
   - {fileID: 3397577494111044697}
   - {fileID: 1047792893119043842}
   m_Father: {fileID: 6568297569548642900}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5406146490415862786
 BoxCollider:
@@ -12447,6 +12477,7 @@ Transform:
   m_Children:
   - {fileID: 807224466413468871}
   - {fileID: 6170898689873511249}
+  - {fileID: 8301559747829470423}
   - {fileID: 3706810953893395233}
   - {fileID: 158989642380272696}
   - {fileID: 5930360390923509337}
@@ -12468,8 +12499,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coin: {fileID: 2683738288439260219, guid: 4e451a82caa6da845a81d6988bae1744, type: 3}
   chest: {fileID: 3173661757617594067}
+  gun: {fileID: 7890840333355983680, guid: 1435cb756ca386b42aaf09e95d92dedc, type: 3}
   coinSpawner: {fileID: 6004679693169061784}
   medalSpawner: {fileID: 4117838641331684871}
+  gunSpawner: {fileID: 4186275987449715955}
   playerZone: {fileID: 4324484247449965784}
   disappearEffect: {fileID: 1269658436619853312, guid: d7cc241231df47f4d8e14bc738e616f4,
     type: 3}
@@ -32791,7 +32824,7 @@ Transform:
   m_LocalScale: {x: 0.06215249, y: 1, z: 0.07491025}
   m_Children: []
   m_Father: {fileID: 6568297569548642900}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -5.054, y: 0, z: 0}
 --- !u!33 &1810449518333947506
 MeshFilter:

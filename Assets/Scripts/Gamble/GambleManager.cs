@@ -170,6 +170,9 @@ public class GambleManager : MonoBehaviour
             NM.SendPlayersToOthers(players);
             NM.SetTimerToAll(MAX_ATTACK_TIME);
             NM.SetStateToAll(State.attack);
+            //내가 attacker 이면 총 생성
+            if(attacker.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+                localPlayer.SpawnGun();
             return;
         }
         NM.SendPlayersToOthers(players);
@@ -183,6 +186,7 @@ public class GambleManager : MonoBehaviour
             leftTime -= Time.deltaTime;
             return;
         }
+        localPlayer.DestroyGun();
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
         NM.SendPlayersToOthers(players);
@@ -193,9 +197,15 @@ public class GambleManager : MonoBehaviour
     // 이를 통해 다음 State로 넘어감
     public static void Attack(PlayerInfo target)
     {
-        PlayerInfo attacker = players.GetAttackWinner();
-        attacker.Attack(target);
-        NM.SendPlayersToOthers(players);
+        //호출해서 넘겨받은 target 이 null 이면 공격수행 없이 다음 단계로 넘어감
+        if(target == null) 
+            Debug.Log("빗나감!");
+        else
+        {
+            PlayerInfo attacker = players.GetAttackWinner();
+            attacker.Attack(target);
+            NM.SendPlayersToOthers(players);
+        }
         NM.SetStateToAll(State.apply);
     }
 

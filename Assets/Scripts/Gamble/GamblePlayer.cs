@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Unity.XR.CoreUtils;
 
 public class GamblePlayer : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GamblePlayer : MonoBehaviour
         GambleManager.SetLocalPlayer(this);
     }
 
-    public GameObject coin, chest, coinSpawner, medalSpawner;
+    public GameObject coin, chest, gun, coinSpawner, medalSpawner, gunSpawner;
     public GameObject playerZone;
     public GameObject disappearEffect, choseEffect;
     public GameObject[] medalObjects = new GameObject[3];
@@ -102,6 +103,20 @@ public class GamblePlayer : MonoBehaviour
             if (c.position.y < yConstraint) PhotonNetwork.Destroy(c.gameObject);
             GambleManager.chestCoins++;
         }
+    }
+
+    public void SpawnGun()
+    {
+        Debug.Log("Spawn Gun"+PhotonNetwork.LocalPlayer.ActorNumber);
+        PlayMedalEffect();
+        Transform tr = gunSpawner.transform;
+        gun = PhotonNetwork.Instantiate(gun.name, tr.position, tr.rotation);
+    }
+
+    public void DestroyGun()
+    {
+        GameObject gunInstance = gunSpawner.GetComponentInChildren<GunManager>().gameObject;
+        PhotonNetwork.Destroy(gunInstance);
     }
 
     //그래픽 처리
