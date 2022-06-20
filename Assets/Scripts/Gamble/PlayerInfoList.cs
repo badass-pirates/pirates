@@ -40,7 +40,8 @@ public class PlayerInfoList
 
     public bool EveryDecided()
     {
-        return players.TrueForAll(player => player.IsDecided());
+        return players.FindAll(player => player.isLive)
+            .TrueForAll(player => player.IsDecided());
     }
 
     public void ChangeUndecidedPlayerToShare()

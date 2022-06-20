@@ -2297,6 +2297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3088221892507506023}
   - component: {fileID: 6328623144206437360}
+  - component: {fileID: 7266792224022437866}
   m_Layer: 9
   m_Name: Character_English_Captain_01
   m_TagString: Untagged
@@ -2419,6 +2420,20 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000022888184, y: 91.897545, z: -6.0901384}
     m_Extent: {x: 102.45597, y: 101.708916, z: 25.585346}
   m_DirtyAABB: 0
+--- !u!136 &7266792224022437866
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8924686764496431704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 21.892595
+  m_Height: 116.59364
+  m_Direction: 1
+  m_Center: {x: 0.16361773, y: 165.55887, z: 679.1884}
 --- !u!1 &8929881433986757089
 GameObject:
   m_ObjectHideFlags: 0

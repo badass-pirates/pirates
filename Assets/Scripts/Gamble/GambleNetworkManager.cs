@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class GambleNetworkManager : NetworkManager
 {
@@ -136,6 +137,23 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.leftTime = time;
     }
 
+    public void SendAttackTargetToMaster(int targetActorNumber)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GambleManager.AttackOnMaster(targetActorNumber);
+            return;
+        }
+        PV.RPC("RPC_ReceiveAttackTarget", RpcTarget.MasterClient, targetActorNumber);
+    }
+
+    [PunRPC]
+    private void RPC_ReceiveAttackTarget(int targetActorNumber)
+    {
+        GambleManager.AttackOnMaster(targetActorNumber);
+    }
+
+
     public void EndAct()
     {
         if (!PhotonNetwork.IsMasterClient) return;
@@ -154,5 +172,22 @@ public class GambleNetworkManager : NetworkManager
     protected override void RPC_ReceiveActorNumbers(int[] _actorNumbers)
     {
         base.RPC_ReceiveActorNumbers(_actorNumbers);
+    }
+
+    internal void SendAttackResultToAll(PlayerInfoList _players, int targetActorNumber)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        (string players, string winner, string attacker) = _players.ToJson();
+        PV.RPC("RPC_ReceiveAttackResult", RpcTarget.All, players, targetActorNumber);
+    }
+
+    [PunRPC]
+    private void RPC_ReceiveAttackResult(string players, int targetActorNumber)
+    {
+        GambleManager.players = PlayerInfoList.FromJson(players);
+        if (GambleManager.GetMyInfo().actorNumber == targetActorNumber)
+        {
+            PhotonNetwork.Destroy(spawnedPlayer);
+        }
     }
 }

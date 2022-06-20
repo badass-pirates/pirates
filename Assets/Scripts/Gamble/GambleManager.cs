@@ -22,6 +22,7 @@ public class GambleManager : MonoBehaviour
 
     public UIManager UIM;
     public PotMoneySpawner potMoneySpawner;
+    public GameObject choiceZone;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
     public static State state { get; set; } = State.initial;
@@ -103,12 +104,16 @@ public class GambleManager : MonoBehaviour
 
     private IEnumerator OnStandBy()
     {
+        choiceZone.SetActive(true);
         state = State.loading;
         potMoneySpawner.DestroyPot();
         yield return new WaitForSeconds(1);
 
-        localPlayer.SpawnMedals();
-        localPlayer.SpawnLogBoard();
+        if (GetMyInfo().isLive)
+        {
+            localPlayer.SpawnMedals();
+            localPlayer.SpawnLogBoard();
+        }
         potMoneySpawner.SpawnPot(localPlayer.transform, round);
         if (act == 1)
         {
@@ -202,24 +207,41 @@ public class GambleManager : MonoBehaviour
 
     private void OnAttack()
     {
+        choiceZone.SetActive(false);
+        potMoneySpawner.DestroyPot();
+        if (players.GetMine().canShoot)
+        {
+            localPlayer.SpawnGun();
+            GetMyInfo().canShoot = false;
+        }
         if (leftTime > 0)
         {
             leftTime -= Time.deltaTime;
             return;
         }
+        localPlayer.DestroyGun();
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
         NM.SendPlayersToOthers(players);
         NM.SetStateToAll(State.apply);
     }
 
-    // 다른 곳에서 GambleManager.Attack을 실행시켜야함
-    // 이를 통해 다음 State로 넘어감
-    public static void Attack(PlayerInfo target)
+    public static void Attack(int targetActorNumber)
     {
+        NM.SendAttackTargetToMaster(targetActorNumber);
+    }
+
+    public static void AttackOnMaster(int targetActorNumber)
+    {
+        if (targetActorNumber == -1)
+        {
+            NM.SetStateToAll(State.apply);
+            return;
+        }
         PlayerInfo attacker = players.GetAttackWinner();
+        PlayerInfo target = players.Find(targetActorNumber);
         attacker.Attack(target);
-        NM.SendPlayersToOthers(players);
+        NM.SendAttackResultToAll(players, targetActorNumber);
         NM.SetStateToAll(State.apply);
     }
 
@@ -254,7 +276,7 @@ public class GambleManager : MonoBehaviour
 
     public static void Reward()
     {
-        int winnings = players.GetMine().winnings;
+        int winnings = GetMyInfo().winnings;
         if (winnings <= 0)
         {
             localPlayer.LogOnBoard($"No Coins!");
