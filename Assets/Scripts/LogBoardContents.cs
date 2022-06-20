@@ -6,7 +6,7 @@ public class LogBoardContents : MonoBehaviour
 {
     public GameObject logMessage;
 
-    private List<GameObject> messageList;
+    private List<GameObject> messageList = new List<GameObject>();
     private Vector3 defaultScale;
 
     public void LogMessage(string message)
@@ -17,8 +17,10 @@ public class LogBoardContents : MonoBehaviour
         {
             defaultScale = messageObject.transform.localScale;
             transform.localScale += new Vector3(0, 0.1f, 0);
-            messageObject.transform.localScale = defaultScale;
-
+            foreach (GameObject msg in messageList)
+            {
+                msg.transform.localScale = defaultScale;
+            }
         }
         messageObject.GetComponent<LogMessageInfo>().SetTextUI(message);
         messageObject.transform.SetParent(transform, false);
