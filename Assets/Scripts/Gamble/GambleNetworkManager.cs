@@ -162,8 +162,9 @@ public class GambleNetworkManager : NetworkManager
         base.RPC_ReceiveActorNumbers(_actorNumbers);
     }
 
-    internal void SendAttackResultToOthers(PlayerInfoList players, int targetActorNumber)
+    internal void SendAttackResultToOthers(PlayerInfoList _players, int targetActorNumber)
     {
+        (string players, string winner, string attacker) = _players.ToJson();
         PV.RPC("RPC_ReceiveAttackResult", RpcTarget.Others, players, targetActorNumber);
     }
 
