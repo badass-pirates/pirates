@@ -15,7 +15,7 @@ public class LogBoardContents : MonoBehaviour
         messageList.Add(messageObject);
         if (messageList.Count > 8)
         {
-            defaultScale = messageObject.transform.localScale;
+            defaultScale = messageObject.transform.lossyScale;
             transform.localScale += new Vector3(0, 0.1f, 0);
             foreach (GameObject msg in messageList)
             {
