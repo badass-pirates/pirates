@@ -220,7 +220,7 @@ public class GambleManager : MonoBehaviour
         PlayerInfo attacker = players.GetAttackWinner();
         PlayerInfo target = players.Find(targetActorNumber);
         attacker.Attack(target);
-        NM.SendAttackResultToOthers(players, targetActorNumber);
+        NM.SendAttackResultToAll(players, targetActorNumber);
         NM.SetStateToAll(State.apply);
     }
 

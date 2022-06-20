@@ -162,10 +162,11 @@ public class GambleNetworkManager : NetworkManager
         base.RPC_ReceiveActorNumbers(_actorNumbers);
     }
 
-    internal void SendAttackResultToOthers(PlayerInfoList _players, int targetActorNumber)
+    internal void SendAttackResultToAll(PlayerInfoList _players, int targetActorNumber)
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         (string players, string winner, string attacker) = _players.ToJson();
-        PV.RPC("RPC_ReceiveAttackResult", RpcTarget.Others, players, targetActorNumber);
+        PV.RPC("RPC_ReceiveAttackResult", RpcTarget.All, players, targetActorNumber);
     }
 
     [PunRPC]
