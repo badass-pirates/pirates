@@ -45,7 +45,6 @@ public class GunManager : MonoBehaviour
         if(!isGrab) return;
 
         DrawLine();
-        PhotonNetwork.Instantiate(gunFx.name, barrel.transform.position, barrel.transform.rotation);
 
         if (!isHit) return;
         //#9 is body layer
@@ -55,20 +54,18 @@ public class GunManager : MonoBehaviour
             PhotonView pv = target.GetComponent<PhotonView>();
             targetActorNumber = pv ? pv.ViewID / 1000 : -1;
         }
-        if (targetActorNumber != -1)
+        if (target)
         {
-            PlayHitEffect(targetActorNumber, aimingPoint.transform);
-            GambleManager.Attack(targetActorNumber);
             PhotonNetwork.Destroy(target);
         }
+        PlayHitEffect(target.layer == 9, aimingPoint.transform);
+        GambleManager.Attack(targetActorNumber);
         PhotonNetwork.Destroy(gameObject);
     }
 
-    void PlayHitEffect(int actorNumber, Transform tr)
+    void PlayHitEffect(bool isPlayer, Transform tr)
     {
-        if (actorNumber == -1)
-            PhotonNetwork.Instantiate(dustFx.name, tr.position, tr.rotation);
-        else
-            PhotonNetwork.Instantiate(bloodFx.name, tr.position, tr.rotation);
+        PhotonNetwork.Instantiate(gunFx.name, barrel.transform.position, barrel.transform.rotation);
+        PhotonNetwork.Instantiate(isPlayer ? bloodFx.name : dustFx.name, tr.position, tr.rotation);
     }
 }
