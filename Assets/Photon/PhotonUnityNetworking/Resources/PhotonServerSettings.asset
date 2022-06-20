@@ -34,25 +34,24 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - CantHearYou
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
+  - HeresWhy
   - RespawnSpaceship
   - RPC_EndAct
   - RPC_ReceiveActorNumber
   - RPC_ReceiveActorNumbers
+  - RPC_ReceiveAttackResult
+  - RPC_ReceiveAttackTarget
   - RPC_ReceiveChallengeAmount
   - RPC_ReceiveChoice
   - RPC_ReceiveLeftTime
   - RPC_ReceivePlayers
   - RPC_ReceivePotCoins
   - RPC_ReceiveState
-  - CantHearYou
-  - HeresWhy
-  - SetUseGravity
-  - RPC_ReceiveAttackTarget
-  - RPC_ReceiveAttackResult
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
