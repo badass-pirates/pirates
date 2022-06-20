@@ -8,8 +8,8 @@ public class LogBoardContents : MonoBehaviour
 
     public void LogMessage(string message)
     {
-        GameObject q = Instantiate(logMessage);
-        q.GetComponent<LogMessageInfo>().SetTextUI(message);
-        q.transform.SetParent(transform, false);
+        GameObject messageObject = Instantiate(logMessage);
+        messageObject.GetComponent<LogMessageInfo>().SetTextUI(message);
+        messageObject.transform.SetParent(transform, false);
     }
 }
