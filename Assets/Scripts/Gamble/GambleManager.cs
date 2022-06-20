@@ -104,6 +104,7 @@ public class GambleManager : MonoBehaviour
 
     private IEnumerator OnStandBy()
     {
+        choiceZone.SetActive(true);
         state = State.loading;
         potMoneySpawner.DestroyPot();
         yield return new WaitForSeconds(1);
@@ -212,7 +213,7 @@ public class GambleManager : MonoBehaviour
         if (players.GetMine().canShoot)
         {
             localPlayer.SpawnGun();
-            players.GetMine().canShoot = false;
+            GetMyInfo().canShoot = false;
         }
         if (leftTime > 0)
         {
