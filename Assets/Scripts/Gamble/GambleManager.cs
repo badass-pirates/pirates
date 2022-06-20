@@ -276,8 +276,14 @@ public class GambleManager : MonoBehaviour
 
     public static void Reward()
     {
-        int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
-        localPlayer.AddCoins(winCoins);
+        int winnings = GetMyInfo().winnings;
+        if (winnings <= 0)
+        {
+            localPlayer.LogOnBoard($"No Coins!");
+            return;
+        }
+        localPlayer.AddCoins(winnings);
+        localPlayer.LogOnBoard($"You get {winnings} coins!");
     }
 
     public static void NextAct()
