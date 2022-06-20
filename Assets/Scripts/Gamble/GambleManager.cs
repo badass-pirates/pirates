@@ -173,11 +173,13 @@ public class GambleManager : MonoBehaviour
         PlayerInfo challengeWinner = players.GetChallengeWinner();
         if (challengeWinner != null)
         {
-            localPlayer.LogOnBoard($"{challengeWinner.name} success to choice attack!");
+            localPlayer.LogOnBoard($"{challengeWinner.name} success to choice challenge!");
         }
-        players.GetChallengersName()
-            .ForEach(name => localPlayer.LogOnBoard($"{name} fail to choice challenge!"));
-
+        else
+        {
+            players.GetChallengersName()
+                .ForEach(name => localPlayer.LogOnBoard($"{name} fail to choice challenge!"));
+        }
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
