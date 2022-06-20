@@ -193,19 +193,22 @@ public class GambleManager : MonoBehaviour
         NM.SetStateToAll(State.apply);
     }
 
-    // 다른 곳에서 GambleManager.Attack을 실행시켜야함
-    // 이를 통해 다음 State로 넘어감
-    public static void Attack(PlayerInfo target)
+    public static void Attack(int targetActorNumber)
     {
-        //호출해서 넘겨받은 target 이 null 이면 공격수행 없이 다음 단계로 넘어감
-        if(target == null) 
-            Debug.Log("빗나감!");
-        else
+        if (targetActorNumber != -1)
         {
-            PlayerInfo attacker = players.GetAttackWinner();
-            attacker.Attack(target);
-            NM.SendPlayersToOthers(players);
+            NM.SendAttackTargetToMaster(targetActorNumber);
+            return;
         }
+        NM.SetStateToAll(State.apply);
+    }
+
+    public static void AttackOnMaster(int targetActorNumber)
+    {
+        PlayerInfo attacker = players.GetAttackWinner();
+        PlayerInfo target = players.Find(targetActorNumber);
+        attacker.Attack(target);
+        NM.SendPlayersToOthers(players);
         NM.SetStateToAll(State.apply);
     }
 

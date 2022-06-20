@@ -124,6 +124,23 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.leftTime = time;
     }
 
+    public void SendAttackTargetToMaster(int targetActorNumber)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GambleManager.AttackOnMaster(targetActorNumber);
+            return;
+        }
+        PV.RPC("RPC_ReceiveAttackTarget", RpcTarget.MasterClient, targetActorNumber);
+    }
+
+    [PunRPC]
+    private void RPC_ReceiveAttackTarget(int targetActorNumber)
+    {
+        GambleManager.AttackOnMaster(targetActorNumber);
+    }
+
+
     public void EndAct()
     {
         if (!PhotonNetwork.IsMasterClient) return;
