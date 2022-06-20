@@ -198,6 +198,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 232419240}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &232419242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4922261901245828754, guid: 206b38aa0390dd042bfc34ae58026a90,
+    type: 3}
+  m_PrefabInstance: {fileID: 232419240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &377960904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -544,6 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potMoneySpawner: {fileID: 1415799459}
+  choiceZone: {fileID: 232419242}
 --- !u!4 &518420890
 Transform:
   m_ObjectHideFlags: 0

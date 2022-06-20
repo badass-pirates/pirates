@@ -12498,10 +12498,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coin: {fileID: 2683738288439260219, guid: 4e451a82caa6da845a81d6988bae1744, type: 3}
-  chest: {fileID: 3173661757617594067}
-  gun: {fileID: 7890840333355983680, guid: 1435cb756ca386b42aaf09e95d92dedc, type: 3}
   coinSpawner: {fileID: 6004679693169061784}
   medalSpawner: {fileID: 4117838641331684871}
+  chest: {fileID: 3173661757617594067}
+  gun: {fileID: 7890840333355983680, guid: 1435cb756ca386b42aaf09e95d92dedc, type: 3}
   gunSpawner: {fileID: 4186275987449715955}
   playerZone: {fileID: 4324484247449965784}
   disappearEffect: {fileID: 1269658436619853312, guid: d7cc241231df47f4d8e14bc738e616f4,
