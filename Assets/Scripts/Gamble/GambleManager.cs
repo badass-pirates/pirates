@@ -22,6 +22,7 @@ public class GambleManager : MonoBehaviour
 
 
     public PotMoneySpawner potMoneySpawner;
+    public GameObject choiceZone;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
     public static GamblePlayer localPlayer { get; private set; } = null;
     public static State state { get; set; } = State.initial;
@@ -103,6 +104,7 @@ public class GambleManager : MonoBehaviour
     {
         if (players.GetMine().isLive)
         {
+            choiceZone.SetActive(true);
             localPlayer.SpawnMedals();
         }
 
@@ -184,6 +186,8 @@ public class GambleManager : MonoBehaviour
 
     private void OnAttack()
     {
+        choiceZone.SetActive(false);
+        potMoneySpawner.DestroyPot();
         if (players.GetMine().canShoot)
         {
             localPlayer.SpawnGun();
