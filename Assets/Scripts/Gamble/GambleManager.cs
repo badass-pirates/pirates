@@ -169,9 +169,6 @@ public class GambleManager : MonoBehaviour
             NM.SendPlayersToOthers(players);
             NM.SetTimerToAll(MAX_ATTACK_TIME);
             NM.SetStateToAll(State.attack);
-            //내가 attacker 이면 총 생성
-            if(attacker.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
-                localPlayer.SpawnGun();
             return;
         }
         NM.SendPlayersToOthers(players);
@@ -180,6 +177,11 @@ public class GambleManager : MonoBehaviour
 
     private void OnAttack()
     {
+        if (players.GetMine().canShoot)
+        {
+            localPlayer.SpawnGun();
+            players.GetMine().canShoot = false;
+        }
         if (leftTime > 0)
         {
             leftTime -= Time.deltaTime;
