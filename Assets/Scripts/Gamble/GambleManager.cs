@@ -101,7 +101,11 @@ public class GambleManager : MonoBehaviour
 
     private void OnStandBy()
     {
-        localPlayer.SpawnMedals();
+        if (players.GetMine().isLive)
+        {
+            localPlayer.SpawnMedals();
+        }
+
         potMoneySpawner.DestroyPot();
         potMoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
@@ -156,7 +160,10 @@ public class GambleManager : MonoBehaviour
 
     private void OnCheck()
     {
-        localPlayer.DestroyMedals();
+        if (players.GetMine().isLive)
+        {
+            localPlayer.DestroyMedals();
+        }
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
