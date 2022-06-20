@@ -52,6 +52,7 @@ MonoBehaviour:
   - RPC_ReceivePlayers
   - RPC_ReceivePotCoins
   - RPC_ReceiveState
+  - RPC_ReceiveLogMessage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

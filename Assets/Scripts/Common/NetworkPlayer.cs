@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using Photon.Pun;
 using Unity.XR.CoreUtils;
+using TMPro;
 
 public class NetworkPlayer : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class NetworkPlayer : MonoBehaviour
 
     public Animator leftHandAnimator;
     public Animator rightHandAnimator;
+    public TextMeshProUGUI playerNameText;
 
     private PhotonView photonView;
 
@@ -22,6 +24,7 @@ public class NetworkPlayer : MonoBehaviour
     void Start()
     {
         photonView = GetComponent<PhotonView>();
+        //playerNameText.text =
 
         if (photonView.IsMine)
         {
