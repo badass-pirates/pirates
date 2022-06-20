@@ -52,6 +52,7 @@ MonoBehaviour:
   - HeresWhy
   - SetUseGravity
   - RPC_ReceiveAttackTarget
+  - RPC_ReceiveAttackResult
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

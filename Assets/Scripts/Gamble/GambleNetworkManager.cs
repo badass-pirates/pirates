@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class GambleNetworkManager : NetworkManager
 {
@@ -159,5 +160,20 @@ public class GambleNetworkManager : NetworkManager
     protected override void RPC_ReceiveActorNumbers(int[] _actorNumbers)
     {
         base.RPC_ReceiveActorNumbers(_actorNumbers);
+    }
+
+    internal void SendAttackResultToOthers(PlayerInfoList players, int targetActorNumber)
+    {
+        PV.RPC("RPC_ReceiveAttackResult", RpcTarget.Others, players, targetActorNumber);
+    }
+
+    [PunRPC]
+    private void RPC_ReceiveAttackResult(string players, int targetActorNumber)
+    {
+        GambleManager.players = PlayerInfoList.FromJson(players);
+        if (GambleManager.GetMyInfo().actorNumber == targetActorNumber)
+        {
+            PhotonNetwork.Destroy(spawnedPlayer);
+        }
     }
 }

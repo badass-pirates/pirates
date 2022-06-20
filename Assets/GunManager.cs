@@ -55,7 +55,6 @@ public class GunManager : MonoBehaviour
             target = target.GetComponentInParent<NetworkPlayer>().gameObject;
             PhotonView pv = target.GetComponent<PhotonView>();
             targetActorNumber = pv ? pv.ViewID / 1000 : -1;
-            PhotonNetwork.Destroy(target);
         }
         PlayHitEffect(isPlayer, aimingPoint.transform);
         GambleManager.Attack(targetActorNumber);
