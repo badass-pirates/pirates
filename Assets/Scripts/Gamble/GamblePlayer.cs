@@ -11,7 +11,10 @@ public class GamblePlayer : MonoBehaviour
         GambleManager.SetLocalPlayer(this);
     }
 
-    public GameObject coin, chest, gun, coinSpawner, medalSpawner, gunSpawner;
+    public GameObject coin, coinSpawner;
+    public GameObject medalSpawner;
+    public GameObject chest;
+    public GameObject gun, gunSpawner;
     public GameObject playerZone;
     public GameObject disappearEffect, choseEffect;
     public GameObject[] medalObjects = new GameObject[3];
@@ -108,7 +111,7 @@ public class GamblePlayer : MonoBehaviour
     public void SpawnGun()
     {
         Transform tr = gunSpawner.transform;
-        gun = PhotonNetwork.Instantiate(gun.name, tr.position, tr.rotation);
+        PhotonNetwork.Instantiate(gun.name, tr.position, tr.rotation);
     }
 
     public void DestroyGun()
