@@ -208,7 +208,6 @@ public class GambleManager : MonoBehaviour
             NM.SendAttackTargetToMaster(targetActorNumber);
             return;
         }
-        NM.SetStateToAll(State.apply);
     }
 
     public static void AttackOnMaster(int targetActorNumber)

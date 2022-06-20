@@ -49,16 +49,15 @@ public class GunManager : MonoBehaviour
         if (!isHit) return;
         //#9 is body layer
         GameObject target = hit.transform.gameObject;
-        if (target.layer == 9)
+        bool isPlayer = target.layer == 9;
+        if (isPlayer)
         {
+            target = target.GetComponentInParent<NetworkPlayer>().gameObject;
             PhotonView pv = target.GetComponent<PhotonView>();
             targetActorNumber = pv ? pv.ViewID / 1000 : -1;
-        }
-        if (target)
-        {
             PhotonNetwork.Destroy(target);
         }
-        PlayHitEffect(target.layer == 9, aimingPoint.transform);
+        PlayHitEffect(isPlayer, aimingPoint.transform);
         GambleManager.Attack(targetActorNumber);
         PhotonNetwork.Destroy(gameObject);
     }
