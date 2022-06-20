@@ -207,15 +207,16 @@ public class GambleManager : MonoBehaviour
 
     public static void Attack(int targetActorNumber)
     {
-        if (targetActorNumber != -1)
-        {
-            NM.SendAttackTargetToMaster(targetActorNumber);
-            return;
-        }
+        NM.SendAttackTargetToMaster(targetActorNumber);
     }
 
     public static void AttackOnMaster(int targetActorNumber)
     {
+        if (targetActorNumber == -1)
+        {
+            NM.SetStateToAll(State.apply);
+            return;
+        }
         PlayerInfo attacker = players.GetAttackWinner();
         PlayerInfo target = players.Find(targetActorNumber);
         attacker.Attack(target);
