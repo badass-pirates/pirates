@@ -107,8 +107,6 @@ public class GamblePlayer : MonoBehaviour
 
     public void SpawnGun()
     {
-        Debug.Log("Spawn Gun"+PhotonNetwork.LocalPlayer.ActorNumber);
-        PlayMedalEffect();
         Transform tr = gunSpawner.transform;
         gun = PhotonNetwork.Instantiate(gun.name, tr.position, tr.rotation);
     }
