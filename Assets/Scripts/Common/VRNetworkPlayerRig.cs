@@ -9,7 +9,8 @@ using Unity.XR.CoreUtils;
 [System.Serializable]
 public class VRNetworkPlayerRig : MonoBehaviourPunCallbacks
 {
-    private Transform headRig;
+    private Transform vrHeadModel;
+    public Transform rigHeadModel;
     public VRMap head;
     public PhotonView PV;
     public GameObject vrPlayer;
@@ -23,6 +24,7 @@ public class VRNetworkPlayerRig : MonoBehaviourPunCallbacks
         {
             headBodyOffset = transform.position - headConstraint.position;
             head.vrTarget = GameObject.Find("Player").transform.Find("Camera Offset/Main Camera");
+            vrHeadModel = GameObject.Find("Player").transform.Find("Camera Offset/Model/Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head");
         }
     }
 
@@ -35,6 +37,7 @@ public class VRNetworkPlayerRig : MonoBehaviourPunCallbacks
             transform.forward = Vector3.Lerp(transform.forward,
             Vector3.ProjectOnPlane(-headConstraint.up, -Vector3.up).normalized, Time.deltaTime * turnSmoothness);
             head.Map();
+            rigHeadModel.localScale = vrHeadModel.localScale;
         }
     }
 }

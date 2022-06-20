@@ -13,19 +13,24 @@ public class GamblePlayer : MonoBehaviour
 
     public GameObject coin, coinSpawner;
     public GameObject medalSpawner;
-    public GameObject chest;
     public GameObject gun, gunSpawner;
+    public GameObject chest;
+    public GameObject logBoardSpawner;
     public GameObject playerZone;
     public GameObject disappearEffect, choseEffect;
     public GameObject[] medalObjects = new GameObject[3];
     static GameObject[] medals = new GameObject[3];
+    public GameObject logBoard;
+    private LogBoardContents logBoardContents;
+
+    private bool isBoradSpawned = false;
 
     public void SpawnMedals()
     {
-        PlayMedalEffect();
+        PlayMedalSpawnEffect();
         Transform tr = medalSpawner.transform;
-        for(int i = 0; i < medals.Length; i++)
-        {   
+        for (int i = 0; i < medals.Length; i++)
+        {
             Vector3 pos = tr.position + transform.right * 0.2f * i;
             medals[i] = PhotonNetwork.Instantiate(medalObjects[i].name, pos, tr.rotation);
             medals[i].transform.parent = tr;
@@ -34,9 +39,9 @@ public class GamblePlayer : MonoBehaviour
 
     public void DestroyMedals()
     {
-        for(int i = 0; i < medals.Length; i++)
-        {   
-            if(medals[i] == null) continue;
+        for (int i = 0; i < medals.Length; i++)
+        {
+            if (medals[i] == null) continue;
             PhotonNetwork.Destroy(medals[i]);
             medals[i] = null;
         }
@@ -45,16 +50,16 @@ public class GamblePlayer : MonoBehaviour
     public void DestroyMedalsWithEffect(Choice choice)
     {
         Transform tr = null;
-        for(int i = 0; i < medals.Length; i++)
+        for (int i = 0; i < medals.Length; i++)
         {
             if (medals[i] == null) continue;
 
             tr = medals[i].transform;
-            if(choice == medals[i].GetComponent<Medal>().choice) 
+            if (choice == medals[i].GetComponent<Medal>().choice)
                 PhotonNetwork.Instantiate(choseEffect.name, tr.position, tr.rotation);
             else
                 PhotonNetwork.Instantiate(disappearEffect.name, tr.position, tr.rotation);
-                
+
             PhotonNetwork.Destroy(medals[i]);
             medals[i] = null;
         }
@@ -64,7 +69,7 @@ public class GamblePlayer : MonoBehaviour
     {
         PlayPlayerZoneEffect();
         DestroyMedals();
-        PlayMedalEffect();
+        PlayMedalSpawnEffect();
         SpawnMedals();
     }
 
@@ -89,7 +94,8 @@ public class GamblePlayer : MonoBehaviour
             GambleManager.chestCoins++;
         }
     }
-    //현재는 y값으로만 처리하도록 되어있음
+
+    // 현재는 y값으로만 처리하도록 되어있음
     public void RemoveCoins(int yConstraint)
     {
         Transform[] coinList = coinSpawner.GetComponentsInChildren<Transform>();
@@ -120,10 +126,32 @@ public class GamblePlayer : MonoBehaviour
         foreach (var p in particles) p.Play();
     }
 
-    public void PlayMedalEffect()
+    public void PlayMedalSpawnEffect()
     {
         var particles = medalSpawner.transform.GetComponentInChildren<ParticleSystem>();
         var fx = medalSpawner.transform.GetComponentInChildren<AudioSource>();
+        particles.Play();
+        fx.Play();
+    }
+
+    public void SpawnLogBoard()
+    {
+        if (isBoradSpawned) return;
+        PlayLogBoardSpawnEffect();
+        logBoard = PhotonNetwork.Instantiate(logBoard.name, logBoardSpawner.transform.position, Quaternion.identity);
+        logBoardContents = logBoard.transform.GetComponentInChildren<LogBoardContents>();
+        isBoradSpawned = true;
+    }
+
+    public void LogOnBoard(string message)
+    {
+        logBoardContents.LogMessage(message);
+    }
+
+    public void PlayLogBoardSpawnEffect()
+    {
+        var particles = logBoardSpawner.transform.GetComponentInChildren<ParticleSystem>();
+        var fx = logBoardSpawner.transform.GetComponentInChildren<AudioSource>();
         particles.Play();
         fx.Play();
     }

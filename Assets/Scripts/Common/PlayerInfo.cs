@@ -18,10 +18,15 @@ public class PlayerInfo
     public int attackChance;
     [SerializeField]
     public int actorNumber;
+    [SerializeField]
+    public string name = "player";
+    [SerializeField]
+    public int winnings = 0;
 
     public PlayerInfo(int _actorNumber)
     {
         actorNumber = _actorNumber;
+        name += _actorNumber.ToString();
         Reset();
         isLive = true;
         coins = 0;
@@ -33,6 +38,7 @@ public class PlayerInfo
         choice = Choice.none;
         challengeAmount = 0;
         canShoot = false;
+        winnings = 0;
     }
 
     public void SuccessChoiceAttack()
@@ -51,6 +57,7 @@ public class PlayerInfo
     public void AddCoin(int _coins)
     {
         coins += _coins;
+        winnings = _coins;
     }
 
     public void ChallengeWin()
@@ -71,7 +78,7 @@ public class PlayerInfo
 
     public bool IsChallengeSuccess(int potCoins)
     {
-        return IsChallenge() && challengeAmount <= potCoins; 
+        return IsChallenge() && challengeAmount <= potCoins;
     }
 
     public bool IsDecided()

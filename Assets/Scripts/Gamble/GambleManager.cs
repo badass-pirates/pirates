@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class GambleManager : MonoBehaviour
 {
@@ -9,18 +10,17 @@ public class GambleManager : MonoBehaviour
     {
         if (instance != null) return;
         instance = this;
-
         NM = FindObjectOfType<GambleNetworkManager>();
         players.Add(PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
     const int MAX_DECIDE_TIME = 60, MAX_ATTACK_TIME = 60;
-    const int MAX_ROUND = 3, MAX_ACT = 5;
+    const int MAX_ROUND = 2, MAX_ACT = 3;
     const int POT_WEIGHT = 1;
 
     public static GambleNetworkManager NM;
 
-
+    public UIManager UIM;
     public PotMoneySpawner potMoneySpawner;
     public GameObject choiceZone;
     public static PlayerInfoList players { get; set; } = new PlayerInfoList();
@@ -41,7 +41,7 @@ public class GambleManager : MonoBehaviour
                 OnInitial();
                 break;
             case State.standBy:
-                OnStandBy();
+                StartCoroutine(OnStandBy());
                 break;
             case State.decide:
                 OnDecide();
@@ -57,6 +57,8 @@ public class GambleManager : MonoBehaviour
                 StartCoroutine(RemoveCoins());
                 break;
             case State.end:
+                OnEnd();
+                break;
             case State.loading:
                 break;
         }
@@ -100,18 +102,25 @@ public class GambleManager : MonoBehaviour
         return GetMinPotCoins() * (round + 1);
     }
 
-    private void OnStandBy()
+    private IEnumerator OnStandBy()
     {
-        if (players.GetMine().isLive)
-        {
-            choiceZone.SetActive(true);
-            localPlayer.SpawnMedals();
-        }
-
-        potMoneySpawner.DestroyPot();
-        potMoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
-        if (!PhotonNetwork.IsMasterClient) return;
+        potMoneySpawner.DestroyPot();
+        yield return new WaitForSeconds(1);
+
+        if (GetMyInfo().isLive)
+        {
+            localPlayer.SpawnMedals();
+            localPlayer.SpawnLogBoard();
+        }
+        potMoneySpawner.SpawnPot(localPlayer.transform, round);
+        if (act == 1)
+        {
+            localPlayer.LogOnBoard($"Round {round} start!");
+        }
+        localPlayer.LogOnBoard($"Act {act}");
+
+        if (!PhotonNetwork.IsMasterClient) yield break;
 
         potCoins += GeneratePotCoins();
         NM.SendPotCoinsToOthers(potCoins);
@@ -162,24 +171,36 @@ public class GambleManager : MonoBehaviour
 
     private void OnCheck()
     {
-        if (players.GetMine().isLive)
-        {
-            localPlayer.DestroyMedals();
-        }
+        localPlayer.DestroyMedals();
+        Debug.Log("NO");
         state = State.loading;
         if (!PhotonNetwork.IsMasterClient) return;
 
         players.DecideChallengeWinner(potCoins);
+        PlayerInfo challengeWinner = players.GetChallengeWinner();
+        if (challengeWinner != null)
+        {
+            NM.SendLogToOthers($"{challengeWinner.name} success to choice challenge!");
+        }
+        else
+        {
+            players.GetChallengersName()
+                .ForEach(name => NM.SendLogToOthers($"{name} fail to choice challenge!"));
+        }
+
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
         {
             attacker.SuccessChoiceAttack();
+            NM.SendLogToOthers($"{attacker.name} success to choice attack!");
             NM.SendPlayersToOthers(players);
             NM.SetTimerToAll(MAX_ATTACK_TIME);
             NM.SetStateToAll(State.attack);
             return;
         }
+        players.GetAttackersName()
+            .ForEach(name => NM.SendLogToOthers($"{name} fail to choice attack!"));
         NM.SendPlayersToOthers(players);
         NM.SetStateToAll(State.apply);
     }
@@ -256,6 +277,7 @@ public class GambleManager : MonoBehaviour
     public static void Reward()
     {
         int winCoins = players.GetMine().coins - localPlayer.coinSpawner.transform.childCount - chestCoins;
+        Debug.Log("Reward : "+winCoins+"="+players.GetMine().coins+"-"+localPlayer.coinSpawner.transform.childCount+"-"+chestCoins);
         localPlayer.AddCoins(winCoins);
     }
 
@@ -264,6 +286,13 @@ public class GambleManager : MonoBehaviour
         if (act % MAX_ACT == 0)
             round++;
         act = (act % MAX_ACT) + 1;
+    }
+
+    private void OnEnd()
+    {
+        state = State.loading;
+        localPlayer.LogOnBoard("The End!");
+        UIM.SetEndingTextUI();
     }
 
     public static void SetLocalPlayer(GamblePlayer player)
@@ -276,5 +305,15 @@ public class GambleManager : MonoBehaviour
     public static PlayerInfo GetMyInfo()
     {
         return players.GetMine();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public static void LogOnBoard(string message)
+    {
+        localPlayer.LogOnBoard(message);
     }
 }
