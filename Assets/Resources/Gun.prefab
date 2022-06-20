@@ -525,7 +525,7 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
-  photonView: {fileID: 0}
+  photonView: {fileID: 3252602648609347329}
   rig: {fileID: 0}
 --- !u!114 &2990399355028746493
 MonoBehaviour:
@@ -544,7 +544,7 @@ MonoBehaviour:
   bloodFx: {fileID: 3215385922827913619, guid: cdf11f72f10be914abc4a0ce334afc92, type: 3}
   dustFx: {fileID: 5778418202406409231, guid: ee0bf5a86ba83d244983784e9f631084, type: 3}
   barrel: {fileID: 5389759300989674467}
-  target: {fileID: 2560788616657775486}
+  aimingPoint: {fileID: 0}
 --- !u!114 &3252602648609347329
 MonoBehaviour:
   m_ObjectHideFlags: 0
