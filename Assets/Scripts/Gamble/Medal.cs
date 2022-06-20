@@ -16,7 +16,6 @@ public class Medal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this.choice == Choice.attack) Debug.Log("collider : "+other.name);
         if (other.gameObject == playerZone)
         {
             isCorrectPos = true;
