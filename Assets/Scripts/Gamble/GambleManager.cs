@@ -105,7 +105,7 @@ public class GambleManager : MonoBehaviour
     {
         state = State.loading;
         potMoneySpawner.DestroyPot();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         localPlayer.SpawnMedals();
         localPlayer.SpawnLogBoard();
