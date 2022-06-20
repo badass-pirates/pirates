@@ -103,6 +103,7 @@ public class GambleManager : MonoBehaviour
 
     private IEnumerator OnStandBy()
     {
+        state = State.loading;
         potMoneySpawner.DestroyPot();
         yield return new WaitForSeconds(3);
 
@@ -114,7 +115,6 @@ public class GambleManager : MonoBehaviour
             localPlayer.LogOnBoard($"Round {round} start!");
         }
         localPlayer.LogOnBoard($"Act {act}");
-        state = State.loading;
 
         if (!PhotonNetwork.IsMasterClient) yield break;
 
