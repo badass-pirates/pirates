@@ -108,6 +108,12 @@ public class GambleManager : MonoBehaviour
         potMoneySpawner.DestroyPot();
         potMoneySpawner.SpawnPot(localPlayer.transform, round);
         state = State.loading;
+        if (act == 1)
+        {
+            localPlayer.LogOnBoard($"Round {round} start!");
+        }
+        localPlayer.LogOnBoard($"Act {act}");
+
         if (!PhotonNetwork.IsMasterClient) return;
 
         potCoins += GeneratePotCoins();
@@ -118,12 +124,6 @@ public class GambleManager : MonoBehaviour
 
         NM.SetTimerToAll(MAX_DECIDE_TIME);
         NM.SetStateToAll(State.decide);
-
-        if (act == 1)
-        {
-            localPlayer.LogOnBoard($"Round {round} start!");
-        }
-        localPlayer.LogOnBoard($"Act {act}");
     }
 
     private void OnDecide()
@@ -173,26 +173,27 @@ public class GambleManager : MonoBehaviour
         PlayerInfo challengeWinner = players.GetChallengeWinner();
         if (challengeWinner != null)
         {
-            localPlayer.LogOnBoard($"{challengeWinner.name} success to choice challenge!");
+            NM.SendLogToOthers($"{challengeWinner.name} success to choice challenge!");
         }
         else
         {
             players.GetChallengersName()
-                .ForEach(name => localPlayer.LogOnBoard($"{name} fail to choice challenge!"));
+                .ForEach(name => NM.SendLogToOthers($"{name} fail to choice challenge!"));
         }
+
         players.DecideAttackWinner();
         PlayerInfo attacker = players.GetAttackWinner();
         if (attacker != null)
         {
             attacker.SuccessChoiceAttack();
-            localPlayer.LogOnBoard($"{attacker.name} success to choice attack!");
+            NM.SendLogToOthers($"{attacker.name} success to choice attack!");
             NM.SendPlayersToOthers(players);
             NM.SetTimerToAll(MAX_ATTACK_TIME);
             NM.SetStateToAll(State.attack);
             return;
         }
         players.GetAttackersName()
-            .ForEach(name => localPlayer.LogOnBoard($"{name} fail to choice attack!"));
+            .ForEach(name => NM.SendLogToOthers($"{name} fail to choice attack!"));
         NM.SendPlayersToOthers(players);
         NM.SetStateToAll(State.apply);
     }
@@ -290,5 +291,10 @@ public class GambleManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public static void LogOnBoard(string message)
+    {
+        localPlayer.LogOnBoard(message);
     }
 }
