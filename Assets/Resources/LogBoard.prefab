@@ -195,8 +195,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4933156581211433567}
   m_HandleRect: {fileID: 4933156581211433552}
   m_Direction: 2
-  m_Value: 0.99999964
-  m_Size: 0.67184865
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -509,7 +509,7 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
-  photonView: {fileID: 0}
+  photonView: {fileID: 4933156581797543324}
   rig: {fileID: 0}
 --- !u!1 &4933156581886342878
 GameObject:
@@ -1066,6 +1066,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4933156582994360418}
   - component: {fileID: 4933156582994360417}
+  - component: {fileID: 4724857621679294619}
   - component: {fileID: 4933156582994360416}
   m_Layer: 5
   m_Name: Content
@@ -1090,8 +1091,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1, y: 0.00086545333}
-  m_SizeDelta: {x: 0, y: 2165.864}
+  m_AnchoredPosition: {x: 1, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4933156582994360417
 MonoBehaviour:
@@ -1119,6 +1120,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4724857621679294619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933156582994360419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!114 &4933156582994360416
 MonoBehaviour:
   m_ObjectHideFlags: 0
