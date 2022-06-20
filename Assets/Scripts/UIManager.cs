@@ -47,6 +47,6 @@ public class UIManager : MonoBehaviour
         endingUI.SetActive(true);
         targetPosition = new Vector3(GambleManager.localPlayer.transform.position.x, endingUI.transform.position.y, GambleManager.localPlayer.transform.position.z);
         endingUI.transform.LookAt(targetPosition);
-        endingUI.transform.position = endingUI.transform.position + new Vector3(0, 0, -1);
+        endingUI.transform.Translate(new Vector3(0, 0, -1));
     }
 }
