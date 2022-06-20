@@ -74,6 +74,18 @@ public class GambleNetworkManager : NetworkManager
         GambleManager.players = PlayerInfoList.FromJson(players, winner, attacker);
     }
 
+    public void SendLogToOthers(string message)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        PV.RPC("RPC_ReceiveLogMessage", RpcTarget.Others, message);
+    }
+
+    [PunRPC]
+    private void RPC_ReceiveLogMessage(string message)
+    {
+        GambleManager.LogOnBoard(message);
+    }
+
     public void SendPotCoinsToOthers(int coins)
     {
         if (!PhotonNetwork.IsMasterClient) return;
