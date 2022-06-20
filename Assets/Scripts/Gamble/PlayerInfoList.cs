@@ -132,12 +132,12 @@ public class PlayerInfoList
         List<PlayerInfo> rankList = new List<PlayerInfo>(players);
         rankList.Sort(delegate (PlayerInfo A, PlayerInfo B)
         {
-            if (A.coins < B.coins) return -1;
-            else if (A.coins > B.coins) return 1;
+            if (A.coins > B.coins) return -1;
+            else if (A.coins < B.coins) return 1;
             else
             {
-                if (A.actorNumber < B.actorNumber) return -1;
-                else if (A.actorNumber > B.actorNumber) return 1;
+                if (A.actorNumber > B.actorNumber) return -1;
+                else if (A.actorNumber < B.actorNumber) return 1;
             }
             return 0;
         });
