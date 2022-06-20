@@ -41,7 +41,7 @@ public class GunManager : MonoBehaviour
 
     public void Shoot()
     {
-        int target = -1;
+        int targetActorNumber = -1;
         if(!isGrab) return;
 
         DrawLine();
@@ -49,13 +49,18 @@ public class GunManager : MonoBehaviour
 
         if (!isHit) return;
         //#9 is body layer
-        if (hit.transform.gameObject.layer == 9)
+        GameObject target = hit.transform.gameObject;
+        if (target.layer == 9)
         {
-            PhotonView pv = hit.transform.GetComponent<PhotonView>();
-            target = pv ? pv.ViewID / 1000 : -1;
+            PhotonView pv = target.GetComponent<PhotonView>();
+            targetActorNumber = pv ? pv.ViewID / 1000 : -1;
         }
-        PlayHitEffect(target, aimingPoint.transform);
-        GambleManager.Attack(target);
+        if (targetActorNumber != -1)
+        {
+            PlayHitEffect(targetActorNumber, aimingPoint.transform);
+            GambleManager.Attack(targetActorNumber);
+            PhotonNetwork.Destroy(target);
+        }
         PhotonNetwork.Destroy(gameObject);
     }
 
