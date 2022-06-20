@@ -40,7 +40,7 @@ public class GambleManager : MonoBehaviour
                 OnInitial();
                 break;
             case State.standBy:
-                OnStandBy();
+                StartCoroutine(OnStandBy());
                 break;
             case State.decide:
                 OnDecide();
@@ -101,20 +101,22 @@ public class GambleManager : MonoBehaviour
         return GetMinPotCoins() * (round + 1);
     }
 
-    private void OnStandBy()
+    private IEnumerator OnStandBy()
     {
+        potMoneySpawner.DestroyPot();
+        yield return new WaitForSeconds(3);
+
         localPlayer.SpawnMedals();
         localPlayer.SpawnLogBoard();
-        potMoneySpawner.DestroyPot();
         potMoneySpawner.SpawnPot(localPlayer.transform, round);
-        state = State.loading;
         if (act == 1)
         {
             localPlayer.LogOnBoard($"Round {round} start!");
         }
         localPlayer.LogOnBoard($"Act {act}");
+        state = State.loading;
 
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) yield break;
 
         potCoins += GeneratePotCoins();
         NM.SendPotCoinsToOthers(potCoins);
