@@ -24,7 +24,7 @@ public class NetworkPlayer : MonoBehaviour
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-        //playerNameText.text =
+        playerNameText.text = "Player " + (photonView.ViewID / 1000).ToString();
 
         if (photonView.IsMine)
         {
