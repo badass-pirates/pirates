@@ -15,7 +15,7 @@ public class GambleManager : MonoBehaviour
     }
 
     const int MAX_DECIDE_TIME = 60, MAX_ATTACK_TIME = 60;
-    const int MAX_ROUND = 2, MAX_ACT = 3;
+    const int MAX_ROUND = 1, MAX_ACT = 4;
     const int POT_WEIGHT = 1;
 
     public static GambleNetworkManager NM;
