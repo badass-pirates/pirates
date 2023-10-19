@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 
+// 네트워크 룸에 대한 처리를 하는 스크립트
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     // 최대 플레이어 수를 나타내는 변수
